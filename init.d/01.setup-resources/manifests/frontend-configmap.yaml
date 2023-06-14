@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-pages
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Kubernetes Escape Room Game</title>
+      <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+
+    <h1>Kubernetes Escape Room Game</h1>
+
+    <p>The game starts here ...</p>
+
+    <div id="current-room">Please wait for the game to start ...</div>
+
+    <script src="game.js"></script>
+
+    </body>
+    </html>
+  style.css: |
+    body {
+      font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    }
+  game.js: |
+    // const rooms = [ "cat", "picture-frame" ];
+    // const currentRoom = "cat";
+
+    const currentRoomElement = document.getElementById("current-room");
+
+    setInterval(function () {
+      const catResponse = httpGet("/cat");
+      if (catResponse.status != 200) {
+        currentRoomElement.innerHTML = "The cat has disappeared :-/<br>You have to find it again!";
+      } else {
+        currentRoomElement.innerHTML = "The cat is back again: <strong>" + catResponse.responseText + "</strong>";
+      }
+    }, 3000);
+
+    function httpGet(url) {
+      const xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", url, false);
+      xmlHttp.send(null);
+      return xmlHttp;
+    }
+
+

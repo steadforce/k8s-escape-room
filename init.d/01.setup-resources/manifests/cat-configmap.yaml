@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cat-pages
+data:
+  index.html: |
+    Meeeeeooooowww!

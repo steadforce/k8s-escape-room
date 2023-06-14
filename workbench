@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -e
+
+DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+
+WORKBENCH_DOCKER_NETWORK="kind"
+
+if [ "$#" -eq 0 ]; then
+    CMD=bash
+else
+    CMD="$@"
+fi
+
+case "$(uname)" in
+  Darwin*)  SUDO=""
+            VOLUME_OPTIONS=":delegated"
+            ;; 
+  *)        SUDO="sudo -u ${USER} -E"
+            VOLUME_OPTIONS=""
+            ;;
+esac
+
+K8S_CONFIG="KUBECONFIG=\"$DIR/.kubeconfig\""
+
+# don't exit on docker errors, we want to cleanup after execution
+set +e
+
+docker run --rm \
+    --pull=always \
+    -e http_proxy="$http_proxy" \
+    -e https_proxy="$https_proxy" \
+    -e no_proxy="$no_proxy" \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --network $WORKBENCH_DOCKER_NETWORK \
+    --pid host \
+    -v $HOME:$HOME$VOLUME_OPTIONS \
+    -it harbor.cloud01.intern.steadforce.com/steadops/workbenches/k8s:latest \
+     $SUDO sh -c "cd $DIR; HOME=$HOME $K8S_CONFIG $CMD"
