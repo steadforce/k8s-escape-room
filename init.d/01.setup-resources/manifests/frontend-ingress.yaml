@@ -23,3 +23,10 @@ spec:
             name: cat-service
             port:
               number: 80
+      - pathType: Prefix
+        path: /orb
+        backend:
+          service:
+            name: orb-service
+            port:
+              number: 80

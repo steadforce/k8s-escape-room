@@ -16,7 +16,8 @@ data:
 
     <p>The game starts here ...</p>
 
-    <div id="current-room">Please wait for the game to start ...</div>
+    <div id="cat-room">Please wait for the game to start ...</div>
+    <div id="orb-room" style="margin-top: 10px"></div>
 
     <script src="game.js"></script>
 
@@ -30,14 +31,22 @@ data:
     // const rooms = [ "cat", "picture-frame" ];
     // const currentRoom = "cat";
 
-    const currentRoomElement = document.getElementById("current-room");
+    const catRoomElement = document.getElementById("cat-room");
+    const orbRoomElement = document.getElementById("orb-room");
 
     setInterval(function () {
       const catResponse = httpGet("/cat");
       if (catResponse.status != 200) {
-        currentRoomElement.innerHTML = "The cat has disappeared :-/<br>You have to find it again!";
+        catRoomElement.innerHTML = "The cat has disappeared :-/<br>You have to find it again!";
       } else {
-        currentRoomElement.innerHTML = "The cat is back again: <strong>" + catResponse.responseText + "</strong>";
+        catRoomElement.innerHTML = "The cat is back again: <strong>" + catResponse.responseText + "</strong>";
+      }
+
+      const orbResponse = httpGet("/orb");
+      if (orbResponse.status != 200) {
+        orbRoomElement.innerHTML = "The magic orb does not work :-/<br>It needs to think more";
+      } else {
+        orbRoomElement.innerHTML = "The magic orb has answers again: <strong>" + orbResponse.responseText + "</strong>";
       }
     }, 3000);
 

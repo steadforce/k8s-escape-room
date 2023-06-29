@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: orb-service
+spec:
+  selector:
+    app: orb
+  ports:
+  - port: 80
