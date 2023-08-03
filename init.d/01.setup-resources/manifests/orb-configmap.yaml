@@ -8,24 +8,27 @@ data:
     from http.server import BaseHTTPRequestHandler, HTTPServer
     from socketserver import ThreadingMixIn
     import os
+    import base64
 
     hostName = "0.0.0.0"
     serverPort = 80
+    
+    wisdom = "iVBORw0KGgoAAAANSUhEUgAAAC4AAAAtCAYAAADRLVmZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJBSURBVGhD7ZZPiE1RHMcfEkVi2GtmI2WDsLJiw2aMZmyGGposZEeyQmyEUlOTyZ/IgjTZqGlGzEoSi6EokQjFBkUWFPH53vf75XTnvnnvzTvvaep86tPvnt8995zTveeec0qJRCKRSMxUVuO68uXM4Sr+MfuUqEI7HsFH+A0/4n3cgy3jKPqg5Rmcip34A8NnQh9gGzaVjZjv+CxW4gSGdcfwFF4JclJfoqlMYNihHMAietHrvMZNGLIC76HXWYNVmW2xHk6jfkix3aKYYzHPAos3UT/xeFb6xwscKV9mrLcYlS3ob+a8EuDloaxUzFyLldiP3s5mJWIyD1+iGtdqsBiFd3gxK02PO+jtLFciJufQG9+lhOG5y1mpfg6htxFOmSj0oDc+rESA57VC1Msx9OflBozGUvyAavgndmCId1rPwLUR3UZ/VvZjVG6gN35YiRx+r9aB78DP6M+9wU6MijYV7+Ar6tMexH24F3ej39emomVyPlYiPCLIC7gQo1K0O9aitvVtmOcWep1X2IVNYS2+xXBQtdqNIeE6rbm9DBtilsWpWILaQLTLahqELkINROiQpE//Hu8qYWi911avdrT+r8Iv+N/xNzmYlSajndDraFmNwnTOKnl+WdTcLmKlRfHMYsPEGLgP+LfFPOHAD+B11EHrIT7F5+YonsSWoHnu00Dn6yLCJbUWj2NVGn3jetuPy5elTxbzXEItf0J7wTvUlNEPLHWEuIZ6+9/xCbaMrRYTiUQikUgkEomWUyr9BQ81zGZUg7uFAAAAAElFTkSuQmCC"
 
     class Handler(BaseHTTPRequestHandler):
       def do_GET(self):
         if self.path == "/":
           # Respond with the answers to the universe.
           self.send_response(200)
-          self.send_header("Content-type", "text/plain")
+          self.send_header("Content-type", "image/png")
           self.end_headers()
-          self.wfile.write("Magic Wisdom".encode("utf-8"))
+          self.wfile.write(base64.b64decode(wisdom))
 
     class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
       """Handle requests in a separate thread."""
 
     if __name__ == "__main__":
-      chatGPTlikeModel = bytearray(os.urandom( 64 * 1000000))
+      wisdomModel = bytearray(os.urandom( 64 * 1000000))
       webServer = ThreadedHTTPServer((hostName, serverPort), Handler)
       print("Server started http://%s:%s" % (hostName, serverPort))
 

@@ -17,7 +17,7 @@ spec:
             port:
               number: 80
       - pathType: Prefix
-        path: /cat
+        path: /cat(/|$)(.*)
         backend:
           service:
             name: cat-service
