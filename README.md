@@ -5,6 +5,23 @@ Maybe try out some magic artifacts you find there.
 But while reciting an incantation you found in a hidden tome something went horribly wrong. 
 Important things are missing or not working anymore. It is now on you to fix what has been broken.
 
+## Requirements
+
+Docker
+```bash
+sudo apt install docker.io
+```
+
+Docker-Buildx
+```bash
+sudo apt install docker-buildx
+```
+
+kind network
+```bash
+docker network create --driver=bridge --subnet=10.172.242.0/24 --ip-range=10.172.242.0/28 --gateway=10.172.242.1 kind
+```
+
 ## Setup
 
 ```bash
