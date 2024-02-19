@@ -1,25 +1,30 @@
 FROM debian:stable-slim as base
 
 # https://github.com/istio/istio/releases
-ENV ISTIO_VERSION=1.20.1
+ENV ISTIO_VERSION=1.20.3
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION=v5.3.0
 # https://kubernetes.io/releases/
-ENV KUBECTL_VERSION=v1.28.4
+ENV KUBECTL_VERSION=v1.29.1
 # https://github.com/helm/helm/releases
-ENV HELM_VERSION=v3.13.2
+ENV HELM_VERSION=v3.14.0
 # https://github.com/bitnami-labs/sealed-secrets/releases
-ENV KUBESEAL_VERSION=v0.24.4
-ENV KIND_VERSION=v0.20.0
+ENV KUBESEAL_VERSION=v0.25.0
+# https://github.com/kubernetes-sigs/kind/releases
+ENV KIND_VERSION=v0.21.0
 
+# https://github.com/docker/buildx/releases
 # renovate: datasource=github-releases depName=docker/buildx
-ENV BUILDX_VERSION=v0.12.0
+ENV BUILDX_VERSION=v0.12.1
+# https://docs.docker.com/engine/release-notes
 # renovate: datasource=docker depName=docker.io/docker versioning=docker
-ENV DOCKER_VERSION=24.0.7
+ENV DOCKER_VERSION=25.0.3
+# https://github.com/derailed/k9s/releases
 # renovate: datasource=github-releases depName=derailed/k9s
-ENV K9S_VERSION=v0.29.1
+ENV K9S_VERSION=v0.31.8
+# https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION=v4.40.5
+ENV YQ_VERSION=v4.40.7
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 

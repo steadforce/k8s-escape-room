@@ -6,7 +6,7 @@ networking:
   # kubeProxyMode: "ipvs"
 nodes:
   - role: control-plane
-    image: kindest/node:v1.27.3
+    image: kindest/node:v1.29.1
     kubeadmConfigPatches:
     - |
       kind: InitConfiguration
