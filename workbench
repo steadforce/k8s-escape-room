@@ -1,0 +1,57 @@
+#!/bin/sh
+
+set -e
+
+DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+
+WORKBENCH_DOCKER_NETWORK="kind"
+
+if [ "$#" -eq 0 ]; then
+    CMD=bash
+else
+    CMD="$@"
+fi
+
+case "$(uname)" in
+  Darwin*)  SUDO=""
+            VOLUME_OPTIONS=":delegated"
+            ;; 
+  *)        SUDO="sudo -u ${USER} -E"
+            VOLUME_OPTIONS=""
+            ;;
+esac
+
+K8S_CONFIG="KUBECONFIG=\"$DIR/.kubeconfig\""
+
+# don't exit on docker errors, we want to cleanup after execution
+set +e
+
+# Build the workbench docker container without using it directly.
+# This way we have the command line output of the build process
+echo Build workbench image
+docker build -f workbench.dockerfile .
+
+# Build the workbench docker container again, but with -q parameter.
+# The build is finished immediately, as everything is already in cache.
+# The result is the hash of the container, which is used to start it.
+CONTAINER_HASH=$(docker build -q -f workbench.dockerfile .)
+
+# TimeStamp: seconds since epoch
+CURRENT_TIME="$(date +%s000)"
+
+echo Start workbench container
+docker run --rm \
+    --pull=never \
+    -e DOCKER_BUILDKIT=1 \
+    -e http_proxy="$http_proxy" \
+    -e https_proxy="$https_proxy" \
+    -e no_proxy="$no_proxy" \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/group:/etc/group:ro \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    --network $WORKBENCH_DOCKER_NETWORK \
+    --pid host \
+    --name escape_room_workbench-$CURRENT_TIME \
+    -v $HOME:$HOME$VOLUME_OPTIONS \
+    -it $CONTAINER_HASH \
+     $SUDO sh -c "cd $DIR; HOME=$HOME $K8S_CONFIG $CMD"
