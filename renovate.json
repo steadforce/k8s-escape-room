@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    "regexManagers:dockerfileVersions"
+  ],
+  "kubernetes": {
+    "fileMatch": ["init.d/.+\\.yaml$"]
+  }
+}
