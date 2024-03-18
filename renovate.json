@@ -4,5 +4,8 @@
     "config:recommended",
     ":dependencyDashboard",
     "regexManagers:dockerfileVersions"
-  ]
+  ],
+  "kubernetes": {
+    "fileMatch": ["init.d/.+\\.yaml$"]
+  }
 }
