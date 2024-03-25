@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-deployment
+spec:
+  selector:
+    matchLabels:
+      app: book
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: book
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.24.0
+        env:
+        - name: ANCIENT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ancient-lock
+              key: brokenKey
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi

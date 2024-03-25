@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: book-service
+spec:
+  selector:
+    app: book
+  ports:
+  - port: 80
