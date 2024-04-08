@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: book-service
+  name: tome-service
 spec:
   selector:
-    app: book
+    app: tome
   ports:
   - port: 80
