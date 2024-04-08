@@ -30,6 +30,13 @@ spec:
             name: orb-service
             port:
               number: 80
+      - pathType: ImplementationSpecific
+        path: /photoframe(/|$)(.*)
+        backend:
+          service:
+            name: photoframe-service
+            port:
+              number: 80
       - pathType: Prefix
         path: /book
         backend:

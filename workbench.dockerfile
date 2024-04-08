@@ -18,13 +18,13 @@ ENV KIND_VERSION=v0.21.0
 ENV BUILDX_VERSION=v0.13.1
 # https://docs.docker.com/engine/release-notes
 # renovate: datasource=docker depName=docker.io/docker versioning=docker
-ENV DOCKER_VERSION=25.0.4
+ENV DOCKER_VERSION=25.0.5
 # https://github.com/derailed/k9s/releases
 # renovate: datasource=github-releases depName=derailed/k9s
-ENV K9S_VERSION=v0.32.3
+ENV K9S_VERSION=v0.32.4
 # https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION=v4.42.1
+ENV YQ_VERSION=v4.43.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
