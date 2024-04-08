@@ -22,7 +22,7 @@ docker run --rm ^
     -v %cd%/../:/work ^
     -v //var/run/docker.sock:/var/run/docker.sock ^
     -v %USERPROFILE%:/root ^
-    -w /work/kubernetes-escape-room ^
+    -w /work/k8s-escape-room ^
     -e KUBECONFIG=".kubeconfig" ^
     --network kind ^
     --pid host ^
