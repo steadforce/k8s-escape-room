@@ -22,7 +22,7 @@ data:
       <img id="orbHint" class="orbHint" src="redcircle.png" hidden title="The magic orb does not work!">
       <img id="photoFrame" class="photoFrame">
       <img id="photoHint" class="photoHint" src="redcircle.png" hidden title="The magic frame can't find any photos!">
-      <img id="tome" class="tome" src="closedtome.png">
+      <img id="tome" class="tome">
       <img id="tomeHint" class="tomeHint" src="redcircle.png" hidden title="The key to open the tome seems to be missing.">
     </div>
     <script src="game.js"></script>
@@ -142,6 +142,7 @@ data:
       const tomeResponse = httpGet("/tome");
       console.log("after tomeResponse");
       if (tomeResponse.status != 200) {
+        tomeImage.src = "closedtome.png"
         tomeHint.hidden = false;
       } else {
         tomeHint.hidden = true;
