@@ -9,7 +9,6 @@ spec:
   - http:
       paths:
       - pathType: ImplementationSpecific
-        # path: /
         path: /game(/|$)(.*)
         backend:
           service:
@@ -35,5 +34,12 @@ spec:
         backend:
           service:
             name: photoframe-service
+            port:
+              number: 80
+      - pathType: ImplementationSpecific
+        path: /tome(/|$)(.*)
+        backend:
+          service:
+            name: tome-service
             port:
               number: 80
