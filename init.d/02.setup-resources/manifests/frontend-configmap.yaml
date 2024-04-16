@@ -140,13 +140,12 @@ data:
       }
 
       const tomeResponse = httpGet("/tome");
-      console.log("after tomeResponse");
       if (tomeResponse.status != 200) {
-        tomeImage.src = "closedtome.png"
+        tomeImage.src = "closedtome.png";
         tomeHint.hidden = false;
       } else {
         tomeHint.hidden = true;
-        tomeImage.src = "/tome/opentome.png"
+        tomeImage.src = "/tome/opentome.png";
       }
     }, 3000);
 
