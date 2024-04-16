@@ -15,6 +15,7 @@ set timestamp=%date%%time%
 set timestamp=%timestamp:.=%
 set timestamp=%timestamp::=%
 set timestamp=%timestamp:,=%
+set timestamp=%timestamp: =%
 
 echo Start workbench container
 docker run --rm ^
