@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.25.4
+        image: nginx:1.26.0
         ports:
         - containerPort: 80
         volumeMounts:
