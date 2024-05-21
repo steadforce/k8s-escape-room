@@ -5,6 +5,9 @@ Maybe try out some magic artifacts you find there.
 But while reciting an incantation you found in a hidden tome something went horribly wrong. 
 Important things are missing or not working anymore. It is now on you to fix what has been broken.
 
+## Inspired By
+[The Great Escape](https://github.com/t-gmn/the-great-escape)
+
 ## Requirements
 
 Docker
