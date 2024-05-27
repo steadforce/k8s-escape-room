@@ -47,8 +47,6 @@ Hovering there with your cursor gives you a hint for what you might be looking f
 
 ![K8s Escape Room in web](.images/k8s-escape-room-web-unsolved.png)
 
-All puzzles can be solved through exchanging or adding information.
-
 ### Available tools
 * K9s
 * kubectl
