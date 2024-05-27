@@ -41,3 +41,5 @@ To access the escape room in your browser please use [http://localhost/game/](ht
 
 Broken parts in the study are marked with a red circle. 
 Hovering there with your cursor gives you a hint for what you might be looking for.
+
+![K8s Escape Room](.images/k8s-escape-room-web-unsolved.png)
