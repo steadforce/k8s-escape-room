@@ -34,6 +34,9 @@ docker network create --driver=bridge --subnet=10.172.242.0/24 --ip-range=10.172
 
 Wait a short time while everything is being set up.
 
+![K8s Escape Room in terminal](.images/k8s-escape-room-terminal.png)
+
+
 ## Play
 As soon as the cluster and its resources are ready you can start playing.
 To access the escape room in your browser please use [http://localhost/game/](http://localhost/game/).
@@ -42,4 +45,4 @@ To access the escape room in your browser please use [http://localhost/game/](ht
 Broken parts in the study are marked with a red circle. 
 Hovering there with your cursor gives you a hint for what you might be looking for.
 
-![K8s Escape Room](.images/k8s-escape-room-web-unsolved.png)
+![K8s Escape Room in web](.images/k8s-escape-room-web-unsolved.png)
