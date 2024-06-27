@@ -20,6 +20,12 @@ Docker-Buildx
 sudo apt install docker-buildx
 ```
 
+add user to Docker group
+```bash
+sudo usermod -aG docker <user>
+su -l <user> # only works in current shell, alternatively login again or restart the system
+```
+
 kind network
 ```bash
 docker network create --driver=bridge --subnet=10.172.242.0/24 --ip-range=10.172.242.0/28 --gateway=10.172.242.1 kind
