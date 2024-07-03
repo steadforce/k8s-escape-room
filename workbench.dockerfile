@@ -1,4 +1,4 @@
-FROM debian:stable-slim as base
+FROM debian:stable-slim AS base
 
 # https://github.com/istio/istio/releases
 ENV ISTIO_VERSION=1.20.3
@@ -51,19 +51,25 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
             net-tools \
             openssh-server \
             pkg-config \
+            patch \
             software-properties-common \
             sudo \
             unzip \
             vim && \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
+
+COPY patches/ /patches/
+
 RUN rm -rf /var/lib/apt/lists/* && \
     curl -L "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz && \
     tar -xzf k9s.tar.gz && mv k9s /usr/local/bin && rm k9s.tar.gz && \
     curl -Lo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod 755 /usr/bin/kubectl && \
+    /usr/bin/kubectl completion bash > $(pkg-config --variable=completionsdir bash-completion)/kubectl && \
+    echo "alias k=kubectl" >> /etc/bash.bashrc && \
+    patch -p1 -d $(pkg-config --variable=completionsdir bash-completion) < /patches/kubectl-completion.diff && \
     curl -Lo /usr/bin/kubeseal https://github.com/bitnami-labs/sealed-secrets/releases/download/${KUBESEAL_VERSION}/kubeseal-linux-amd64 && \
     chmod 755 /usr/bin/kubeseal && \
-    /usr/bin/kubectl completion bash > $(pkg-config --variable=completionsdir bash-completion)/kubectl && \
     curl -Ls https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz | \
     tar xvz -C /usr/bin/ && \
     curl -Ls https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar xvz -C /usr/bin --strip 1 linux-amd64/helm && \
@@ -87,8 +93,6 @@ RUN rm -rf /var/lib/apt/lists/* && \
     chmod -R 755 "/usr/local/lib/docker" && \
     /usr/bin/docker -v && \
     curl -f "https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker" -o "$(pkg-config --variable=completionsdir bash-completion)/docker"
-
-FROM base
 
 COPY welcomemessage.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/welcomemessage.sh
