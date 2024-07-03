@@ -20,7 +20,7 @@ printf "${CYAN}                                                                 
 printf "${CYAN}                                                                         |_|                                      ${NC}\n"
 printf "\n"
 printf "To initialize a new local cluster run '${GREEN}. init.sh${NC}'.\n"
-printf "To cleanup resources and reset the riddles run '${YELLOW}./clean.sh${NC}'.\n"
+printf "To cleanup resources run '${YELLOW}./clean.sh${NC}'.\n"
 printf "To delete a local cluster run '${RED}./delete.sh${NC}'.\n"
 printf "\n"
 printf "Open '${LIGHTBLUE}http://localhost/game/${NC}' to see the room.\n"
