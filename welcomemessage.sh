@@ -2,6 +2,7 @@
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
 LIGHTBLUE='\033[1;34m'
 LIGHTPURPLE='\033[1;35m'
 CYAN='\033[0;36m'
@@ -19,6 +20,7 @@ printf "${CYAN}                                                                 
 printf "${CYAN}                                                                         |_|                                      ${NC}\n"
 printf "\n"
 printf "To initialize a new local cluster run '${GREEN}. init.sh${NC}'.\n"
+printf "To cleanup resources and reset the riddles run '${YELLOW}./clean.sh${NC}'.\n"
 printf "To delete a local cluster run '${RED}./delete.sh${NC}'.\n"
 printf "\n"
 printf "Open '${LIGHTBLUE}http://localhost/game/${NC}' to see the room.\n"
