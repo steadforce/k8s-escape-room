@@ -1,0 +1,12 @@
+diff -p1 1/kubectl 2/kubectl
+*** 1/kubectl	Wed Jul  3 10:49:41 2024
+--- 2/kubectl	Wed Jul  3 10:50:03 2024
+*************** if [[ $(type -t compopt) = "builtin" ]];
+*** 347,350 ****
+--- 347,352 ----
+      complete -o default -F __start_kubectl kubectl
++     complete -o default -F __start_kubectl k
+  else
+      complete -o default -o nospace -F __start_kubectl kubectl
++     complete -o default -o nospace -F __start_kubectl k
+  fi
