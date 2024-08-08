@@ -38,7 +38,10 @@ data:
     }
 
     h1 {
-      color:  white;
+      color: white;
+      font-size: 50px;
+      text-align: center;
+      width: 100%;
     }
 
     .room {
