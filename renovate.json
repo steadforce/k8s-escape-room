@@ -7,5 +7,13 @@
   ],
   "kubernetes": {
     "fileMatch": ["init.d/.+\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "automerge": true,
+      "automergeStrategy": "squash",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/"
+    }
+  ]
 }
