@@ -29,7 +29,7 @@ As soon as the cluster and its resources are ready you can start playing.
 
 To access the escape room UI in your Github codespace, please open one of the auto forwarded ports (80 and 443 should both work):
 
-![Open port](.images/github-codespaces-ports.png)
+![Open port](../.images/github-codespaces-ports.png)
 
 Add `/game/` to the url.
 (Right now the last slash is important).
