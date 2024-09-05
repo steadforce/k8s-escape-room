@@ -5,11 +5,9 @@ Depending on the account, [Github offers an amount of free hours per month](http
 
 
 ## Requirements
-Create codespace
+[Create codespace](https://github.com/codespaces/new?template_repository=steadforce/k8s-escape-room)
 
-[![Create codespace]](https://github.com/codespaces/new?template_repository=steadforce/k8s-escape-room)
-
-or via
+or alternatively via
 
 ![Create codespace](../.images/github-codespaces-create.png)
 
