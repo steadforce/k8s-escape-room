@@ -41,7 +41,7 @@ data:
     h1 {
       color: white;
       font-size: 60px;
-      margin: 50px;
+      margin: 60px;
     }
 
     .room {
@@ -63,59 +63,56 @@ data:
     }
 
     .cat {
-      left: 80%;
-      top: 70%;
+      left: 76%;
+      top: 61%;
       position: fixed;
-      height: 10vh;
+      height: 100px;
     }
 
     .orb {
-      left: 20%;
-      top: 50%;
+      left: 19%;
+      top: 48%;
       position: fixed;
-      height: 10vh;
     }
 
     .orbHint {
-      left: 20%;
-      top: 50%;
+      left: 18%;
+      top: 47%;
       position: fixed;
-      height: 10vh;
+      height: 100px;
     }
 
     .orbWisdom {
-      left: 20%;
-      top: 50%;
+      left: 19%;
       position: fixed;
-      height: 10vh;
     }
 
     .photoHint {
-      left: 100%;
-      top: 36%;
+      left: 95%;
+      top: 33%;
       position: fixed;
-      height: 10vh;
+      height: 100px;
     }
 
     .photoFrame {
-      left: 100%;
-      top: 36%;
+      left: 96%;
+      top: 35%;
       position: fixed;
-      height: 10vh;
+      height: 50px;
     }
 
     .tome {
-      left: 70%;
-      top: 50%;
+      left: 65%;
+      top: 45%;
       position: fixed;
-      height: 10vh;
+      height: 100px;
     }
 
     .tomeHint {
-      left: 70%;
-      top: 50%;
+      left: 65%;
+      top: 44%;
       position: fixed;
-      height: 10vh;
+      height: 100px;
     }
   game.js: |
     const catImage = document.getElementById("cat");
