@@ -3,8 +3,13 @@ The k8s-escape-room can be played within a [Github codespaces](https://github.co
 
 Depending on the account, [Github offers an amount of free hours per month](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/about-billing-for-github-codespaces) to run codespaces.
 
+
 ## Requirements
 Create codespace
+
+[![Create codespace]](https://github.com/codespaces/new?template_repository=steadforce/k8s-escape-room)
+
+or via
 
 ![Create codespace](../.images/github-codespaces-create.png)
 
