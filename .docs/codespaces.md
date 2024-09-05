@@ -38,7 +38,8 @@ Hovering there with your cursor gives you a hint for what you might be looking f
 
 ![K8s Escape Room in web](../.images/k8s-escape-room-web-unsolved.png)
 
-After playing, the Github codespace should be [stopped](https://docs.github.com/en/codespaces/developing-in-a-codespace/stopping-and-starting-a-codespace?tool=webui#stopping-a-codespace) or deleted.
+After playing you may want to stop or delete the [Github codespace](https://github.com/codespaces).
+More details can be found [here](https://docs.github.com/en/codespaces/developing-in-a-codespace/stopping-and-starting-a-codespace?tool=webui#stopping-a-codespace).
 
 ## Available tools
 * K9s
