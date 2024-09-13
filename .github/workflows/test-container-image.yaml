@@ -35,6 +35,6 @@ jobs:
         tags: ${{ env.IMAGE_NAME }}:test
         file: ./workbench.dockerfile
 
-     - name: Simple docker run test
-        run: |
-          docker run --rm ${{ env.IMAGE_NAME }}:test
+    - name: Simple docker run test
+      run: |
+        docker run --rm ${{ env.IMAGE_NAME }}:test
