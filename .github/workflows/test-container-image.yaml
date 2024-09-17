@@ -1,0 +1,41 @@
+name: Test k8s-escape-room workbench container image
+
+on:
+  push:
+    branches:
+    - "**"
+    tags:
+    - "v*.*.*"
+  pull_request:
+    branches:
+    - "main"
+
+env:
+  IMAGE_NAME: k8s-escape-room-workbench
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build container image for tests
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: false
+        load: true
+        tags: ${{ env.IMAGE_NAME }}:test
+        file: ./workbench.dockerfile
+
+    - name: Simple docker run test
+      run: |
+        docker run --rm ${{ env.IMAGE_NAME }}:test
