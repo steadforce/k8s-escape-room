@@ -7,11 +7,11 @@ DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 INIT_DIR="$DIR/init.d"
 
 # install all escape room modules
-#for f in $(ls "${INIT_DIR}"); do
-#  CURDIR="${INIT_DIR}/${f}"
-#  echo -e "\e[1m\e[92mProcessing ${f}...\e[0m"
-#  "${CURDIR}"/install.sh
-#done
+for f in $(ls "${INIT_DIR}"); do
+  CURDIR="${INIT_DIR}/${f}"
+  echo -e "\e[1m\e[92mProcessing ${f}...\e[0m"
+  "${CURDIR}"/install.sh
+done
 
 # install all modules of add-ons
 # directories of addons are given as parameter to init script
