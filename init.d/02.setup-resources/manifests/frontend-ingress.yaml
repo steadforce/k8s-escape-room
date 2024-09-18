@@ -9,6 +9,13 @@ spec:
   - http:
       paths:
       - pathType: ImplementationSpecific
+        path: /
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - pathType: ImplementationSpecific
         path: /game(/|$)(.*)
         backend:
           service:

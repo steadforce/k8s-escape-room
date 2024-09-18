@@ -37,8 +37,7 @@ Wait a short time while everything is being set up.
 ## Play
 As soon as the cluster and its resources are ready you can start playing.
 
-To access the escape room UI in your browser please use [http://localhost/game/](http://localhost/game/).
-(Right now the last slash is important).
+To access the escape room UI in your browser please use [http://localhost/](http://localhost/).
 
 Broken parts in the study are marked with a red circle. 
 Hovering there with your cursor gives you a hint for what you might be looking for.
