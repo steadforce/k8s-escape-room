@@ -9,24 +9,24 @@ data:
     <head>
       <title>Kubernetes Escape Room Game</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" type="text/css" href="style.css">
+      <link rel="stylesheet" type="text/css" href="/game/style.css">
     </head>
     <body>
     <div class="room">
       <h1>Kubernetes Escape Room Game</h1>
-      <img id="banner" class="banner" src="banner.png">
+      <img id="banner" class="banner" src="/game/banner.png">
       <img id="cat" class="cat">
       <div class="orb">
-        <img id="orb" src="orb.png">
+        <img id="orb" src="/game/orb.png">
         <img id="orbWisdom" class="orbWisdom">
       </div>
-      <img id="orbHint" class="orbHint" src="redcircle.png" hidden title="The magic orb does not work!">
+      <img id="orbHint" class="orbHint" src="/game/redcircle.png" hidden title="The magic orb does not work!">
       <img id="photoFrame" class="photoFrame">
-      <img id="photoHint" class="photoHint" src="redcircle.png" hidden title="The magic frame can't find any photos!">
+      <img id="photoHint" class="photoHint" src="/game/redcircle.png" hidden title="The magic frame can't find any photos!">
       <img id="tome" class="tome">
-      <img id="tomeHint" class="tomeHint" src="redcircle.png" hidden title="The key to open the tome seems to be missing.">
+      <img id="tomeHint" class="tomeHint" src="/game/redcircle.png" hidden title="The key to open the tome seems to be missing.">
     </div>
-    <script src="game.js"></script>
+    <script src="/game/game.js"></script>
     </body>
     </html>
   style.css: |
@@ -47,7 +47,7 @@ data:
     .room {
       width: 100%;
       height: 100%;
-      background-image: url("background.jpg");
+      background-image: url("/game/background.jpg");
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -125,7 +125,7 @@ data:
     setInterval(function () {
       const catResponse = httpGet("/cat");
       if (catResponse.status != 200) {
-        catImage.src = "redcircle.png";
+        catImage.src = "/game/redcircle.png";
         catImage.title = "The cat is missing!";
       } else {
         catImage.src = "/cat/cat.png";
@@ -134,7 +134,7 @@ data:
 
       const orbResponse = httpGet("/orb");
       if (orbResponse.status != 200) {
-        orbWisdom.src = "noanswers.png"
+        orbWisdom.src = "/game/noanswers.png"
         orbHint.hidden = false;
       } else {
         orbWisdom.src = "/orb"
@@ -145,7 +145,7 @@ data:
       var photoUrl = "/photoframe/photo" + photoNumber + ".png";
       const photoframeResponse = httpGet(photoUrl);
       if (photoframeResponse.status != 200) {
-        photoFrame.src = "white_noise.png";
+        photoFrame.src = "/game/white_noise.png";
         photoHint.hidden = false;
       } else {
         photoFrame.src = photoUrl;
@@ -154,7 +154,7 @@ data:
 
       const tomeResponse = httpGet("/tome");
       if (tomeResponse.status != 200) {
-        tomeImage.src = "closedtome.png";
+        tomeImage.src = "/game/closedtome.png";
         tomeHint.hidden = false;
       } else {
         tomeHint.hidden = true;

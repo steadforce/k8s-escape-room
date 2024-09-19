@@ -32,8 +32,6 @@ Wait a short time while everything is being set up.
 As soon as the cluster and its resources are ready you can start playing.
 
 Change to the ports tab and open one of the auto forwarded ports (80 or 443).
-After the forwarded address was opened in a new browser tab add `/game/` to the url.
-(Right now the last slash is important).
 
 ![Open port](../.images/github-codespaces-ports.png)
 
