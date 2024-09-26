@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: addons-registry
+data:
+  main.py: |
+    #!/usr/bin/python3
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+    from socketserver import ThreadingMixIn
+    import os
+    import json
+    
+    hostName = "0.0.0.0"
+    serverPort = 80
+    
+    knownAddOns = {}
+    
+    class Handler(BaseHTTPRequestHandler):
+      def do_GET(self):
+        if self.path.startswith("/register"):
+          # register the add-on with the given parameters
+          # remove the first characters of the path, which are '/register/'
+          parameters = self.path[10:]
+          firstSlash = parameters.index("/")
+          addOnName = parameters[:firstSlash]
+          addOnPath = parameters[firstSlash + 1:]
+          knownAddOns[addOnName] = addOnPath
+        
+        # Respond with all known add-ons
+        self.send_response(200)
+        self.send_header("Content-type", "application/json")
+        self.end_headers()
+        jsonResponse = json.dumps(knownAddOns)
+        self.wfile.write(jsonResponse.encode(encoding='utf_8'))
+    
+    class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+      """Handle requests in a separate thread."""
+    
+    if __name__ == "__main__":
+      webServer = ThreadedHTTPServer((hostName, serverPort), Handler)
+      print("Server started http://%s:%s" % (hostName, serverPort))
+    
+    try:
+      webServer.serve_forever()
+    except KeyboardInterrupt:
+      pass
+    
+    webServer.server_close()
+    print("Server stopped.")
