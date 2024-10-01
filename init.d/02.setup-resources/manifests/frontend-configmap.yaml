@@ -181,14 +181,12 @@ data:
     if (addOnsResponse.status == 200) {
       const addOnContainer = document.getElementById("addons");
       const addOns = JSON.parse(addOnsResponse.responseText);
-      const addOnNames = Object.keys(addOns);
-      addOnNames.forEach(function (addOnName) {
-        const addOnUrl = addOns[addOnName];
+      addOns.forEach(function (addOn) {
         var a = document.createElement('a');
-        var linkText = document.createTextNode(addOnName);
+        var linkText = document.createTextNode(addOn.name);
         a.appendChild(linkText);
-        a.title = addOnName;
-        a.href = addOnUrl;
+        a.title = addOn.name;
+        a.href = addOn.url;
         addOnContainer.appendChild(a);
       });
     }

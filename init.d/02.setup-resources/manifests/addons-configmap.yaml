@@ -16,23 +16,23 @@ data:
     knownAddOns = {}
     
     class Handler(BaseHTTPRequestHandler):
-      def do_GET(self):
-        if self.path.startswith("/register"):
-          # register the add-on with the given parameters
-          # remove the first characters of the path, which are '/register/'
-          parameters = self.path[10:]
-          firstSlash = parameters.index("/")
-          addOnName = parameters[:firstSlash]
-          addOnPath = parameters[firstSlash + 1:]
-          knownAddOns[addOnName] = addOnPath
-        
+      def do_GET(self):       
         # Respond with all known add-ons
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.end_headers()
-        jsonResponse = json.dumps(knownAddOns)
-        self.wfile.write(jsonResponse.encode(encoding='utf_8'))
-    
+        jsonResponse = json.dumps(list(knownAddOns.values()))
+        self.wfile.write(jsonResponse.encode(encoding="utf_8"))
+      def do_PUT(self):       
+        # Register a new add-on
+        content_len = int(self.headers.get("Content-Length"))
+        post_body = self.rfile.read(content_len)
+        newAddOn = json.loads(post_body)
+        knownAddOns[newAddOn["name"]] = newAddOn
+        self.send_response(204)
+        self.send_header("Content-Length", 0)
+        self.end_headers()
+
     class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
       """Handle requests in a separate thread."""
     
