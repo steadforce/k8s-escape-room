@@ -25,6 +25,7 @@ data:
       <img id="photoHint" class="photoHint" src="/game/redcircle.png" hidden title="The magic frame can't find any photos!">
       <img id="tome" class="tome">
       <img id="tomeHint" class="tomeHint" src="/game/redcircle.png" hidden title="The key to open the tome seems to be missing.">
+      <div id="addons" class="addons"></div>
     </div>
     <script src="/game/game.js"></script>
     </body>
@@ -114,6 +115,20 @@ data:
       position: fixed;
       height: 100px;
     }
+
+    .addons {
+      position: fixed;
+      right: 1%;
+      bottom: 1%;
+    }
+
+    .addons > a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-size: 3em;
+      margin-bottom: 5px;
+    }
   game.js: |
     const catImage = document.getElementById("cat");
     const orbImage = document.getElementById("orb");
@@ -161,6 +176,20 @@ data:
         tomeImage.src = "/tome/opentome.png";
       }
     }, 3000);
+
+    const addOnsResponse = httpGet("/addons/list");
+    if (addOnsResponse.status == 200) {
+      const addOnContainer = document.getElementById("addons");
+      const addOns = JSON.parse(addOnsResponse.responseText);
+      addOns.forEach(function (addOn) {
+        var a = document.createElement('a');
+        var linkText = document.createTextNode(addOn.name);
+        a.appendChild(linkText);
+        a.title = addOn.name;
+        a.href = addOn.url;
+        addOnContainer.appendChild(a);
+      });
+    }
 
     function httpGet(url) {
       const xmlHttp = new XMLHttpRequest();

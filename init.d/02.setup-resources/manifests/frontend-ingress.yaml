@@ -23,6 +23,13 @@ spec:
             port:
               number: 80
       - pathType: ImplementationSpecific
+        path: /addons(/|$)(.*)
+        backend:
+          service:
+            name: addons-service
+            port:
+              number: 80
+      - pathType: ImplementationSpecific
         path: /cat(/|$)(.*)
         backend:
           service:
