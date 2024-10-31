@@ -14,3 +14,7 @@ Important things are missing or not working anymore. It is now on you to fix wha
 [Github codespaces](.docs/codespaces.md)
 
 [Local](.docs/local.md)
+
+### Note
+There are tooltip hints available when hovering with the mouse over the red circles. Note that in the firefox browser the tooltip hints only appear when the browser window is focused.
+Please use another browser or keep in mind to focus the browser window for tooltips when using firefox.
