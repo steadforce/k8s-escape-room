@@ -39,9 +39,6 @@ As soon as the cluster and its resources are ready you can start playing.
 
 To access the escape room UI in your browser please use [http://localhost/](http://localhost/).
 
-Broken parts in the study are marked with a red circle. 
-Hovering there with your cursor gives you a hint for what you might be looking for.
-
 ![K8s Escape Room in web](../.images/k8s-escape-room-web-unsolved.png)
 
 ## Available tools
