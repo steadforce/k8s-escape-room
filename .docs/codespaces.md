@@ -35,9 +35,6 @@ Change to the ports tab and open one of the auto forwarded ports (80 or 443).
 
 ![Open port](../.images/github-codespaces-ports.png)
 
-Broken parts in the study are marked with a red circle. 
-Hovering there with your cursor gives you a hint for what you might be looking for.
-
 ![K8s Escape Room in web](../.images/k8s-escape-room-web-unsolved.png)
 
 After playing you may want to stop or delete the [Github codespace](https://github.com/codespaces).
