@@ -67,9 +67,8 @@ data:
 
     .cat {
       position: fixed;
-      inset: calc(61% - 50px) calc(22% - 35px) calc(39% - 50px) calc(78% - 35px);
+      inset: calc(61% - 50px) calc(22% - 40px) calc(39% - 50px) calc(78% - 40px);
       height: 100px;
-      width: 70px;
     }
 
     .orb {
