@@ -84,19 +84,19 @@ data:
 
     .orbWisdom {
       position: fixed;
-      inset: calc(47% - 25px) calc(81% - 25px) calc(53% - 25px) calc(19% - 25px);
+      inset: calc(45% - 25px) calc(81% - 25px) calc(55% - 25px) calc(19% - 25px);
       height: 50px;
     }
 
     .photoHint {
       position: fixed;
-      inset: calc(36% - 50px) calc(3% - 50px) calc(64% - 50px) calc(97% - 50px);
+      inset: calc(37% - 50px) calc(3% - 50px) calc(63% - 50px) calc(97% - 50px);
       height: 100px;
     }
 
     .photoFrame {
       position: fixed;
-      inset: calc(36% - 25px) calc(3% - 25px) calc(64% - 25px) calc(97% - 25px);
+      inset: calc(37% - 25px) calc(3% - 25px) calc(63% - 25px) calc(97% - 25px);
       height: 50px;
     }
 
@@ -108,7 +108,7 @@ data:
 
     .tomeHint {
       position: fixed;
-      inset: calc(44% - 50px) calc(35% - 50px) calc(56% - 50px) calc(65% - 50px);
+      inset: calc(45% - 50px) calc(35% - 50px) calc(55% - 50px) calc(65% - 50px);
       height: 100px;
     }
 
