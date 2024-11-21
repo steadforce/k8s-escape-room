@@ -64,55 +64,51 @@ data:
     }
 
     .cat {
-      left: 76%;
-      top: 61%;
       position: fixed;
+      inset: calc(61% - 50px) calc(22% - 50px) calc(39% - 50px) calc(78% - 50px);
       height: 100px;
     }
 
     .orb {
-      left: 19%;
-      top: 48%;
       position: fixed;
+      inset: calc(48% - 50px) calc(81% - 25px) calc(52% - 50px) calc(19% - 25px);
+      height: 100px;
+      width: 50px;
     }
 
     .orbHint {
-      left: 18%;
-      top: 47%;
       position: fixed;
+      inset: calc(47% - 50px) calc(81% - 50px) calc(53% - 50px) calc(19% - 50px);
       height: 100px;
     }
 
     .orbWisdom {
-      left: 19%;
       position: fixed;
+      inset: calc(47% - 25px) calc(81% - 25px) calc(53% - 25px) calc(19% - 25px);
+      height: 50px;
     }
 
     .photoHint {
-      left: 95%;
-      top: 33%;
       position: fixed;
+      inset: calc(36% - 50px) calc(3% - 50px) calc(64% - 50px) calc(97% - 50px);
       height: 100px;
     }
 
     .photoFrame {
-      left: 96%;
-      top: 35%;
       position: fixed;
+      inset: calc(36% - 25px) calc(3% - 25px) calc(64% - 25px) calc(97% - 25px);
       height: 50px;
     }
 
     .tome {
-      left: 65%;
-      top: 45%;
       position: fixed;
+      inset: calc(45% - 50px) calc(35% - 50px) calc(55% - 50px) calc(65% - 50px);
       height: 100px;
     }
 
     .tomeHint {
-      left: 65%;
-      top: 44%;
       position: fixed;
+      inset: calc(44% - 50px) calc(35% - 50px) calc(56% - 50px) calc(65% - 50px);
       height: 100px;
     }
 
