@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steadforce K8s Escape Room</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+  </head>
+  <body>
+    <header>
+      <!-- Left-aligned Logo -->
+      <div>
+        <img id="banner" class="banner" src="assets/banner.png" />
+      </div>
+
+      <!-- Center Elements: Input, Start Button, Stopwatch Display -->
+      <div>
+        <h1>Kubernetes Escape Room Game</h1>
+      </div>
+
+      <!-- Right Elements: Reset Button, Dropdown Menu -->
+      <div class="right-elements">
+        <input type="text" id="nameField" placeholder="Enter your name" />
+        <button id="startBtn">Start</button>
+        <div class="stopwatch-display" id="stopwatch">00:00</div>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </header>
+    <div id="room">
+      <img id="cat" class="cat" />
+      <div class="orb">
+        <img id="orb" src="game/orb.png" />
+        <img id="orbWisdom" class="orbWisdom" />
+      </div>
+      <img id="orbHint" class="orbHint" src="game/redcircle.png" hidden title="The magic orb does not work!" />
+      <img id="photoFrame" class="photoFrame" />
+      <img id="photoHint" class="photoHint" src="game/redcircle.png" hidden title="The magic frame can't find any photos!" />
+      <img id="tome" class="tome" />
+      <img id="tomeHint" class="tomeHint" src="game/redcircle.png" hidden title="The key to open the tome seems to be missing." />
+      <div id="addons" class="addons"></div>
+    </div>
+    <script src="js/scripts.js" type="text/javascript"></script>
+  </body>
+</html>

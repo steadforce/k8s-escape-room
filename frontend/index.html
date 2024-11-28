@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kubernetes Escape Room Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/game/style.css" />
+  </head>
+  <body>
+    <div class="room">
+      <h1>Kubernetes Escape Room Game</h1>
+      <img id="banner" class="banner" src="/game/banner.png" />
+      <img id="cat" class="cat" />
+      <div class="orb">
+        <img id="orb" src="/game/orb.png" />
+        <img id="orbWisdom" class="orbWisdom" />
+      </div>
+      <img id="orbHint" class="orbHint" src="/game/redcircle.png" hidden title="The magic orb does not work!" />
+      <img id="photoFrame" class="photoFrame" />
+      <img id="photoHint" class="photoHint" src="/game/redcircle.png" hidden title="The magic frame can't find any photos!" />
+      <img id="tome" class="tome" />
+      <img id="tomeHint" class="tomeHint" src="/game/redcircle.png" hidden title="The key to open the tome seems to be missing." />
+      <div id="addons" class="addons"></div>
+    </div>
+    <script src="/game/game.js"></script>
+  </body>
+</html>

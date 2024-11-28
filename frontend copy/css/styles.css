@@ -1,0 +1,356 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+:root {
+  /* Steadforce colors */
+  --sf-color-black-blue: #121822;
+  --sf-color-mint: #52e4c0;
+  --sf-color-pink: #ee4cf7;
+
+  --bg-color: var(--sf-color-black-blue);
+  --text-color: var(--sf-color-mint);
+  --header-color: var(--sf-color-black-blue);
+  --button-color: var(--sf-color-pink);
+  font-size: 2rem;
+}
+
+.hidden,
+.hidden > *,
+.hidden > * > * {
+  display: none;
+}
+
+h1 {
+  color: var(--text-color);
+  margin-left: 6rem;
+}
+
+h2 {
+  color: var(--text-color);
+  margin-bottom: 5rem;
+  margin-top: 3rem;
+}
+
+p {
+  line-height: 32px; /* within paragraph */
+  margin-bottom: 30px; /* between paragraphs */
+  width: 500px;
+}
+
+.banner {
+  width: 400px;
+  position: absolute;
+  top: -50px;
+}
+
+/* Main Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  width: 100vw;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background-color: var(--header-color);
+  color: white;
+  width: 100%;
+  height: 100px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Stopwatch Display */
+.stopwatch-display {
+  font-size: 1.2rem;
+  width: 6rem;
+  text-align: center;
+}
+
+/* Right Elements */
+.right-elements {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+input {
+  padding: 5px 10px;
+  background-color: var(--button-color);
+  color: var(--sf-color-black-blue);
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+#welcomeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.paragraph {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  text-align: center;
+  width: 50%;
+}
+
+.paragraph-2,
+.paragraph-3,
+.paragraph-4 {
+  position: absolute;
+}
+
+/* First paragraph appears and stays */
+.paragraph-1 {
+  animation: fadeInStay 4s ease-in-out forwards;
+}
+
+/* Second paragraph fades in, scrolls, fades out, and then hides */
+.paragraph-2 {
+  animation: fadeInScrollFadeOut 4s ease-in-out 4s forwards;
+}
+
+/* Third paragraph fades in, scrolls, fades out, and then hides */
+.paragraph-3 {
+  animation: fadeInScrollFadeOut 4s ease-in-out 8s forwards;
+}
+
+/* Third paragraph fades in, scrolls, fades out, and then hides */
+.paragraph-4 {
+  animation: fadeInScrollFadeOut 8s ease-in-out 12s forwards;
+}
+
+/* Last paragraph fades in and stays */
+.paragraph-5 {
+  animation: fadeInStay 4s ease-in-out 18s forwards;
+}
+
+/* Keyframe animations */
+@keyframes fadeInStay {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScrollFadeOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+    display: hidden;
+  }
+}
+
+/* Define the shimmer container */
+.shimmer {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 20px;
+  color: #fff;
+  background-color: #555;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+/* Apply the shimmer animation */
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transform: skewX(-25deg);
+  animation: shimmer 2s infinite;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+/* Sparkles overlay */
+.sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Individual sparkle */
+.sparkles::before,
+.sparkles::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: sparkle 2s infinite ease-in-out;
+}
+
+/* Positioning the sparkles */
+.sparkles::before {
+  width: 6px;
+  height: 6px;
+  top: 20%;
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.sparkles::after {
+  width: 8px;
+  height: 8px;
+  top: 60%;
+  left: 75%;
+  animation-delay: 1s;
+}
+
+/* Sparkle animation */
+@keyframes sparkle {
+  0%,
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+#room {
+  width: 100%;
+  height: 100%;
+  background-image: url("game/background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  position: relative;
+}
+
+.cat {
+  left: 76%;
+  top: 61%;
+  position: fixed;
+  height: 100px;
+}
+
+.orb {
+  left: 19%;
+  top: 48%;
+  position: fixed;
+}
+
+.orbHint {
+  left: 18%;
+  top: 47%;
+  position: fixed;
+  height: 100px;
+}
+
+.orbWisdom {
+  left: 19%;
+  position: fixed;
+}
+
+.photoHint {
+  left: 95%;
+  top: 33%;
+  position: fixed;
+  height: 100px;
+}
+
+.photoFrame {
+  left: 96%;
+  top: 35%;
+  position: fixed;
+  height: 50px;
+}
+
+.tome {
+  left: 65%;
+  top: 45%;
+  position: fixed;
+  height: 100px;
+}
+
+.tomeHint {
+  left: 65%;
+  top: 44%;
+  position: fixed;
+  height: 100px;
+}
+
+.addons {
+  position: fixed;
+  right: 1%;
+  bottom: 1%;
+}
+
+.addons > a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 3em;
+  margin-bottom: 5px;
+}
