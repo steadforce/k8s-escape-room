@@ -27,26 +27,6 @@ spec:
           requests:
             cpu: 50m
             memory: 32Mi
-      - name: cat-counter
-        image: python:3-alpine
-        command:
-          - /bin/sh
-          - -c
-          - |
-            pip install kubernetes
-            python3 /scripts/main.py
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: pages-volume
-          mountPath: /scripts
-        resources:
-          limits:
-            cpu: 400m
-            memory: 128Mi
-          requests:
-            cpu: 50m
-            memory: 32Mi
       volumes:
         - name: pages-volume
           configMap:
