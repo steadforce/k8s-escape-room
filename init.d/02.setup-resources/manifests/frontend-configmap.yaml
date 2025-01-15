@@ -154,13 +154,10 @@ data:
       }
 
       const textCatReplicas = httpGet("/cat-counter").responseText.replaceAll("\"", "");
-      console.log(textCatReplicas);
       const numberCatReplicas = parseInt(textCatReplicas, 10);
-      console.log(numberCatReplicas);
-      const numberAdditionalCats = numberCatReplicas - 1;
+      const numberAdditionalCats = Math.max(numberCatReplicas - 1, 0);
       while (numberAdditionalCats > currentNumberAdditionalCats) {
         const id = "cat-" + (currentNumberAdditionalCats + 1);
-        console.log(id);
         const cat = document.createElement("img");
         cat.id = id;
         cat.classList.add("cat");
@@ -170,7 +167,6 @@ data:
       }
       while (numberAdditionalCats < currentNumberAdditionalCats) {
         const id = "cat-" + currentNumberAdditionalCats;
-        console.log(id);
         const cat = document.getElementById(id);
         cat.remove();
         currentNumberAdditionalCats -= 1;
