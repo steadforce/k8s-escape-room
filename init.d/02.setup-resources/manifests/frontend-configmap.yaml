@@ -15,7 +15,9 @@ data:
     <div class="room">
       <h1>Kubernetes Escape Room Game</h1>
       <img id="banner" class="banner" src="/game/banner.png">
-      <img id="cat" class="cat">
+      <div id="catContainer" class="catContainer">
+        <img id="cat" class="cat">
+      </div>
       <div class="orb">
         <img id="orb" src="/game/orb.png">
         <img id="orbWisdom" class="orbWisdom">
@@ -65,9 +67,13 @@ data:
       right: 100px;
     }
 
-    .cat {
+    .catContainer {
       position: fixed;
-      inset: calc(61% - 50px) calc(22% - 40px) calc(39% - 50px) calc(78% - 40px);
+      top: 61%;
+      left: 78%;
+    }
+
+    .cat {
       height: 100px;
     }
 
@@ -134,6 +140,8 @@ data:
     const tomeImage = document.getElementById("tome");
     const tomeHint = document.getElementById("tomeHint");
     const photoHint = document.getElementById("photoHint");
+    
+    let currentNumberAdditionalCats = 0;
 
     setInterval(function () {
       const catResponse = httpGet("/cat");
@@ -143,6 +151,29 @@ data:
       } else {
         catImage.src = "/cat/cat.png";
         catImage.title = "";
+      }
+
+      const textCatReplicas = httpGet("/cat-counter").responseText.replaceAll("\"", "");
+      console.log(textCatReplicas);
+      const numberCatReplicas = parseInt(textCatReplicas, 10);
+      console.log(numberCatReplicas);
+      const numberAdditionalCats = numberCatReplicas - 1;
+      while (numberAdditionalCats > currentNumberAdditionalCats) {
+        const id = "cat-" + (currentNumberAdditionalCats + 1);
+        console.log(id);
+        const cat = document.createElement("img");
+        cat.id = id;
+        cat.classList.add("cat");
+        cat.src = "/cat/cat.png";
+        document.getElementById("catContainer").appendChild(cat);
+        currentNumberAdditionalCats += 1;
+      }
+      while (numberAdditionalCats < currentNumberAdditionalCats) {
+        const id = "cat-" + currentNumberAdditionalCats;
+        console.log(id);
+        const cat = document.getElementById(id);
+        cat.remove();
+        currentNumberAdditionalCats -= 1;
       }
 
       const orbResponse = httpGet("/orb");
