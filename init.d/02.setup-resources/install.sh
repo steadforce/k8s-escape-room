@@ -4,5 +4,11 @@ set -e
 
 DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 
+# Build the Docker image
+docker build -f "$DIR/../../frontend/frontend.dockerfile" -t frontend-image:latest "$DIR/../../frontend"
+
+# Load the Docker image into the kind cluster
+kind load docker-image frontend-image:latest --name escape-room
+
 echo "Apply all manifests ..."
 kubectl apply -f $DIR/manifests/
