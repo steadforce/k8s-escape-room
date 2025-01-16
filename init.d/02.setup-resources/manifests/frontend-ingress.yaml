@@ -36,6 +36,13 @@ spec:
             name: cat-service
             port:
               number: 80
+      - pathType: ImplementationSpecific
+        path: /cat-counter(/|$)(.*)
+        backend:
+          service:
+            name: cat-counter-service
+            port:
+              number: 80
       - pathType: Prefix
         path: /orb
         backend:
