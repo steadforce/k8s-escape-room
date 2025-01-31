@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tome-deployment
+  name: cat-deployment
 spec:
   selector:
     matchLabels:
-      app: tome
-  replicas: 1
+      app: cat
+  replicas: 0
   template:
     metadata:
       labels:
-        app: tome
+        app: cat
     spec:
       containers:
       - name: nginx
@@ -18,14 +18,8 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: tome-volume
+        - name: pages-volume
           mountPath: /usr/share/nginx/html
-        env:
-        - name: ANCIENT_KEY
-          valueFrom:
-            secretKeyRef:
-              name: tome-secret
-              key: ancientKey
         resources:
           limits:
             cpu: 200m
@@ -34,6 +28,6 @@ spec:
             cpu: 50m
             memory: 32Mi
       volumes:
-        - name: tome-volume
+        - name: pages-volume
           configMap:
-            name: open-tome
+            name: cat-pages

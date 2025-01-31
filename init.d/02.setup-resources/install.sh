@@ -11,4 +11,4 @@ docker build -f "$DIR/../../frontend/frontend.dockerfile" -t frontend-image:late
 kind load docker-image frontend-image:latest --name escape-room
 
 echo "Apply all manifests ..."
-kubectl apply -f $DIR/manifests/
+kubectl apply -f $DIR/frontend/

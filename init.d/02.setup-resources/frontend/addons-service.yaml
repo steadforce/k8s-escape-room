@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: addons-service
+spec:
+  selector:
+    app: addons
+  ports:
+  - port: 80

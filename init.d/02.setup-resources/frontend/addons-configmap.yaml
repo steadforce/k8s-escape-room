@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: addons-registry
+data:
+  main.py: |
+    #!/usr/bin/python3
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+    from socketserver import ThreadingMixIn
+    import os
+    import json
+    
+    hostName = "0.0.0.0"
+    serverPort = 80
+    
+    knownAddOns = {}
+    
+    class Handler(BaseHTTPRequestHandler):
+      def do_GET(self):       
+        # Respond with all known add-ons
+        self.send_response(200)
+        self.send_header("Content-type", "application/json")
+        self.end_headers()
+        jsonResponse = json.dumps(list(knownAddOns.values()))
+        self.wfile.write(jsonResponse.encode(encoding="utf_8"))
+      def do_PUT(self):       
+        # Register a new add-on
+        content_len = int(self.headers.get("Content-Length"))
+        post_body = self.rfile.read(content_len)
+        newAddOn = json.loads(post_body)
+        knownAddOns[newAddOn["name"]] = newAddOn
+        self.send_response(204)
+        self.send_header("Content-Length", 0)
+        self.end_headers()
+
+    class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+      """Handle requests in a separate thread."""
+    
+    if __name__ == "__main__":
+      webServer = ThreadedHTTPServer((hostName, serverPort), Handler)
+      print("Server started http://%s:%s" % (hostName, serverPort))
+    
+    try:
+      webServer.serve_forever()
+    except KeyboardInterrupt:
+      pass
+    
+    webServer.server_close()
+    print("Server stopped.")

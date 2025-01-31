@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photoframe-deployment
+spec:
+  selector:
+    matchLabels:
+      app: photoframe
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: photoframe
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27.3
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: photo-volume
+          mountPath: /usr/share/nginx/html
+        resources:
+          limits:
+            cpu: 200m
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+      volumes:
+        - name: photo-volume
+          configMap:
+            name: picturedrive

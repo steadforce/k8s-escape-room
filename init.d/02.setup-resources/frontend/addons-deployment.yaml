@@ -1,25 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: photoframe-deployment
+  name: addons-deployment
 spec:
   selector:
     matchLabels:
-      app: photoframe
+      app: addons
   replicas: 1
   template:
     metadata:
       labels:
-        app: photoframe
+        app: addons
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.27.3
+      - name: python
+        image: python:3-alpine
+        command: ["python3", "/scripts/main.py"]
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: photo-volume
-          mountPath: /usr/share/nginx/html
+        - name: addons-volume
+          mountPath: /scripts
         resources:
           limits:
             cpu: 200m
@@ -28,6 +29,6 @@ spec:
             cpu: 50m
             memory: 32Mi
       volumes:
-        - name: photo-volume
+        - name: addons-volume
           configMap:
-            name: picturedrive
+            name: addons-registry
