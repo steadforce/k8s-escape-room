@@ -16,7 +16,21 @@ spec:
             port:
               number: 80
       - pathType: ImplementationSpecific
-        path: /game(/|$)(.*)
+        path: /()(css/.*)
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - pathType: ImplementationSpecific
+        path: /()(js/.*)
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - pathType: ImplementationSpecific
+        path: /()(assets/.*)
         backend:
           service:
             name: frontend-service

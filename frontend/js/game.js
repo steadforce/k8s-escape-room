@@ -8,16 +8,16 @@ const photoHint = document.getElementById("photoHint");
 setInterval(function () {
   const catResponse = httpGet("/cat");
   if (catResponse.status != 200) {
-    catImage.src = "/game/redcircle.png";
+    catImage.src = "assets/redcircle.png";
     catImage.title = "The cat is missing!";
   } else {
-    catImage.src = "/cat/cat.png";
-    catImage.title = "";
+    catImage.src = "cat/cat.png";
+    catImage.title = "Woof!";
   }
 
   const orbResponse = httpGet("/orb");
   if (orbResponse.status != 200) {
-    orbWisdom.src = "/game/noanswers.png";
+    orbWisdom.src = "assets/orb/noanswers.png";
     orbHint.hidden = false;
   } else {
     orbWisdom.src = "/orb";
@@ -28,7 +28,7 @@ setInterval(function () {
   var photoUrl = "/photoframe/photo" + photoNumber + ".png";
   const photoframeResponse = httpGet(photoUrl);
   if (photoframeResponse.status != 200) {
-    photoFrame.src = "/game/white_noise.png";
+    photoFrame.src = "assets/photoframe/white_noise.png";
     photoHint.hidden = false;
   } else {
     photoFrame.src = photoUrl;
@@ -37,7 +37,7 @@ setInterval(function () {
 
   const tomeResponse = httpGet("/tome");
   if (tomeResponse.status != 200) {
-    tomeImage.src = "/game/closedtome.png";
+    tomeImage.src = "assets/tome/closedtome.png";
     tomeHint.hidden = false;
   } else {
     tomeHint.hidden = true;
