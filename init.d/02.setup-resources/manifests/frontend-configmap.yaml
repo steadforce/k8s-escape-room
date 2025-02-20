@@ -32,15 +32,7 @@ data:
       <h1>Congratulations <span>&#127881;</span><span>&#127881;</span><span>&#127881;</span></h1>
       <h2>You finished the Kubernetes Escape Room Game</h2>
       <p class="statistics">
-        You took xx:xx:xx. Great job!
-        <br>
-        Leaderboard
-        <br>
-        1. abc
-        <br>
-        2. def
-        <br>
-        3. ghi
+        You took <em id="timeTaken"></em>. Great job!
       </p>
       <button class="screenbutton" onclick="hideEndscreen()">Go back <span>&emsp;</span><span>&#10140;</span></button>
     </div>
@@ -314,8 +306,14 @@ data:
     }
 
     function startGame() {
+      hideEndscreen();
       hideStartscreen();
       startTimer();
+    }
+
+    function stopGame() {
+      clearInterval(timerVar);
+      showEndscreen();
     }
 
     function hideStartscreen() {
@@ -325,7 +323,10 @@ data:
     function hideEndscreen() {
       document.getElementById("endscreen").style.display = "none";
     }
-    hideEndscreen();
+
+    function showEndscreen() {
+      document.getElementById("endscreen").style.display = "inline";
+    }
 
     var timerVar;
     var totalSeconds = 0;
@@ -345,7 +346,9 @@ data:
         if (seconds < 10)
             seconds = "0" + seconds;
 
-        document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+        var time = hour + ":" + minute + ":" + seconds;
+        document.getElementById("timer").innerHTML = time;
+        document.getElementById("timeTaken").innerHTML = time;
     }
 
     function currentStatus() {
@@ -356,6 +359,9 @@ data:
         !photoFrame.src.endsWith("white_noise.png"),
         tomeImage.src.endsWith("opentome.png")
       ];
+      if (progressChecks.every(c => c)) {
+        stopGame();
+      }
       var progress = progressChecks.map(check => check ? '&#x2705;' : '&#x2B55').join(' ');
       document.getElementById("progress").innerHTML = progress;
     }
