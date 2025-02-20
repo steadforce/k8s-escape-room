@@ -26,6 +26,7 @@ data:
       <img id="tomeHint" class="tomeHint" src="/game/redcircle.png" hidden title="The key to open the tome seems to be missing.">
       <div id="addons" class="addons"></div>
     </div>
+    <div class="timer" id="timer"></div>
     <div class="screen" id="endscreen">
       <h1>Congratulations <span>&#127881;</span><span>&#127881;</span><span>&#127881;</span></h1>
       <h2>You finished the Kubernetes Escape Room Game</h2>
@@ -57,7 +58,7 @@ data:
         </i>
       </p>
       <h2>Good luck, have fun</h2>
-      <button class="screenbutton" onclick="hideStartscreen()">Start <span>&emsp;</span><span>&#10140;</span></button>
+      <button class="screenbutton" onclick="startGame()">Start <span>&emsp;</span><span>&#10140;</span></button>
     </div>
     <img id="banner" class="banner" src="/game/banner.png">
     <script src="/game/game.js"></script>
@@ -91,13 +92,28 @@ data:
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: black;
+    }
+
+    .screen::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-image: url("/game/background.jpg");
+      transform: scale(1.01);
+      filter: blur(10px);
+      z-index: -1;
     }
 
     .screenbutton {
       font-size: larger;
       color: white;
-      background-color: black;
+      background-color: transparent;
       border: 1px solid white;
       border-radius: 20px;
       margin: 20px 60px;
@@ -122,6 +138,17 @@ data:
       color: white;
       font-size: 25px;
       margin: 60px;
+    }
+    
+    .timer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      color: white;
+      padding: 10px;
+      font-size: 20px;
+      backdrop-filter: blur(10px);
+      border-top-right-radius: 1rem;
     }
 
     .room {
@@ -274,12 +301,39 @@ data:
       return xmlHttp;
     }
 
+    function startGame() {
+      hideStartscreen();
+      startTimer();
+    }
+
     function hideStartscreen() {
       document.getElementById("startscreen").style.display = "none";
     }
 
     function hideEndscreen() {
       document.getElementById("endscreen").style.display = "none";
+    }
+    hideEndscreen();
+
+    var timerVar;
+    var totalSeconds = 0;
+    function startTimer() {
+      timerVar = setInterval(countTimer, 1000);
+    }
+
+    function countTimer() {
+        ++totalSeconds;
+        var hour = Math.floor(totalSeconds / 3600);
+        var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        var seconds = totalSeconds - (hour * 3600 + minute * 60);
+        if (hour < 10)
+            hour = "0" + hour;
+        if (minute < 10)
+            minute = "0" + minute;
+        if (seconds < 10)
+            seconds = "0" + seconds;
+
+        document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
     }
 
 binaryData:
