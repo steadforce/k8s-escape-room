@@ -15,7 +15,7 @@ ENV KIND_VERSION=v0.21.0
 
 # https://github.com/docker/buildx/releases
 # renovate: datasource=github-releases depName=docker/buildx
-ENV BUILDX_VERSION=v0.21.0
+ENV BUILDX_VERSION=v0.21.1
 # https://docs.docker.com/engine/release-notes
 # renovate: datasource=docker depName=docker.io/docker versioning=docker
 ENV DOCKER_VERSION=27.5.1
