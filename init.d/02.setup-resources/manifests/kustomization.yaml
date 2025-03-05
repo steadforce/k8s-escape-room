@@ -1,0 +1,41 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- addons-configmap.yaml
+- addons-deployment.yaml
+- addons-service.yaml
+- cat-configmap.yaml
+- cat-deployment.yaml
+- cat-service.yaml
+- frontend-deployment.yaml
+- frontend-ingress.yaml
+- frontend-service.yaml
+- orb-configmap.yaml
+- orb-deployment.yaml
+- orb-service.yaml
+- photoframe-configmap.yaml
+- photoframe-deployment.yaml
+- photoframe-service.yaml
+- tome-configmap.yaml
+- tome-deployment.yaml
+- tome-secret.yaml
+- tome-service.yaml
+
+configMapGenerator:
+  - name: frontend-pages
+    files:
+      - frontend/index.html
+      - frontend/game.js
+      - frontend/style.css
+      - frontend/background.jpg
+      - frontend/banner.png
+      - frontend/closedtome.png
+      - frontend/noanswers.png
+      - frontend/orb.png
+      - frontend/redcircle.png
+      - frontend/white_noise.png
+
+# Specify the location of the files
+generatorOptions:
+  disableNameSuffixHash: true
