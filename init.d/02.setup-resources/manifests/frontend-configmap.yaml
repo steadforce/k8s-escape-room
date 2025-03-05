@@ -305,17 +305,6 @@ data:
       return xmlHttp;
     }
 
-    function startGame() {
-      hideEndscreen();
-      hideStartscreen();
-      startTimer();
-    }
-
-    function stopGame() {
-      clearInterval(timerVar);
-      showEndscreen();
-    }
-
     function hideStartscreen() {
       document.getElementById("startscreen").style.display = "none";
     }
@@ -331,22 +320,24 @@ data:
     var timerVar;
     var totalSeconds = 0;
     function startTimer() {
-      timerVar = setInterval(countTimer, 1000);
+      timerVar = setInterval(incrementTimer, 1000);
     }
 
-    function countTimer() {
-        ++totalSeconds;
-        var hour = Math.floor(totalSeconds / 3600);
-        var minute = Math.floor((totalSeconds - hour * 3600) / 60);
-        var seconds = totalSeconds - (hour * 3600 + minute * 60);
-        if (hour < 10)
-            hour = "0" + hour;
-        if (minute < 10)
-            minute = "0" + minute;
-        if (seconds < 10)
-            seconds = "0" + seconds;
+    function startGame() {
+      hideEndscreen();
+      hideStartscreen();
+      startTimer();
+    }
 
-        var time = hour + ":" + minute + ":" + seconds;
+    function stopGame() {
+      clearInterval(timerVar);
+      showEndscreen();
+    }
+
+    function incrementTimer() {
+        var date = new Date(0);
+        date.setSeconds(++totalSeconds);
+        var time = date.toISOString().substring(11, 19);
         document.getElementById("timer").innerHTML = time;
         document.getElementById("timeTaken").innerHTML = time;
     }
