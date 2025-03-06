@@ -5,6 +5,8 @@ const tomeImage = document.getElementById("tome");
 const tomeHint = document.getElementById("tomeHint");
 const photoHint = document.getElementById("photoHint");
 
+let currentNumberAdditionalCats = 0;
+
 setInterval(function () {
     const catResponse = httpGet("/cat");
     if (catResponse.status != 200) {
@@ -13,6 +15,25 @@ setInterval(function () {
     } else {
     catImage.src = "/cat/cat.png";
     catImage.title = "";
+    }
+
+    const textCatReplicas = httpGet("/cat-counter").responseText.replaceAll("\"", "");
+    const numberCatReplicas = parseInt(textCatReplicas, 10);
+    const numberAdditionalCats = Math.max(numberCatReplicas - 1, 0);
+    while (numberAdditionalCats > currentNumberAdditionalCats) {
+      const id = "cat-" + (currentNumberAdditionalCats + 1);
+      const cat = document.createElement("img");
+      cat.id = id;
+      cat.classList.add("cat");
+      cat.src = "/cat/cat.png";
+      document.getElementById("catContainer").appendChild(cat);
+      currentNumberAdditionalCats += 1;
+    }
+    while (numberAdditionalCats < currentNumberAdditionalCats) {
+      const id = "cat-" + currentNumberAdditionalCats;
+      const cat = document.getElementById(id);
+      cat.remove();
+      currentNumberAdditionalCats -= 1;
     }
 
     const orbResponse = httpGet("/orb");

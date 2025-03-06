@@ -114,9 +114,13 @@ h2 {
     right: 100px;
 }
 
-.cat {
+.catContainer {
     position: fixed;
-    inset: calc(61% - 50px) calc(22% - 40px) calc(39% - 50px) calc(78% - 40px);
+    top: 61%;
+    left: 78%;
+}
+
+.cat {
     height: 100px;
 }
 
