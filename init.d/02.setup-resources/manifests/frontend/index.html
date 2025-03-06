@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kubernetes Escape Room Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/game/style.css">
+</head>
+<body>
+<div class="room">
+    <h1>Kubernetes Escape Room Game</h1>
+    <img id="banner" class="banner" src="/game/banner.png">
+    <div id="catContainer" class="catContainer">
+      <img id="cat" class="cat">
+    </div>
+    <div class="orb">
+    <img id="orb" src="/game/orb.png">
+    <img id="orbWisdom" class="orbWisdom">
+    </div>
+    <img id="orbHint" class="orbHint" src="/game/redcircle.png" hidden title="The magic orb does not work!">
+    <img id="photoFrame" class="photoFrame">
+    <img id="photoHint" class="photoHint" src="/game/redcircle.png" hidden title="The magic frame can't find any photos!">
+    <img id="tome" class="tome">
+    <img id="tomeHint" class="tomeHint" src="/game/redcircle.png" hidden title="The key to open the tome seems to be missing.">
+    <div id="addons" class="addons"></div>
+</div>
+<div class="progress" id="progress"></div>
+<div class="timer" id="timer"></div>
+<div class="screen" id="endscreen">
+    <h1>Congratulations <span>&#127881;</span><span>&#127881;</span><span>&#127881;</span></h1>
+    <h2>You finished the Kubernetes Escape Room Game</h2>
+    <p class="statistics">
+    You took <em id="timeTaken"></em>. Great job!
+    </p>
+    <button class="screenbutton" onclick="hideEndscreen()">Go back <span>&emsp;</span><span>&#10140;</span></button>
+</div>
+<div class="screen" id="startscreen">
+    <h1>Welcome to the Kubernetes Escape Room Game</h1>
+    <p class="intro">
+    You are a wizard apprentice. While your teacher is out of house you decided to sneak into his study to practice some spells. 
+    Maybe try out some magic artifacts you find there. 
+    But while reciting an incantation you found in a hidden tome something went horribly wrong. 
+    Important things are missing or not working anymore. It is now on you to fix what has been broken.
+    <br>
+    <br>
+    <i>
+        Broken parts in the study are marked with a red circle. 
+        Hovering there with your cursor gives you a hint for what you might be looking for.
+    </i>
+    </p>
+    <h2>Good luck, have fun</h2>
+    <button class="screenbutton" onclick="startGame()">Start <span>&emsp;</span><span>&#10140;</span></button>
+</div>
+<img id="banner" class="banner" src="/game/banner.png">
+<script src="/game/game.js"></script>
+</body>
+</html>
