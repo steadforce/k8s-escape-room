@@ -8,6 +8,9 @@ resources:
 - cat-configmap.yaml
 - cat-deployment.yaml
 - cat-service.yaml
+- cat-counter-configmap.yaml
+- cat-counter-deployment.yaml
+- cat-counter-service.yaml
 - frontend-deployment.yaml
 - frontend-ingress.yaml
 - frontend-service.yaml
