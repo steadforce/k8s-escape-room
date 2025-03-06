@@ -11,6 +11,8 @@ resources:
 - cat-counter-configmap.yaml
 - cat-counter-deployment.yaml
 - cat-counter-service.yaml
+- cat-clusterrole.yaml
+- cat-clusterrolebinding.yaml
 - frontend-deployment.yaml
 - frontend-ingress.yaml
 - frontend-service.yaml
