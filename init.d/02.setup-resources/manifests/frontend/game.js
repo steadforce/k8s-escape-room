@@ -144,23 +144,18 @@ function renderCat() {
         catImage.src = unsolvedImage;
         catImage.title = "The cat is missing!";
     }
-
-    if (gameState.puzzles.cat.replicas !== catContainer.childElementCount - 1) {
-        [].forEach.call(
-            document.getElementsByClassName("cat replica"),
-            function (replica) {
-                replica.remove();
-            },
-        );
-        Array(gameState.puzzles.cat.replicas)
-            .keys()
-            .forEach(function (id) {
-                const cat = document.createElement("img");
-                cat.id = `cat-${id}`;
-                cat.classList.add("cat", "replica");
-                cat.src = "/cat/cat.png";
-                catContainer.appendChild(cat);
-            });
+    const replicas = document.getElementsByClassName("cat replica");
+    if (gameState.puzzles.cat.replicas !== replicas.length) {
+        [].forEach.call(replicas, function (replica) {
+            replica.remove();
+        });
+        for (let i = 0; i < gameState.puzzles.cat.replicas; ++i) {
+            const cat = document.createElement("img");
+            cat.id = `cat-${i}`;
+            cat.classList.add("cat", "replica");
+            cat.src = "/cat/cat.png";
+            catContainer.appendChild(cat);
+        }
     }
 }
 
