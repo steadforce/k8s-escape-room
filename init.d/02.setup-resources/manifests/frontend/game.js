@@ -10,59 +10,62 @@ let currentNumberAdditionalCats = 0;
 setInterval(function () {
     const catResponse = httpGet("/cat");
     if (catResponse.status != 200) {
-    catImage.src = "/game/redcircle.png";
-    catImage.title = "The cat is missing!";
+        catImage.src = "/game/redcircle.png";
+        catImage.title = "The cat is missing!";
     } else {
-    catImage.src = "/cat/cat.png";
-    catImage.title = "";
+        catImage.src = "/cat/cat.png";
+        catImage.title = "";
     }
 
-    const textCatReplicas = httpGet("/cat-counter").responseText.replaceAll("\"", "");
+    const textCatReplicas = httpGet("/cat-counter").responseText.replaceAll(
+        '"',
+        "",
+    );
     const numberCatReplicas = parseInt(textCatReplicas, 10);
     const numberAdditionalCats = Math.max(numberCatReplicas - 1, 0);
     while (numberAdditionalCats > currentNumberAdditionalCats) {
-      const id = "cat-" + (currentNumberAdditionalCats + 1);
-      const cat = document.createElement("img");
-      cat.id = id;
-      cat.classList.add("cat");
-      cat.src = "/cat/cat.png";
-      document.getElementById("catContainer").appendChild(cat);
-      currentNumberAdditionalCats += 1;
+        const id = "cat-" + (currentNumberAdditionalCats + 1);
+        const cat = document.createElement("img");
+        cat.id = id;
+        cat.classList.add("cat");
+        cat.src = "/cat/cat.png";
+        document.getElementById("catContainer").appendChild(cat);
+        currentNumberAdditionalCats += 1;
     }
     while (numberAdditionalCats < currentNumberAdditionalCats) {
-      const id = "cat-" + currentNumberAdditionalCats;
-      const cat = document.getElementById(id);
-      cat.remove();
-      currentNumberAdditionalCats -= 1;
+        const id = "cat-" + currentNumberAdditionalCats;
+        const cat = document.getElementById(id);
+        cat.remove();
+        currentNumberAdditionalCats -= 1;
     }
 
     const orbResponse = httpGet("/orb");
     if (orbResponse.status != 200) {
-    orbWisdom.src = "/game/noanswers.png"
-    orbHint.hidden = false;
+        orbWisdom.src = "/game/noanswers.png";
+        orbHint.hidden = false;
     } else {
-    orbWisdom.src = "/orb"
-    orbHint.hidden = true;
+        orbWisdom.src = "/orb";
+        orbHint.hidden = true;
     }
 
-    var photoNumber = Math.floor(Math.random() * 10);     
+    var photoNumber = Math.floor(Math.random() * 10);
     var photoUrl = "/photoframe/photo" + photoNumber + ".png";
     const photoframeResponse = httpGet(photoUrl);
     if (photoframeResponse.status != 200) {
-    photoFrame.src = "/game/white_noise.png";
-    photoHint.hidden = false;
+        photoFrame.src = "/game/white_noise.png";
+        photoHint.hidden = false;
     } else {
-    photoFrame.src = photoUrl;
-    photoHint.hidden = true;
+        photoFrame.src = photoUrl;
+        photoHint.hidden = true;
     }
 
     const tomeResponse = httpGet("/tome");
     if (tomeResponse.status != 200) {
-    tomeImage.src = "/game/closedtome.png";
-    tomeHint.hidden = false;
+        tomeImage.src = "/game/closedtome.png";
+        tomeHint.hidden = false;
     } else {
-    tomeHint.hidden = true;
-    tomeImage.src = "/tome/opentome.png";
+        tomeHint.hidden = true;
+        tomeImage.src = "/tome/opentome.png";
     }
 }, 3000);
 
@@ -71,12 +74,12 @@ if (addOnsResponse.status == 200) {
     const addOnContainer = document.getElementById("addons");
     const addOns = JSON.parse(addOnsResponse.responseText);
     addOns.forEach(function (addOn) {
-    var a = document.createElement('a');
-    var linkText = document.createTextNode(addOn.name);
-    a.appendChild(linkText);
-    a.title = addOn.name;
-    a.href = addOn.url;
-    addOnContainer.appendChild(a);
+        var a = document.createElement("a");
+        var linkText = document.createTextNode(addOn.name);
+        a.appendChild(linkText);
+        a.title = addOn.name;
+        a.href = addOn.url;
+        addOnContainer.appendChild(a);
     });
 }
 
@@ -127,15 +130,18 @@ function incrementTimer() {
 function currentStatus() {
     var status = "";
     var progressChecks = [
-    catImage.src.endsWith("cat.png"),
-    orbWisdom.src.endsWith("/orb"),
-    !photoFrame.src.endsWith("white_noise.png"),
-    tomeImage.src.endsWith("opentome.png")
+        catImage.src.endsWith("cat.png"),
+        orbWisdom.src.endsWith("/orb"),
+        !photoFrame.src.endsWith("white_noise.png"),
+        tomeImage.src.endsWith("opentome.png"),
     ];
-    if (progressChecks.every(c => c)) {
-    stopGame();
+    if (progressChecks.every((c) => c)) {
+        stopGame();
     }
-    var progress = progressChecks.map(check => check ? '&#x2705;' : '&#x2B55').join(' ');
+    var progress = progressChecks
+    .map((check) => (check ? "&#x2705;" : "&#x2B55"))
+    .join(" ");
     document.getElementById("progress").innerHTML = progress;
 }
 setInterval(currentStatus, 3000);
+
