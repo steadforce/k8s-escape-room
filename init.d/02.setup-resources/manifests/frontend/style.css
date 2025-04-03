@@ -19,6 +19,27 @@ h2 {
     font-size: 30px;
 }
 
+.nameInput {
+    font-size: larger;
+    color: white;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+    margin: 20px 60px;
+    padding: 20px 60px;
+    outline:none;
+}
+
+.nameInput::focus {
+    border: 0;
+    border-bottom: 1px solid white;
+    outline:none;
+}
+
+.nameInput::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .screen {
     position: fixed;
     top: 0;
