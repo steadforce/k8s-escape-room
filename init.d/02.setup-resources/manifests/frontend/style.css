@@ -21,22 +21,25 @@ h2 {
 
 .nameInput {
     font-size: larger;
+    width: 10rem;
     color: white;
     background-color: transparent;
     border: 0;
     border-bottom: 1px solid white;
-    margin: 20px 60px;
-    padding: 20px 60px;
-    outline:none;
+    margin: 20px 0px 20px 60px;
+    padding: 20px 20px;
+    outline: none;
 }
 
 .nameInput::focus {
+    background-color: transparent;
     border: 0;
     border-bottom: 1px solid white;
-    outline:none;
+    outline: none;
 }
 
 .nameInput::placeholder {
+    background-color: transparent;
     color: rgba(255, 255, 255, 0.5);
 }
 
