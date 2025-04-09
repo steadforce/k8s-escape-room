@@ -3,33 +3,32 @@ const checkStateInterval = 3000.0;
 let checkStateDelta = 0.0;
 let prevTime = 0.0;
 
-function makeTimer() {
-    let seconds = 0;
-    let ref;
-
-    function increment() {
-        ++seconds;
+class Timer {
+    constructor() {
+        this.seconds = 0;
+        this.ref;
     }
 
-    return {
-        start() {
-            ref = setInterval(increment, 1000);
-        },
-        stop() {
-            clearInterval(ref);
-        },
-        getTime() {
-            let date = new Date(0);
-            date.setSeconds(seconds);
-            return date.toISOString().substring(11, 19);
-        },
-    };
+    start() {
+        this.ref = setInterval(() => { this.seconds++ }, 1000);
+    }
+
+    stop() {
+        clearInterval(this.ref);
+    }
+
+    getTime() {
+        let date = new Date(0);
+        date.setSeconds(this.seconds);
+        return date.toISOString().substring(11, 19);
+    }
 }
 
 const gameState = {
     running: false,
-    timer: makeTimer(),
+    timer: new Timer(),
     solved: false,
+    name: "",
     puzzles: {
         cat: {
             solved: false,
@@ -129,6 +128,11 @@ function checkGameState() {
     gameState.solved = Object.values(gameState.puzzles)
         .map((puzzle) => puzzle.solved)
         .reduce((l, r) => l && r, true);
+}
+
+function saveGameState() {
+    const gameStateString = JSON.stringify(gameState);
+    localStorage.setItem("activeGame", gameStateString);
 }
 
 function renderCat() {
@@ -231,8 +235,20 @@ function render() {
 function startGame() {
     hideEndscreen();
     hideStartscreen();
+    gameState.name = document.getElementById('nameInput').value;
     gameState.running = true;
     gameState.timer.start();
+}
+
+function checkAlreadyPlaying() {
+    const gameStateString = localStorage.getItem("activeGame");
+    if (gameStateString) {
+        const oldGameState = JSON.parse(gameStateString);
+        Object.assign(gameState, oldGameState);
+        Object.setPrototypeOf(oldGameState.timer, Timer.prototype);
+        document.getElementById('nameInput').value = gameState.name;
+        startGame();
+    }
 }
 
 function stopGame() {
@@ -250,6 +266,7 @@ const loop = function (time) {
         checkStateDelta = 0.0;
 
         checkGameState();
+        saveGameState();
     }
 
     if (gameState.running && gameState.solved) {
@@ -266,3 +283,5 @@ window.requestAnimationFrame((time) => {
     checkGameState();
     window.requestAnimationFrame(loop);
 });
+
+checkAlreadyPlaying();
