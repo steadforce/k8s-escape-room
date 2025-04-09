@@ -48,13 +48,6 @@ const gameState = {
     },
 };
 
-function httpGet(url) {
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false);
-    xmlHttp.send(null);
-    return xmlHttp;
-}
-
 function hideStartscreen() {
     document.getElementById("startscreen").style.display = "none";
 }
@@ -67,68 +60,75 @@ function showEndscreen() {
     document.getElementById("endscreen").style.display = "inline";
 }
 
-function loadAddons() {
-    const addOnsResponse = httpGet("/addons/list");
-
-    if (addOnsResponse.status === 200) {
-        const addOnContainer = document.getElementById("addons");
-        const addOns = JSON.parse(addOnsResponse.responseText);
-        addOns.forEach(function (addOn) {
-            const a = document.createElement("a");
-            const linkText = document.createTextNode(addOn.name);
-            a.appendChild(linkText);
-            a.title = addOn.name;
-            a.href = addOn.url;
-            addOnContainer.appendChild(a);
-        });
+async function loadAddons() {
+    const addOnContainer = document.getElementById("addons");
+    function loadAddon(addOn) {
+        const a = document.createElement("a");
+        const linkText = document.createTextNode(addOn.name);
+        a.appendChild(linkText);
+        a.title = addOn.name;
+        a.href = addOn.url;
+        addOnContainer.appendChild(a);
     }
+
+    await fetch("/addons/list")
+    .then((response) => {
+        return response.ok ? response.json() : Promise.resolve([]);
+    })
+    .then((response) => response.forEach(loadAddon));
 }
 
-function checkCatState() {
-    const catResponse = httpGet("/cat");
+async function checkCatState() {
+    const cat = fetch("/cat").then((response) => {
+        gameState.puzzles.cat.solved = response.ok
+    });
 
-    gameState.puzzles.cat.solved = catResponse.status === 200;
+    const catCounter = fetch("/cat-counter")
+    .then((response) => response.text())
+    .then((response) => {
+        const textCatCounter = response.replaceAll('"', "");
+        const numberCatCounter = parseInt(textCatCounter) || 0;
+        gameState.puzzles.cat.replicas = Math.max(numberCatCounter - 1, 0);
+    });
 
-    const catCounterResponse = httpGet("/cat-counter");
-    const textCatCounter = catCounterResponse.responseText.replaceAll('"', "");
-    const numberCatCounter = parseInt(textCatCounter) || 0;
-
-    gameState.puzzles.cat.replicas = Math.max(numberCatCounter - 1, 0);
+    await Promise.all([cat, catCounter]);
 }
 
-function checkOrbState() {
-    const orbResponse = httpGet("/orb");
-
-    gameState.puzzles.orb.solved = orbResponse.status === 200;
+async function checkOrbState() {
+    await fetch("/orb").then((response) => {
+        gameState.puzzles.orb.solved = response.ok
+    });
 }
 
-function checkPhotoState() {
+async function checkPhotoState() {
     const photoNumber = Math.floor(Math.random() * 10);
-    const photoUrl = `/photoframe/photo${photoNumber}.png`;
-    const photoframeResponse = httpGet(photoUrl);
-
-    if (photoframeResponse.status === 200) {
-        gameState.puzzles.photo.solved = true;
-        gameState.puzzles.photo.url = photoUrl;
-    } else {
-        gameState.puzzles.photo.solved = false;
-    }
+    await fetch(`/photoframe/photo${photoNumber}.png`).then((response) => {
+        if (response.ok) {
+            gameState.puzzles.photo.solved = true;
+            gameState.puzzles.photo.url = photoUrl;
+        } else {
+            gameState.puzzles.photo.solved = false;
+        }
+    });
 }
 
-function checkTomeState() {
-    const tomeResponse = httpGet("/tome");
-    gameState.puzzles.tome.solved = tomeResponse.status === 200;
+async function checkTomeState() {
+    await fetch("/tome").then((response) => {
+        gameState.puzzles.tome.solved = response.ok
+    });
 }
 
-function checkGameState() {
-    checkCatState();
-    checkOrbState();
-    checkPhotoState();
-    checkTomeState();
-
-    gameState.solved = Object.values(gameState.puzzles)
-        .map((puzzle) => puzzle.solved)
-        .reduce((l, r) => l && r, true);
+async function checkGameState() {
+    await Promise.all([
+        checkCatState(),
+        checkOrbState(),
+        checkPhotoState(),
+        checkTomeState(),
+    ]).then(() => {
+        gameState.solved = Object.values(gameState.puzzles)
+            .map((puzzle) => puzzle.solved)
+            .reduce((l, r) => l && r, true);
+    });
 }
 
 function renderCat() {
@@ -241,7 +241,7 @@ function stopGame() {
     showEndscreen();
 }
 
-const loop = function (time) {
+const loop = async function (time) {
     const delta = time - prevTime;
     prevTime = time;
 
@@ -249,7 +249,7 @@ const loop = function (time) {
     if (gameState.running && checkStateDelta > checkStateInterval) {
         checkStateDelta = 0.0;
 
-        checkGameState();
+        await checkGameState();
     }
 
     if (gameState.running && gameState.solved) {
