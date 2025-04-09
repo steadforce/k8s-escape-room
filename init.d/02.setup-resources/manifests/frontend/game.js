@@ -128,6 +128,11 @@ function checkGameState() {
     gameState.solved = Object.values(gameState.puzzles)
         .map((puzzle) => puzzle.solved)
         .reduce((l, r) => l && r, true);
+
+    //test
+    if (gameState.puzzles.cat.solved) {
+        gameState.solved = true;
+    }
 }
 
 function saveGameState() {
@@ -257,6 +262,28 @@ function stopGame() {
     showEndscreen();
 }
 
+function getHighscores() {
+    const highscores = localStorage.getItem("highscores");
+    if (!highscores) {
+        return [];
+    }
+    return JSON.parse(highscores);
+}
+
+function saveHighscores(highscores) {
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+}
+
+function addHighscore() {
+    const entry = {
+        name: gameState.name,
+        time: gameState.timer.getTime()
+    };
+    const highscores = getHighscores();
+    highscores.push(entry);
+    saveHighscores(highscores);
+}
+
 const loop = function (time) {
     const delta = time - prevTime;
     prevTime = time;
@@ -271,6 +298,7 @@ const loop = function (time) {
 
     if (gameState.running && gameState.solved) {
         stopGame();
+        addHighscore();
     }
 
     render();
