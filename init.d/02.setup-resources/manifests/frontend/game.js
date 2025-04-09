@@ -235,7 +235,7 @@ function render() {
 function startGame() {
     hideEndscreen();
     hideStartscreen();
-    gameState.name = document.getElementById('nameInput').value;
+    gameState.name = document.getElementById("nameInput").value;
     gameState.running = true;
     gameState.timer.start();
 }
@@ -246,7 +246,7 @@ function checkAlreadyPlaying() {
         const oldGameState = JSON.parse(gameStateString);
         Object.assign(gameState, oldGameState);
         Object.setPrototypeOf(oldGameState.timer, Timer.prototype);
-        document.getElementById('nameInput').value = gameState.name;
+        document.getElementById("nameInput").value = gameState.name;
         startGame();
     }
 }
