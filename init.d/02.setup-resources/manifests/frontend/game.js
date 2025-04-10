@@ -62,6 +62,24 @@ function hideEndscreen() {
     document.getElementById("endscreen").style.display = "none";
 }
 
+function finish() {
+    if(isNewGame()) {
+        localStorage.removeItem("activeGame");
+        location.reload();
+    } else {
+        flashResetInstruction();
+    }
+}
+
+function flashResetInstruction() {
+    const resetInstruction = document.getElementById('resetInstruction');
+    const originalBackground = resetInstruction.style.backgroundColor;
+    resetInstruction.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
+    setTimeout(() => {
+        resetInstruction.style.backgroundColor = originalBackground;
+    }, 1000);
+}
+
 function showEndscreen() {
     document.getElementById("endscreen").style.display = "inline";
 }
@@ -133,6 +151,17 @@ function checkGameState() {
     if (gameState.puzzles.cat.solved) {
         gameState.solved = true;
     }
+}
+
+function isNewGame() {
+    checkGameState();
+    console.log(gameState);
+    const newGame = Object.values(gameState.puzzles)
+        .map((puzzle) => puzzle.solved)
+        .every((solved) => solved === false);
+        console.log(newGame);
+        return newGame;
+
 }
 
 function saveGameState() {
