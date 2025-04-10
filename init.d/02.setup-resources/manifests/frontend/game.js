@@ -275,13 +275,26 @@ function saveHighscores(highscores) {
 }
 
 function addHighscore() {
-    const entry = {
-        name: gameState.name,
-        time: gameState.timer.getTime()
-    };
+    const entry = [gameState.name, gameState.timer.getTime()];
     const highscores = getHighscores();
     highscores.push(entry);
     saveHighscores(highscores);
+}
+
+function showHighscores() {
+    let highscores = getHighscores();
+    highscores.sort((a, b) => a[1].localeCompare(b[1]));
+    highscores = highscores.length > 5 ? highscores.slice(0, 5) : highscores;
+    const tableBody = document.getElementById("highscoreTableBody");
+    highscores.forEach(rowData => {
+        const row = document.createElement("tr");
+        Object.values(rowData).forEach(cellData => {
+            const cell = document.createElement("td");
+            cell.textContent = cellData;
+            row.appendChild(cell);
+        });
+        tableBody.appendChild(row);
+    });
 }
 
 const loop = function (time) {
@@ -299,6 +312,7 @@ const loop = function (time) {
     if (gameState.running && gameState.solved) {
         stopGame();
         addHighscore();
+        showHighscores();
     }
 
     render();

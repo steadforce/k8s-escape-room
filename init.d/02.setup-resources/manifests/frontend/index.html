@@ -50,6 +50,18 @@
             </h1>
             <h2>You finished the Kubernetes Escape Room Game</h2>
             <p class="statistics">You took <em id="timeTaken"></em>. Great job!</p>
+            <h2>Highscores</h2>
+            <table class="highscoreTable" id="highscoreTable">
+                <thead>
+                    <tr>
+                        <th>Person</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="highscoreTableBody">
+                    <!-- Highscores will be populated here -->
+                </tbody>
+            </table>
             <button class="screenbutton" onclick="hideEndscreen()">
                 Go back <span>&emsp;</span><span>&#10140;</span>
             </button>
