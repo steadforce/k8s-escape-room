@@ -47,13 +47,6 @@ const gameState = {
     },
 };
 
-function httpGet(url) {
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false);
-    xmlHttp.send(null);
-    return xmlHttp;
-}
-
 function hideStartscreen() {
     document.getElementById("startscreen").style.display = "none";
 }
