@@ -84,72 +84,8 @@ function showEndscreen() {
     document.getElementById("endscreen").style.display = "inline";
 }
 
-function loadAddons() {
-    const addOnsResponse = httpGet("/addons/list");
-
-    if (addOnsResponse.status === 200) {
-        const addOnContainer = document.getElementById("addons");
-        const addOns = JSON.parse(addOnsResponse.responseText);
-        addOns.forEach(function (addOn) {
-            const a = document.createElement("a");
-            const linkText = document.createTextNode(addOn.name);
-            a.appendChild(linkText);
-            a.title = addOn.name;
-            a.href = addOn.url;
-            addOnContainer.appendChild(a);
-        });
-    }
-}
-
-function checkCatState() {
-    const catResponse = httpGet("/cat");
-
-    gameState.puzzles.cat.solved = catResponse.status === 200;
-
-    const catCounterResponse = httpGet("/cat-counter");
-    const textCatCounter = catCounterResponse.responseText.replaceAll('"', "");
-    const numberCatCounter = parseInt(textCatCounter) || 0;
-
-    gameState.puzzles.cat.replicas = Math.max(numberCatCounter - 1, 0);
-}
-
-function checkOrbState() {
-    const orbResponse = httpGet("/orb");
-
-    gameState.puzzles.orb.solved = orbResponse.status === 200;
-}
-
-function checkPhotoState() {
-    const photoNumber = Math.floor(Math.random() * 10);
-    const photoUrl = `/photoframe/photo${photoNumber}.png`;
-    const photoframeResponse = httpGet(photoUrl);
-
-    if (photoframeResponse.status === 200) {
-        gameState.puzzles.photo.solved = true;
-        gameState.puzzles.photo.url = photoUrl;
-    } else {
-        gameState.puzzles.photo.solved = false;
-    }
-}
-
-function checkTomeState() {
-    const tomeResponse = httpGet("/tome");
-    gameState.puzzles.tome.solved = tomeResponse.status === 200;
-}
-
-function checkGameState() {
-    checkCatState();
-    checkOrbState();
-    checkPhotoState();
-    checkTomeState();
-
-    gameState.solved = Object.values(gameState.puzzles)
-        .map((puzzle) => puzzle.solved)
-        .reduce((l, r) => l && r, true);
-}
-
 function isNewGame() {
-    checkGameState();
+    await checkGameState();
     return Object.values(gameState.puzzles)
         .map((puzzle) => puzzle.solved)
         .every((solved) => solved === false);
@@ -158,6 +94,77 @@ function isNewGame() {
 function saveGameState() {
     const gameStateString = JSON.stringify(gameState);
     localStorage.setItem("activeGame", gameStateString);
+}
+
+async function loadAddons() {
+    const addOnContainer = document.getElementById("addons");
+    function loadAddon(addOn) {
+        const a = document.createElement("a");
+        const linkText = document.createTextNode(addOn.name);
+        a.appendChild(linkText);
+        a.title = addOn.name;
+        a.href = addOn.url;
+        addOnContainer.appendChild(a);
+    }
+
+    await fetch("/addons/list")
+    .then((response) => {
+        return response.ok ? response.json() : Promise.resolve([]);
+    })
+    .then((response) => response.forEach(loadAddon));
+}
+
+async function checkCatState() {
+    const cat = fetch("/cat").then((response) => {
+        gameState.puzzles.cat.solved = response.ok
+    });
+
+    const catCounter = fetch("/cat-counter")
+    .then((response) => response.text())
+    .then((response) => {
+        const textCatCounter = response.replaceAll('"', "");
+        const numberCatCounter = parseInt(textCatCounter) || 0;
+        gameState.puzzles.cat.replicas = Math.max(numberCatCounter - 1, 0);
+    });
+
+    await Promise.all([cat, catCounter]);
+}
+
+async function checkOrbState() {
+    await fetch("/orb").then((response) => {
+        gameState.puzzles.orb.solved = response.ok
+    });
+}
+
+async function checkPhotoState() {
+    const photoNumber = Math.floor(Math.random() * 10);
+    await fetch(`/photoframe/photo${photoNumber}.png`).then((response) => {
+        if (response.ok) {
+            gameState.puzzles.photo.solved = true;
+            gameState.puzzles.photo.url = photoUrl;
+        } else {
+            gameState.puzzles.photo.solved = false;
+        }
+    });
+}
+
+async function checkTomeState() {
+    await fetch("/tome").then((response) => {
+        gameState.puzzles.tome.solved = response.ok
+    });
+}
+
+async function checkGameState() {
+    await Promise.all([
+        checkCatState(),
+        checkOrbState(),
+        checkPhotoState(),
+        checkTomeState(),
+    ]).then(() => {
+        gameState.solved = Object.values(gameState.puzzles)
+            .map((puzzle) => puzzle.solved)
+            .reduce((l, r) => l && r, true);
+    });
 }
 
 function renderCat() {
@@ -318,7 +325,7 @@ function showHighscores() {
     });
 }
 
-const loop = function (time) {
+const loop = async function (time) {
     const delta = time - prevTime;
     prevTime = time;
 
@@ -326,7 +333,7 @@ const loop = function (time) {
     if (gameState.running && checkStateDelta > checkStateInterval) {
         checkStateDelta = 0.0;
 
-        checkGameState();
+        await checkGameState();
         saveGameState();
     }
 
@@ -346,5 +353,5 @@ window.requestAnimationFrame((time) => {
     checkGameState();
     window.requestAnimationFrame(loop);
 });
-
+  
 checkAlreadyPlaying();

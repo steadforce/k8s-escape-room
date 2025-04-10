@@ -1,32 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-resources:
-- addons-configmap.yaml
-- addons-deployment.yaml
-- addons-service.yaml
-- cat-configmap.yaml
-- cat-deployment.yaml
-- cat-service.yaml
-- cat-counter-configmap.yaml
-- cat-counter-deployment.yaml
-- cat-counter-service.yaml
-- cat-clusterrole.yaml
-- cat-clusterrolebinding.yaml
-- frontend-deployment.yaml
-- frontend-ingress.yaml
-- frontend-service.yaml
-- orb-configmap.yaml
-- orb-deployment.yaml
-- orb-service.yaml
-- photoframe-configmap.yaml
-- photoframe-deployment.yaml
-- photoframe-service.yaml
-- tome-configmap.yaml
-- tome-deployment.yaml
-- tome-secret.yaml
-- tome-service.yaml
-
 configMapGenerator:
   - name: frontend-pages
     files:
@@ -41,6 +15,5 @@ configMapGenerator:
       - frontend/redcircle.png
       - frontend/white_noise.png
 
-# Specify the location of the files
 generatorOptions:
   disableNameSuffixHash: true
