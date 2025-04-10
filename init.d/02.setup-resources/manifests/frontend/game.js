@@ -204,6 +204,7 @@ function renderOrb() {
 }
 
 function renderPhoto() {
+    const photoFrame = document.getElementById("photoFrame");
     const photoHint = document.getElementById("photoHint");
     const unsolvedImage = "/game/white_noise.png";
 
