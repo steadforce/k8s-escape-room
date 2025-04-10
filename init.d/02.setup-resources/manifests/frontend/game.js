@@ -85,10 +85,11 @@ function showEndscreen() {
 }
 
 function isNewGame() {
-    await checkGameState();
-    return Object.values(gameState.puzzles)
-        .map((puzzle) => puzzle.solved)
-        .every((solved) => solved === false);
+    checkGameState().then(() => {
+        return Object.values(gameState.puzzles)
+            .map((puzzle) => puzzle.solved)
+            .every((solved) => solved === false);
+    });
 }
 
 function saveGameState() {
