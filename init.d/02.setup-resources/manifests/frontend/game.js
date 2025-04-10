@@ -146,11 +146,6 @@ function checkGameState() {
     gameState.solved = Object.values(gameState.puzzles)
         .map((puzzle) => puzzle.solved)
         .reduce((l, r) => l && r, true);
-
-    //test
-    if (gameState.puzzles.cat.solved) {
-        gameState.solved = true;
-    }
 }
 
 function isNewGame() {
