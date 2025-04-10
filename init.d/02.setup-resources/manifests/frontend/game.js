@@ -150,13 +150,9 @@ function checkGameState() {
 
 function isNewGame() {
     checkGameState();
-    console.log(gameState);
-    const newGame = Object.values(gameState.puzzles)
+    return Object.values(gameState.puzzles)
         .map((puzzle) => puzzle.solved)
         .every((solved) => solved === false);
-        console.log(newGame);
-        return newGame;
-
 }
 
 function saveGameState() {
