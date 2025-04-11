@@ -19,6 +19,30 @@ h2 {
     font-size: 30px;
 }
 
+.nameInput {
+    font-size: larger;
+    width: 10rem;
+    color: white;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+    margin: 20px 0px 20px 60px;
+    padding: 20px 20px;
+    outline: none;
+}
+
+.nameInput::focus {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid white;
+    outline: none;
+}
+
+.nameInput::placeholder {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .screen {
     position: fixed;
     top: 0;
@@ -67,10 +91,14 @@ h2 {
     line-height: 1.2;
 }
 
-.statistics {
+.comment {
+    width: auto;
     color: white;
     font-size: 25px;
-    margin: 60px;
+    margin: 20px 60px;
+    padding: 5px;
+    border-radius: 20px;
+    display: inline-block;
 }
 
 .timer {
@@ -82,6 +110,31 @@ h2 {
     font-size: 20px;
     backdrop-filter: blur(10px);
     border-top-right-radius: 1rem;
+}
+
+.highscoreTable {
+    width: 25rem;
+    margin: 20px 60px;
+    font-size: 25px;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.highscoreTable th {
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.highscoreTable td {
+    padding: 10px;
+    color: white;
+    border: 1px solid white;
+}
+
+.highscoreTable tr:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .progress {

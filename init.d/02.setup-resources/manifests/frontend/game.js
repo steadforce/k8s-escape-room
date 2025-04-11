@@ -3,33 +3,32 @@ const checkStateInterval = 3000.0;
 let checkStateDelta = 0.0;
 let prevTime = 0.0;
 
-function makeTimer() {
-    let seconds = 0;
-    let ref;
-
-    function increment() {
-        ++seconds;
+class Timer {
+    constructor() {
+        this.seconds = 0;
+        this.ref;
     }
 
-    return {
-        start() {
-            ref = setInterval(increment, 1000);
-        },
-        stop() {
-            clearInterval(ref);
-        },
-        getTime() {
-            let date = new Date(0);
-            date.setSeconds(seconds);
-            return date.toISOString().substring(11, 19);
-        },
-    };
+    start() {
+        this.ref = setInterval(() => { this.seconds++ }, 1000);
+    }
+
+    stop() {
+        clearInterval(this.ref);
+    }
+
+    getTime() {
+        let date = new Date(0);
+        date.setSeconds(this.seconds);
+        return date.toISOString().substring(11, 19);
+    }
 }
 
 const gameState = {
     running: false,
-    timer: makeTimer(),
+    timer: new Timer(),
     solved: false,
+    name: "",
     puzzles: {
         cat: {
             solved: false,
@@ -56,8 +55,39 @@ function hideEndscreen() {
     document.getElementById("endscreen").style.display = "none";
 }
 
+function finish() {
+    if(isNewGame()) {
+        localStorage.removeItem("activeGame");
+        location.reload();
+    } else {
+        flashResetInstruction();
+    }
+}
+
+function flashResetInstruction() {
+    const resetInstruction = document.getElementById('resetInstruction');
+    const originalBackground = resetInstruction.style.backgroundColor;
+    resetInstruction.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
+    setTimeout(() => {
+        resetInstruction.style.backgroundColor = originalBackground;
+    }, 1000);
+}
+
 function showEndscreen() {
     document.getElementById("endscreen").style.display = "inline";
+}
+
+function isNewGame() {
+    checkGameState().then(() => {
+        return Object.values(gameState.puzzles)
+            .map((puzzle) => puzzle.solved)
+            .every((solved) => solved === false);
+    });
+}
+
+function saveGameState() {
+    const gameStateString = JSON.stringify(gameState);
+    localStorage.setItem("activeGame", gameStateString);
 }
 
 async function loadAddons() {
@@ -175,6 +205,7 @@ function renderOrb() {
 }
 
 function renderPhoto() {
+    const photoFrame = document.getElementById("photoFrame");
     const photoHint = document.getElementById("photoHint");
     const unsolvedImage = "/game/white_noise.png";
 
@@ -231,14 +262,61 @@ function render() {
 function startGame() {
     hideEndscreen();
     hideStartscreen();
+    gameState.name = document.getElementById("nameInput").value;
     gameState.running = true;
     gameState.timer.start();
+}
+
+function checkAlreadyPlaying() {
+    const gameStateString = localStorage.getItem("activeGame");
+    if (gameStateString) {
+        const oldGameState = JSON.parse(gameStateString);
+        Object.assign(gameState, oldGameState);
+        Object.setPrototypeOf(oldGameState.timer, Timer.prototype);
+        document.getElementById("nameInput").value = gameState.name;
+        startGame();
+    }
 }
 
 function stopGame() {
     gameState.running = false;
     gameState.timer.stop();
     showEndscreen();
+}
+
+function getHighscores() {
+    const highscores = localStorage.getItem("highscores");
+    if (!highscores) {
+        return [];
+    }
+    return JSON.parse(highscores);
+}
+
+function saveHighscores(highscores) {
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+}
+
+function addHighscore() {
+    const entry = [gameState.name, gameState.timer.getTime()];
+    const highscores = getHighscores();
+    highscores.push(entry);
+    saveHighscores(highscores);
+}
+
+function showHighscores() {
+    let highscores = getHighscores();
+    highscores.sort((a, b) => a[1].localeCompare(b[1]));
+    highscores = highscores.length > 5 ? highscores.slice(0, 5) : highscores;
+    const tableBody = document.getElementById("highscoreTableBody");
+    highscores.forEach(rowData => {
+        const row = document.createElement("tr");
+        Object.values(rowData).forEach(cellData => {
+            const cell = document.createElement("td");
+            cell.textContent = cellData;
+            row.appendChild(cell);
+        });
+        tableBody.appendChild(row);
+    });
 }
 
 const loop = async function (time) {
@@ -250,10 +328,13 @@ const loop = async function (time) {
         checkStateDelta = 0.0;
 
         await checkGameState();
+        saveGameState();
     }
 
     if (gameState.running && gameState.solved) {
         stopGame();
+        addHighscore();
+        showHighscores();
     }
 
     render();
@@ -266,3 +347,5 @@ window.requestAnimationFrame((time) => {
     checkGameState();
     window.requestAnimationFrame(loop);
 });
+  
+checkAlreadyPlaying();
