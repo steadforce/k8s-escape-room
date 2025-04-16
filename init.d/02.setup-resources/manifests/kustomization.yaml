@@ -15,6 +15,5 @@ configMapGenerator:
       - frontend/redcircle.png
       - frontend/white_noise.png
 
-# Specify the location of the files
 generatorOptions:
   disableNameSuffixHash: true

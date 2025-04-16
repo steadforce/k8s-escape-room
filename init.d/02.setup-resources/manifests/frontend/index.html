@@ -49,9 +49,23 @@
                 ><span>&#127881;</span>
             </h1>
             <h2>You finished the Kubernetes Escape Room Game</h2>
-            <p class="statistics">You took <em id="timeTaken"></em>. Great job!</p>
-            <button class="screenbutton" onclick="hideEndscreen()">
-                Go back <span>&emsp;</span><span>&#10140;</span>
+            <p class="comment">You took <em id="timeTaken"></em>. Great job!</p>
+            <h2>Highscores</h2>
+            <table class="highscoreTable" id="highscoreTable">
+                <thead>
+                    <tr>
+                        <th>Wizard</th>
+                        <th>Time needed</th>
+                    </tr>
+                </thead>
+                <tbody id="highscoreTableBody">
+                    <!-- Highscores will be populated here -->
+                </tbody>
+            </table>
+            <p class="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>
+            <br />
+            <button class="screenbutton" onclick="finish()">
+                New Game <span>&emsp;</span><span>&#10140;</span>
             </button>
         </div>
         <div class="screen" id="startscreen">
@@ -71,6 +85,16 @@
                 </i>
             </p>
             <h2>Good luck, have fun</h2>
+            <input
+                type="text"
+                class="nameInput"
+                id="nameInput"
+                name="nameInput"
+                required
+                autofocus
+                placeholder="Your wizard name"
+                onkeydown="if(event.key === 'Enter') startGame();"
+            >
             <button class="screenbutton" onclick="startGame()">
                 Start <span>&emsp;</span><span>&#10140;</span>
             </button>
