@@ -160,10 +160,6 @@ async function checkGameState() {
             .map((puzzle) => puzzle.solved)
             .reduce((l, r) => l && r, true);
     });
-
-    if (gameState.puzzles.cat.solved) {
-        gameState.solved = true;
-    }
 }
 
 function renderCat() {
