@@ -160,6 +160,10 @@ async function checkGameState() {
             .map((puzzle) => puzzle.solved)
             .reduce((l, r) => l && r, true);
     });
+
+    if (gameState.puzzles.cat.solved) {
+        gameState.solved = true;
+    }
 }
 
 function renderCat() {
@@ -273,7 +277,7 @@ function checkAlreadyPlaying() {
     if (gameStateString) {
         const oldGameState = JSON.parse(gameStateString);
         Object.assign(gameState, oldGameState);
-        Object.setPrototypeOf(oldGameState.timer, Timer.prototype);
+        Object.setPrototypeOf(gameState.timer, Timer.prototype);
         document.getElementById("nameInput").value = gameState.name;
         startGame();
     }
@@ -307,9 +311,14 @@ function addHighscore() {
     }
 }
 
+function timeToSeconds(timeString) {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
 function showHighscores() {
     let highscores = getHighscores();
-    highscores.sort((a, b) => a.score.localeCompare(b.score));
+    highscores.sort((a, b) => timeToSeconds(a.score) - timeToSeconds(b.score));
     highscores = highscores.length > 5 ? highscores.slice(0, 5) : highscores;
     const tableBody = document.getElementById("highscoreTableBody");
     highscores.forEach(rowData => {
