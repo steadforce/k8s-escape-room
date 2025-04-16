@@ -56,12 +56,14 @@ function hideEndscreen() {
 }
 
 function finish() {
-    if(isNewGame()) {
-        localStorage.removeItem("activeGame");
-        location.reload();
-    } else {
-        flashResetInstruction();
-    }
+    isNewGame().then(isNew => {
+        if(isNew) {
+            localStorage.removeItem("activeGame");
+            location.reload();
+        } else {
+            flashResetInstruction();
+        }
+    });
 }
 
 function flashResetInstruction() {
@@ -77,12 +79,11 @@ function showEndscreen() {
     document.getElementById("endscreen").style.display = "inline";
 }
 
-function isNewGame() {
-    checkGameState().then(() => {
-        return Object.values(gameState.puzzles)
-            .map((puzzle) => puzzle.solved)
-            .every((solved) => solved === false);
-    });
+async function isNewGame() {
+    await checkGameState();
+    return Object.values(gameState.puzzles)
+        .map((puzzle) => puzzle.solved)
+        .every((solved) => solved === false);
 }
 
 function saveGameState() {
@@ -297,15 +298,18 @@ function saveHighscores(highscores) {
 }
 
 function addHighscore() {
-    const entry = [gameState.name, gameState.timer.getTime()];
+    const entry = { name: gameState.name, score: gameState.timer.getTime() };
     const highscores = getHighscores();
-    highscores.push(entry);
-    saveHighscores(highscores);
+    const duplicate = highscores.find(item => item.name === entry.name && item.score === entry.score);
+    if (!duplicate) {
+        highscores.push(entry);
+        saveHighscores(highscores);
+    }
 }
 
 function showHighscores() {
     let highscores = getHighscores();
-    highscores.sort((a, b) => a[1].localeCompare(b[1]));
+    highscores.sort((a, b) => a.score.localeCompare(b.score));
     highscores = highscores.length > 5 ? highscores.slice(0, 5) : highscores;
     const tableBody = document.getElementById("highscoreTableBody");
     highscores.forEach(rowData => {
@@ -343,9 +347,9 @@ const loop = async function (time) {
 window.requestAnimationFrame((time) => {
     prevTime = time;
 
+    checkAlreadyPlaying();
     loadAddons();
     checkGameState();
     window.requestAnimationFrame(loop);
 });
   
-checkAlreadyPlaying();
