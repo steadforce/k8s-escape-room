@@ -53,5 +53,6 @@ docker run --rm \
     --pid host \
     --name escape_room_workbench-$CURRENT_TIME \
     -v $HOME:$HOME$VOLUME_OPTIONS \
+    -v $DIR:$DIR$VOLUME_OPTIONS \
     -it $CONTAINER_HASH \
      $SUDO sh -c "cd $DIR; HOME=$HOME $K8S_CONFIG $CMD"
