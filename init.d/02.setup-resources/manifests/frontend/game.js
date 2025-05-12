@@ -133,7 +133,8 @@ async function checkOrbState() {
 
 async function checkPhotoState() {
     const photoNumber = Math.floor(Math.random() * 10);
-    await fetch(`/photoframe/photo${photoNumber}.png`).then((response) => {
+    const photoUrl = `/photoframe/photo${photoNumber}.png`;
+    await fetch(photoUrl).then((response) => {
         if (response.ok) {
             gameState.puzzles.photo.solved = true;
             gameState.puzzles.photo.url = photoUrl;
