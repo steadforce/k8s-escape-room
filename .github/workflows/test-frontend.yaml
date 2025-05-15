@@ -3,12 +3,12 @@ name: Test escape room frontend
 on:
   push:
     branches:
-    - "**"
+      - "**"
     tags:
-    - "v*.*.*"
+      - "v*.*.*"
   pull_request:
     branches:
-    - "main"
+      - "main"
 
 jobs:
   frontend-test:
@@ -21,13 +21,13 @@ jobs:
         working-directory: ./init.d/02.frontend/escape-room-frontend
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Test frontend
-      run: |
-        yarn ci
+      - name: Test frontend
+        run: |
+          yarn && yarn ci
 
-    - name: Test frontend docker build
-      run: |
-        docker build -t test .
+      - name: Test frontend docker build
+        run: |
+          docker build -t test .
