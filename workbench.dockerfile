@@ -11,7 +11,7 @@ ENV HELM_VERSION=v3.14.0
 # https://github.com/bitnami-labs/sealed-secrets/releases
 ENV KUBESEAL_VERSION=v0.25.0
 # https://github.com/kubernetes-sigs/kind/releases
-ENV KIND_VERSION=v0.21.0
+ENV KIND_VERSION=v0.27.0
 
 # https://github.com/docker/buildx/releases
 # renovate: datasource=github-releases depName=docker/buildx
