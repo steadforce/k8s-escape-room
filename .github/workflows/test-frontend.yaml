@@ -16,11 +16,18 @@ jobs:
     permissions:
       contents: read
       packages: write
+    defaults:
+      run:
+        working-directory: ./init.d/02.frontend/escape-room-frontend
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
     - name: Test frontend
       run: |
-        yarn --cwd init.d/02.frontend/escape-room-frontend ci
+        yarn ci
+
     - name: Test frontend docker build
       run: |
-        docker build -t test "$PWD/init.d/02.frontend/escape-room-frontend"
+        docker build -t test .
