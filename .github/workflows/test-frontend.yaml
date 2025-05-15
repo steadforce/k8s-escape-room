@@ -1,0 +1,26 @@
+name: Test escape room frontend
+
+on:
+  push:
+    branches:
+    - "**"
+    tags:
+    - "v*.*.*"
+  pull_request:
+    branches:
+    - "main"
+
+jobs:
+  frontend-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Test frontend
+      run: |
+        yarn --cwd init.d/02.frontend/escape-room-frontend ci
+    - name: Test frontend docker build
+      run: |
+        docker build -t test "$PWD/init.d/02.frontend/escape-room-frontend"
