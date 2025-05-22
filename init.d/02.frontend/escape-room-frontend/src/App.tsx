@@ -1,4 +1,3 @@
-import background from '/background.jpg'
 import banner from '/banner.png'
 import './App.css'
 
@@ -6,45 +5,41 @@ function App() {
 
   return (
     <>
-      <img src={background} className="background" alt="Background" />
-      <img src={banner} className="banner" alt="Banner" />
-      <div className="room">
+        <div className="room">
             <h1>Kubernetes Escape Room Game</h1>
-            <img id="banner" className="banner" src="/game/banner.png" />
+            <img src={banner} className="banner" alt="Banner" />
             <div id="catContainer" className="catContainer">
                 <img id="cat" className="cat" />
             </div>
             <div className="orb">
-                <img id="orb" src="/game/orb.png" />
+                <img id="orb" src="/orb.png" />
                 <img id="orbWisdom" className="orbWisdom" />
             </div>
             <img
                 id="orbHint"
                 className="orbHint"
-                src="/game/redcircle.png"
-                hidden
+                src="/redcircle.png"
                 title="The magic orb does not work!"
             />
             <img id="photoFrame" className="photoFrame" />
             <img
                 id="photoHint"
                 className="photoHint"
-                src="/game/redcircle.png"
-                hidden
+                src="/redcircle.png"
                 title="The magic frame can't find any photos!"
             />
             <img id="tome" className="tome" />
             <img
                 id="tomeHint"
                 className="tomeHint"
-                src="/game/redcircle.png"
-                hidden
+                src="/redcircle.png"
                 title="The key to open the tome seems to be missing."
             />
             <div id="addons" className="addons"></div>
         </div>
         <div className="progress" id="progress"></div>
         <div className="timer" id="timer"></div>
+      {/* From here its start and endscreen
         <div className="screen" id="endscreen">
             <h1>
                 Congratulations <span>&#127881;</span><span>&#127881;</span
@@ -87,6 +82,7 @@ function App() {
             </p>
             <h2>Good luck, have fun</h2>
         </div>
+        */}
     </>
   )
 }
