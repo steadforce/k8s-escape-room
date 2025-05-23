@@ -39,8 +39,3 @@ jobs:
     - name: Simple docker run test
       run: |
         docker run --rm ${{ env.IMAGE_NAME }}:test
-
-  frontend-test:
-    - name: Test frontend
-      run: |
-        yarn --cwd init.d/02.frontend/escape-room-frontend ci
