@@ -1,4 +1,5 @@
 import banner from '/banner.png'
+import { Link } from 'react-router-dom'
 import './Startscreen.css'
 
 function Startscreen() {
@@ -22,9 +23,9 @@ function Startscreen() {
                     </i>
                 </p>
                 <h2>Good luck, have fun</h2>
-                <button className="screenbutton">
+                <Link className="screenbutton" to="/">
                     Start <span>&emsp;</span><span>&#10140;</span>
-                </button>
+                </Link>
             </div>
         </>
     )

@@ -62,31 +62,6 @@ h2 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.screen::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url("/game/background.jpg");
-  transform: scale(1.01);
-  filter: blur(10px);
-  z-index: -1;
-}
-
-
 .intro {
   color: white;
   font-size: 25px;

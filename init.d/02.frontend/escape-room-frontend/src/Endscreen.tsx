@@ -1,5 +1,6 @@
 import './Endscreen.css'
 import banner from '/banner.png'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 function Endscreen() {
@@ -32,9 +33,9 @@ function Endscreen() {
                 </table>
                 <p className="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>
                 <br />
-                <button className="screenbutton">
+                <Link className="screenbutton" to="/">
                     New Game <span>&emsp;</span><span>&#10140;</span>
-                </button>
+                </Link>
             </div>
         </>
     )
