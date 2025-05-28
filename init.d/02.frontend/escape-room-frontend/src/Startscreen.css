@@ -1,0 +1,39 @@
+.screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.screen::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/background.jpg");
+  transform: scale(1.01);
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.screenbutton {
+  font-size: larger;
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 20px;
+  margin: 20px 60px;
+  padding: 20px 60px;
+}
+
+.screenbutton:hover {
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}

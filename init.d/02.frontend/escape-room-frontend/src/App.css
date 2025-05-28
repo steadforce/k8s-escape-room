@@ -86,21 +86,6 @@ h2 {
   z-index: -1;
 }
 
-.screenbutton {
-  font-size: larger;
-  color: white;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 20px;
-  margin: 20px 60px;
-  padding: 20px 60px;
-}
-
-.screenbutton:hover {
-  color: black;
-  background-color: white;
-  cursor: pointer;
-}
 
 .intro {
   color: white;

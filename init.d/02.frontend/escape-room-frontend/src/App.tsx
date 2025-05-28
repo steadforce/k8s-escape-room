@@ -1,46 +1,20 @@
-import banner from '/banner.png'
+import { Routes, Route } from 'react-router-dom'
+import Room from './Room'
+import Startscreen from './Startscreen'
+import Endscreen from './Endscreen'
 import './App.css'
 
 function App() {
 
-  return (
-    <>
-        <div className="room">
-            <h1>Kubernetes Escape Room Game</h1>
-            <img src={banner} className="banner" alt="Banner" />
-            <div id="catContainer" className="catContainer">
-                <img id="cat" className="cat" />
-            </div>
-            <div className="orb">
-                <img id="orb" src="/orb.png" />
-                <img id="orbWisdom" className="orbWisdom" />
-            </div>
-            <img
-                id="orbHint"
-                className="orbHint"
-                src="/redcircle.png"
-                title="The magic orb does not work!"
-            />
-            <img id="photoFrame" className="photoFrame" />
-            <img
-                id="photoHint"
-                className="photoHint"
-                src="/redcircle.png"
-                title="The magic frame can't find any photos!"
-            />
-            <img id="tome" className="tome" />
-            <img
-                id="tomeHint"
-                className="tomeHint"
-                src="/redcircle.png"
-                title="The key to open the tome seems to be missing."
-            />
-            <div id="addons" className="addons"></div>
-        </div>
-        <div className="progress" id="progress"></div>
-        <div className="timer" id="timer"></div>
-    </>
-  )
+    return (
+        <>
+            <Routes>
+                <Route path='/' element={<Room/>} />
+                <Route path='/start' element={<Startscreen/>} />
+                <Route path='/end' element={<Endscreen/>} />
+            </Routes>
+        </>
+    )
 }
 
 export default App
