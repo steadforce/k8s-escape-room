@@ -18,7 +18,7 @@ ENV KIND_VERSION=v0.27.0
 ENV BUILDX_VERSION=v0.24.0
 # https://docs.docker.com/engine/release-notes
 # renovate: datasource=docker depName=docker.io/docker versioning=docker
-ENV DOCKER_VERSION=28.2.1
+ENV DOCKER_VERSION=28.2.2
 # https://github.com/derailed/k9s/releases
 # renovate: datasource=github-releases depName=derailed/k9s
 ENV K9S_VERSION=v0.50.6
