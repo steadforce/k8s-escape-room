@@ -1,3 +1,4 @@
+import GameStatus from '../components/GameStatus'
 import banner from '/banner.png'
 
 function Room() {
@@ -36,8 +37,7 @@ function Room() {
                 />
                 <div id="addons" className="addons"></div>
             </div>
-            <div className="progress" id="progress"></div>
-            <div className="timer" id="timer"></div>
+            <GameStatus />
         </>
     )
 }
