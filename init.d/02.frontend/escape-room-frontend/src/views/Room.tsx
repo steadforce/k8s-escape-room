@@ -9,7 +9,7 @@ function Room() {
                 <h1>Kubernetes Escape Room Game</h1>
                 <img src={banner} className="banner" alt="Banner" />
                 <div id="catContainer" className="catContainer">
-                    <img id="cat" className="cat" src="http://localhost:5173/redcircle.png"/>
+                    <img id="cat" className="cat" src="/redcircle.png"/>
                 </div>
                 <div className="orb">
                     <img id="orb" src="/orb.png" />
