@@ -1,0 +1,10 @@
+.timer {
+  position: fixed;
+  left: 0;
+  bottom: 40px;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  backdrop-filter: blur(10px);
+  border-top-right-radius: 1rem;
+}
