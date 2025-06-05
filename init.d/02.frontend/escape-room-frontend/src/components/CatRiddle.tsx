@@ -10,9 +10,13 @@ function CatRiddle() {
             })
         }
 
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             checkCatState()
         }, 2000)
+
+        return () => {
+            clearInterval(intervalId)
+        }
     }, [])
 
     return (
