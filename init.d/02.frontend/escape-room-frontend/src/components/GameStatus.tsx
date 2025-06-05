@@ -57,11 +57,12 @@ function GameStatus() {
     }
 
     useEffect(() => {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             checkState()
             const elapsed = new Date(new Date().getTime() - startTime.getTime()).toISOString().substring(11, 19)
             setTimer(elapsed)
         }, 1000)
+        return () => clearInterval(intervalId)
     }, [])
 
     useEffect(() => {
