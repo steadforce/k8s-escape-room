@@ -5,7 +5,7 @@ import './GameStatus.css'
 function GameStatus() {
     const startTime = useContext(GameContext)
     const [timer, setTimer] = useState("")
-    const [progress, setProgress] = useState("✅ ✅ ✅ ❌")
+    const [progress, _setProgress] = useState("✅ ✅ ✅ ❌")
 
     useEffect(() => {
         setInterval(() => {

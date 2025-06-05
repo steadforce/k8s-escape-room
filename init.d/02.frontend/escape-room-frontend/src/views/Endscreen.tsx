@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 function Endscreen() {
-    const [highscores, setHighscores] = useState([
+    const [_highscores, _setHighscores] = useState([
         {
             "score": 10,
             "name": "Test"

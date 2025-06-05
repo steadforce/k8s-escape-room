@@ -1,8 +1,24 @@
+import { useEffect, useState } from "react"
+
 function CatRiddle() {
+    const [solved, setSolved] = useState(false)
+
+    useEffect(() => {
+        const checkCatState = async () => {
+            await fetch("/cat").then(r => {
+                setSolved(r.ok)
+            })
+        }
+
+        setInterval(() => {
+            checkCatState()
+        }, 2000)
+    }, [])
+
     return (
         <>
             <div id="catContainer" className="catContainer">
-                <img id="cat" className="cat" src="/redcircle.png"/>
+                <img id="cat" className="cat" src={solved ? "/cat.png" : "/redcircle.png"}/>
             </div>
         </>
     )
