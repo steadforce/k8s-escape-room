@@ -5,7 +5,28 @@ import './GameStatus.css'
 function GameStatus() {
     const startTime = useContext(GameContext)
     const [timer, setTimer] = useState("")
-    const [progress, _setProgress] = useState("✅ ✅ ✅ ❌")
+    const [gameState, setGameState] = useState({
+        running: false,
+        solved: false,
+        name: "",
+        puzzles: {
+            cat: {
+                solved: false,
+                replicas: 0,
+            },
+            orb: {
+                solved: false,
+            },
+            photo: {
+                solved: false,
+                url: "",
+            },
+            tome: {
+                solved: false,
+            }
+        },
+    })
+    const [progress, setProgress] = useState("✅ ✅ ✅ ❌")
 
     useEffect(() => {
         setInterval(() => {
@@ -13,6 +34,16 @@ function GameStatus() {
             setTimer(elapsed)
         }, 1000)
     }, [])
+
+    useEffect(() => {
+        const solvedMark = "✅";
+        const unsolvedMark = "❌";
+
+        const newProgress = Object.values(gameState.puzzles)
+            .map((check) => (check.solved ? solvedMark : unsolvedMark))
+            .join(" ");
+        setProgress(newProgress)
+    }, [gameState])
 
     return (
         <>

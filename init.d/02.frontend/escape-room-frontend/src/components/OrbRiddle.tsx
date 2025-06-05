@@ -4,14 +4,14 @@ function OrbRiddle() {
     const [solved, setSolved] = useState(false)
 
     useEffect(() => {
-        const checkCatState = async () => {
+        const checkOrbState = async () => {
             await fetch("/orb").then(r => {
                 setSolved(r.ok)
             })
         }
 
         setInterval(async () => {
-            await checkCatState()
+            await checkOrbState()
         }, 2000)
     }, [])
     return (
