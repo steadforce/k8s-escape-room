@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../main"
 import './GameStatus.css'
+import { useNavigate } from "react-router-dom"
 
 function GameStatus() {
+    const navigate = useNavigate()
     const startTime = useContext(GameContext)
     const [timer, setTimer] = useState("")
     const [gameState, setGameState] = useState({
@@ -69,10 +71,18 @@ function GameStatus() {
         const solvedMark = "✅";
         const unsolvedMark = "❌";
 
-        const newProgress = Object.values(gameState.puzzles)
-            .map((check) => (check.solved ? solvedMark : unsolvedMark))
+        let solved = Object.values(gameState.puzzles)
+            .map(check => check.solved);
+
+        const newProgress = solved.map(s => s ? solvedMark : unsolvedMark)
             .join(" ");
         setProgress(newProgress)
+
+        solved = [true, true, true, true]
+        if (solved.every(s => s)) {
+            navigate("/end")
+        }
+
     }, [gameState])
 
     return (

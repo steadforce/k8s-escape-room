@@ -1,9 +1,11 @@
 import './Endscreen.css'
 import banner from '/banner.png'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { GameContext } from '../main'
 
 function Endscreen() {
+    const startTime = useContext(GameContext)
     const [_highscores, _setHighscores] = useState([
         {
             "score": 10,
