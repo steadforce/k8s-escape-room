@@ -1,20 +1,22 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 type GameStateContextType = {
-    f: () => void;
+    timeElapsed: () => string;
 };
 
 const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
 
 export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const f = () => {
-        console.log("f");
+    const [date, setDate] = useState<Date>(new Date());
+
+    const timeElapsed = () => {
+        return new Date(new Date().getTime() - date.getTime()).toISOString().substring(11, 19);
     };
 
     const contextValue = useMemo(
         () => ({
-            f,
-        }), []
+            timeElapsed,
+        }), [date]
     );
 
     return <GameStateContext.Provider value={contextValue}>{children}</GameStateContext.Provider>;

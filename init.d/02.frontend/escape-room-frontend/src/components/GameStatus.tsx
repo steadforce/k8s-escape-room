@@ -28,7 +28,7 @@ function GameStatus() {
             }
         },
     })
-    const [progress, setProgress] = useState("✅ ✅ ✅ ❌")
+    const [progress, setProgress] = useState("❌ ❌ ❌ ❌")
 
     const checkState = async () => {
         const catState = await fetch("/cat").then(r => {return r.ok})
