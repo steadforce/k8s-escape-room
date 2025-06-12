@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import redcircle from "../assets/redcircle.png";
 
 function PhotoFrameRiddle() {
     const [solved, setSolved] = useState(false)
@@ -24,7 +25,7 @@ function PhotoFrameRiddle() {
             <img
                 id="photoHint"
                 className="photoHint"
-                src="/redcircle.png"
+                src={redcircle}
                 title="The magic frame can't find any photos!"
                 hidden={solved}
             />

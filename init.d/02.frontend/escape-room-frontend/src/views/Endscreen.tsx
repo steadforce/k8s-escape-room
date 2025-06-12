@@ -1,5 +1,5 @@
 import './Endscreen.css'
-import banner from '/banner.png'
+import banner from '../assets/banner.png'
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 

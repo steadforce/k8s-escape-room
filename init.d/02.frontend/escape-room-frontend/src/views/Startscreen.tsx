@@ -1,5 +1,5 @@
-import banner from '/banner.png'
 import { Link } from 'react-router-dom'
+import banner from '../assets/banner.png'
 import './Startscreen.css'
 
 function Startscreen() {

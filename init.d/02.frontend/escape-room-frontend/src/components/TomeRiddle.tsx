@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+import redcircle from "../assets/redcircle.png";
+import opentome from "../assets/openedtome.png";
+import closedtome from "../assets/closedtome.png";
 
 function TomeRiddle() {
     const [solved, setSolved] = useState(false)
@@ -16,11 +19,11 @@ function TomeRiddle() {
     }, [])
     return (
         <>
-            <img id="tome" className="tome" src={solved ? "/openedtome.png" : "/closedtome.png"}/>
+            <img id="tome" className="tome" src={solved ? opentome : closedtome}/>
             <img
                 id="tomeHint"
                 className="tomeHint"
-                src="/redcircle.png"
+                src={redcircle}
                 title="The key to open the tome seems to be missing."
                 hidden={solved}
             />

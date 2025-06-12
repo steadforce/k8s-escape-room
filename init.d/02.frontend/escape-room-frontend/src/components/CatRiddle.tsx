@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import cat from "../assets/cat.png";
+import redcircle from "../assets/redcircle.png";
 
 function CatRiddle() {
     const [solved, setSolved] = useState(false)
@@ -22,7 +24,7 @@ function CatRiddle() {
     return (
         <>
             <div id="catContainer" className="catContainer">
-                <img id="cat" className="cat" src={solved ? "/cat.png" : "/redcircle.png"}/>
+                <img id="cat" className="cat" src={solved ? cat : redcircle}/>
             </div>
         </>
     )

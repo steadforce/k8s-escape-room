@@ -3,7 +3,7 @@ import GameStatus from '../components/GameStatus'
 import OrbRiddle from '../components/OrbRiddle'
 import PhotoFrameRiddle from '../components/PhotoFrameRiddle'
 import TomeRiddle from '../components/TomeRiddle'
-import banner from '/banner.png'
+import banner from '../assets/banner.png'
 
 function Room() {
 
