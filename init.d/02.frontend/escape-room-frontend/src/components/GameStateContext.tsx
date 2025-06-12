@@ -42,12 +42,12 @@ const initialPuzzles = () => {
 }
 
 const checkState = () => {
-    const catState = fetch("/cat").then(r => {return r.ok});
-    const orbState = fetch("/orb").then(r => {return r.ok});
-    const tomeState = fetch("/tome").then(r => {return r.ok});
-    const photoFrameState = fetch("/photoframe/photo0.png").then(r => {return r.ok});
+    const catState = fetch("/cat");
+    const orbState = fetch("/orb");
+    const tomeState = fetch("/tome");
+    const photoFrameState = fetch("/photoframe/photo0.png");
 
-    return Promise.all([catState, orbState, tomeState, photoFrameState]);
+    return Promise.all([catState, orbState, tomeState, photoFrameState]).then(f => f.map(r => r.ok));
 }
 
 const GameStateContext = createContext<GameStateContextType | undefined>(undefined);

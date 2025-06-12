@@ -9,17 +9,7 @@ function GameStatus() {
     const [progress, setProgress] = useState("❌ ❌ ❌ ❌")
 
     const checkState = async () => {
-        const catState = await fetch("/cat").then(r => {return r.ok})
-        const orbState = await fetch("/orb").then(r => {return r.ok})
-        const tomeState = await fetch("/tome").then(r => {return r.ok})
-        const photoFrameState = await fetch("/photoframe/photo0.png").then(r => {return r.ok})
     }
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-        }, 1000)
-        return () => clearInterval(intervalId)
-    }, [])
 
     useEffect(() => {
         const solvedMark = "✅";
