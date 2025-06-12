@@ -1,15 +1,12 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import './GameStatus.css'
-import { useNavigate } from "react-router-dom"
+//import { useNavigate } from "react-router-dom"
 import { useGameStateContext } from "./GameStateContext"
 
 function GameStatus() {
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     const gameState = useGameStateContext();
     const [progress, setProgress] = useState("❌ ❌ ❌ ❌")
-
-    const checkState = async () => {
-    }
 
     useEffect(() => {
         const solvedMark = "✅";

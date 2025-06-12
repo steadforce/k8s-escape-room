@@ -41,20 +41,12 @@ const initialPuzzles = () => {
     }
 }
 
-const checkState = () => {
-    const catState = fetch("/cat");
-    const orbState = fetch("/orb");
-    const tomeState = fetch("/tome");
-    const photoFrameState = fetch("/photoframe/photo0.png");
-
-    return Promise.all([catState, orbState, tomeState, photoFrameState]).then(f => f.map(r => r.ok));
-}
 
 const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
 
 export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [tick, setTick] = useState<number>(0);
-    const [date, setDate] = useState<Date>(new Date());
+    const [date, _setDate] = useState<Date>(new Date());
     const [puzzles, setPuzzles] = useState<PuzzlesType>(initialPuzzles());
 
     const timeElapsed = () => {
@@ -65,6 +57,34 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         return Object.values(puzzles)
             .map(check => check.solved);
     };
+
+    const checkState = () => {
+        const catPromise = fetch("/cat").then(r => r.ok);
+        const orbPromise = fetch("/orb").then(r => r.ok);
+        const tomePromise = fetch("/tome").then(r => r.ok);
+        const photoFramePromise = fetch("/photoframe/photo0.png").then(r => r.ok);
+
+        Promise.all([catPromise, orbPromise, tomePromise, photoFramePromise])
+            .then(([catResult, orbResult, tomeResult, photoFrameResult]) => {
+                setPuzzles({
+                    cat: {
+                        solved: catResult,
+                        replicas: 0,
+                    },
+                    orb: {
+                        solved: orbResult,
+                    },
+                    photo: {
+                        solved: photoFrameResult,
+                        url: "",
+                    },
+                    tome: {
+                        solved: tomeResult,
+                    }
+                });
+            });
+
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -78,13 +98,18 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         () => ({
             timeElapsed,
             progress,
+            checkState,
         }), [date, tick]
     );
+
+    useEffect(() => {
+        checkState();
+    }, [tick]);
 
     return <GameStateContext.Provider value={contextValue}>{children}</GameStateContext.Provider>;
 }
 
-export const useGameStateContext = () => {
+export const useGameStateContext = (): GameStateContextType => {
     const context = useContext(GameStateContext);
     if (!context) {
         throw new Error("useGameStateContext must be used within a provider");

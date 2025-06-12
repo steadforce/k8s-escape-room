@@ -16,7 +16,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("/background.jpg");
+  background-image: url("../assets/background.jpg");
   transform: scale(1.01);
   filter: blur(10px);
   z-index: -1;

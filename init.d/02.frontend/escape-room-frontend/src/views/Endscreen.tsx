@@ -1,7 +1,7 @@
 import './Endscreen.css'
 import banner from '../assets/banner.png'
 import { Link } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 function Endscreen() {
     const [_highscores, _setHighscores] = useState([
