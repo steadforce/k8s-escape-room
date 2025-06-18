@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import banner from '../assets/banner.png'
 import './Startscreen.css'
+import { useGameStateContext } from '../components/GameStateContext'
 
 function Startscreen() {
+    const gameState = useGameStateContext();
+
     return (
         <>
             <div className="screen" id="startscreen">
@@ -23,7 +26,7 @@ function Startscreen() {
                     </i>
                 </p>
                 <h2>Good luck, have fun</h2>
-                <Link className="screenbutton" to="/">
+                <Link className="screenbutton" to="/" onClick={gameState.start}>
                     Start <span>&emsp;</span><span>&#10140;</span>
                 </Link>
             </div>

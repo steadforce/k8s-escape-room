@@ -1,8 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import useStorage from "../hooks/useStorage";
+import Startscreen from "../views/Startscreen";
 
 type GameStateContextType = {
     timeElapsed: () => string;
     progress: () => boolean[];
+    start: () => void;
 };
 
 type PuzzlesType = {
@@ -48,6 +51,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const [tick, setTick] = useState<number>(0);
     const [date, _setDate] = useState<Date>(new Date());
     const [puzzles, setPuzzles] = useState<PuzzlesType>(initialPuzzles());
+    const [started, setStarted, removeStarted] = useStorage('started', false);
 
     const timeElapsed = () => {
         return new Date(new Date().getTime() - date.getTime()).toISOString().substring(11, 19);
@@ -56,6 +60,10 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const progress = (): boolean[] => {
         return Object.values(puzzles)
             .map(check => check.solved);
+    };
+
+    const start = (): void => {
+        setStarted(true);
     };
 
     const checkState = () => {
@@ -83,7 +91,6 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
                     }
                 });
             });
-
     }
 
     useEffect(() => {
@@ -94,11 +101,15 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+    }, []);
+
     const contextValue = useMemo(
         () => ({
             timeElapsed,
             progress,
             checkState,
+            start,
         }), [date, tick]
     );
 
@@ -106,7 +117,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         checkState();
     }, [tick]);
 
-    return <GameStateContext.Provider value={contextValue}>{children}</GameStateContext.Provider>;
+    return <GameStateContext.Provider value={contextValue}>{started ? children : <Startscreen />}</GameStateContext.Provider>;
 }
 
 export const useGameStateContext = (): GameStateContextType => {
