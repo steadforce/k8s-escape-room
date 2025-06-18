@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom'
 import banner from '../assets/banner.png'
 import './Startscreen.css'
 import { useGameStateContext } from '../components/GameStateContext'
+import { useState } from 'react';
 
 function Startscreen() {
+    const [name, setName] = useState("");
     const gameState = useGameStateContext();
 
     return (
@@ -26,7 +28,18 @@ function Startscreen() {
                     </i>
                 </p>
                 <h2>Good luck, have fun</h2>
-                <Link className="screenbutton" to="/" onClick={gameState.start}>
+                <input
+                    type="text"
+                    className="nameInput"
+                    id="nameInput"
+                    name="nameInput"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    required
+                    autoFocus
+                    placeholder="Your wizard name"
+                />
+                <Link className="screenbutton" to="/" onClick={() => gameState.start(name)}>
                     Start <span>&emsp;</span><span>&#10140;</span>
                 </Link>
             </div>

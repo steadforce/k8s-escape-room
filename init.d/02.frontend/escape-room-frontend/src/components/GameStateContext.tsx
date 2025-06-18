@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import useStorage from "../hooks/useStorage";
 import Startscreen from "../views/Startscreen";
+import Endscreen from "../views/Endscreen";
 
 type GameStateContextType = {
     timeElapsed: () => string;
     progress: () => boolean[];
-    start: () => void;
+    start: (name: string) => void;
 };
 
 type PuzzlesType = {
@@ -52,6 +53,8 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const [date, _setDate] = useState<Date>(new Date());
     const [puzzles, setPuzzles] = useState<PuzzlesType>(initialPuzzles());
     const [started, setStarted, removeStarted] = useStorage('started', false);
+    const [finished, setFinished, removeFinished] = useStorage('finished', false);
+    const [name, setName, removeName] = useStorage('name', "");
 
     const timeElapsed = () => {
         return new Date(new Date().getTime() - date.getTime()).toISOString().substring(11, 19);
@@ -62,9 +65,15 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             .map(check => check.solved);
     };
 
-    const start = (): void => {
+    const start = (name: string): void => {
+        setName(name);
         setStarted(true);
     };
+
+    const checkFinished = (): void => {
+        //setFinished(progress().every(Boolean));
+        setFinished(puzzles.cat.solved);
+    }
 
     const checkState = () => {
         const catPromise = fetch("/cat").then(r => r.ok);
@@ -115,9 +124,10 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
 
     useEffect(() => {
         checkState();
+        checkFinished();
     }, [tick]);
 
-    return <GameStateContext.Provider value={contextValue}>{started ? children : <Startscreen />}</GameStateContext.Provider>;
+    return <GameStateContext.Provider value={contextValue}>{started ? finished ? <Endscreen /> : children : <Startscreen />}</GameStateContext.Provider>;
 }
 
 export const useGameStateContext = (): GameStateContextType => {
