@@ -1,15 +1,10 @@
 import './Endscreen.css'
 import banner from '../assets/banner.png'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useGameStateContext } from '../components/GameStateContext'
 
 function Endscreen() {
-    const [_highscores, _setHighscores] = useState([
-        {
-            "score": 10,
-            "name": "Test"
-        }
-    ])
+    const gameState = useGameStateContext();
     return (
         <>
             <div className="screen" id="endscreen">
@@ -29,6 +24,16 @@ function Endscreen() {
                         </tr>
                     </thead>
                     <tbody id="highscoreTableBody">
+                        {gameState.scores().map((score, index) => (
+                            <tr key={index}>
+                                <td>
+                                    {score.name}
+                                </td>
+                                <td>
+                                    {score.score}
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 <p className="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>

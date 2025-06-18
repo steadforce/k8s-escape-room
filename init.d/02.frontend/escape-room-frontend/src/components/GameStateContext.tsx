@@ -7,6 +7,7 @@ type GameStateContextType = {
     timeElapsed: () => string;
     progress: () => boolean[];
     start: (name: string) => void;
+    scores: () => {name: string, score: string}[];
 };
 
 type PuzzlesType = {
@@ -55,6 +56,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const [started, setStarted, removeStarted] = useStorage('started', false);
     const [finished, setFinished, removeFinished] = useStorage('finished', false);
     const [name, setName, removeName] = useStorage('name', "");
+    const [highscores, setHighscores, removeHighscores] = useStorage('highscores', []);
 
     const timeElapsed = () => {
         return new Date(new Date().getTime() - date.getTime()).toISOString().substring(11, 19);
@@ -71,8 +73,18 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     };
 
     const checkFinished = (): void => {
-        //setFinished(progress().every(Boolean));
-        setFinished(puzzles.cat.solved);
+        if (!finished && progress().every(Boolean)) {
+            const highscore = {
+                name: name,
+                score: timeElapsed(),
+            };
+            setHighscores([...highscores, highscore]);
+            setFinished(true);
+        }
+    }
+
+    const scores = () => {
+        return highscores;
     }
 
     const checkState = () => {
@@ -119,6 +131,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             progress,
             checkState,
             start,
+            scores,
         }), [date, tick]
     );
 
