@@ -38,7 +38,7 @@ function Endscreen() {
                 </table>
                 <p className="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>
                 <br />
-                <Link className="screenbutton" to="/">
+                <Link className="screenbutton" to="/" onClick={gameState.restart}>
                     New Game <span>&emsp;</span><span>&#10140;</span>
                 </Link>
             </div>

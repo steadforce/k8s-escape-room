@@ -7,6 +7,7 @@ type GameStateContextType = {
     timeElapsed: () => string;
     progress: () => boolean[];
     start: (name: string) => void;
+    restart: () => void;
     scores: () => {name: string, score: string}[];
 };
 
@@ -51,12 +52,12 @@ const GameStateContext = createContext<GameStateContextType | undefined>(undefin
 
 export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [tick, setTick] = useState<number>(0);
-    const [date, _setDate] = useState<Date>(new Date());
+    const [date, setDate] = useState<Date>(new Date());
     const [puzzles, setPuzzles] = useState<PuzzlesType>(initialPuzzles());
     const [started, setStarted, removeStarted] = useStorage('started', false);
     const [finished, setFinished, removeFinished] = useStorage('finished', false);
     const [name, setName, removeName] = useStorage('name', "");
-    const [highscores, setHighscores, removeHighscores] = useStorage('highscores', []);
+    const [highscores, setHighscores, _removeHighscores] = useStorage('highscores', []);
 
     const timeElapsed = () => {
         return new Date(new Date().getTime() - date.getTime()).toISOString().substring(11, 19);
@@ -69,8 +70,19 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
 
     const start = (name: string): void => {
         setName(name);
+        setDate(new Date());
         setStarted(true);
     };
+
+    const restart = () => {
+        if (!progress().every(Boolean)) {
+            removeName();
+            removeFinished();
+            removeStarted();
+        } else {
+            alert("Reset cluster state by running the init.sh script first.");
+        }
+    }
 
     const checkFinished = (): void => {
         if (!finished && progress().every(Boolean)) {
@@ -131,6 +143,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             progress,
             checkState,
             start,
+            restart,
             scores,
         }), [date, tick]
     );
