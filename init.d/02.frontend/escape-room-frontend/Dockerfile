@@ -7,7 +7,7 @@ RUN yarn install && yarn cache clean
 COPY . .
 RUN yarn build
 
-FROM nginx:1.28-alpine-slim
+FROM nginx:1.29-alpine-slim
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
