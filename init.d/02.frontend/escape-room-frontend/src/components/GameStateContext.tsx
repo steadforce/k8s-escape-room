@@ -53,15 +53,15 @@ const GameStateContext = createContext<GameStateContextType | undefined>(undefin
 
 export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [tick, setTick] = useState<number>(0);
-    const [date, setDate] = useState<Date>(new Date());
     const [puzzles, setPuzzles] = useState<PuzzlesType>(initialPuzzles());
+    const [date, setDate, removeDate] = useStorage('date', new Date());
     const [started, setStarted, removeStarted] = useStorage('started', false);
     const [finished, setFinished, removeFinished] = useStorage('finished', false);
     const [name, setName, removeName] = useStorage('name', "");
     const [highscores, setHighscores, _removeHighscores] = useStorage('highscores', []);
 
-    const timeElapsed = () => {
-        return new Date(new Date().getTime() - date.getTime()).toISOString().substring(11, 19);
+    const timeElapsed = (): string => {
+        return new Date(new Date().getTime() - new Date(date).getTime()).toISOString().substring(11, 19);
     };
 
     const progress = (): boolean[] => {
@@ -80,6 +80,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             removeName();
             removeFinished();
             removeStarted();
+            removeDate();
         } else {
             alert("Reset cluster state by running the init.sh script first.");
         }
