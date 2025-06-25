@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
 import cat from "../assets/cat.png";
 import redcircle from "../assets/redcircle.png";
+import { useGameStateContext } from "./GameStateContext";
 
 function CatRiddle() {
-    const [solved, setSolved] = useState(false)
-
-    useEffect(() => {
-        const checkCatState = async () => {
-            await fetch("/cat").then(r => {
-                setSolved(r.ok)
-            })
-        }
-
-        const intervalId = setInterval(() => {
-            checkCatState()
-        }, 2000)
-
-        return () => {
-            clearInterval(intervalId)
-        }
-    }, [])
+    const gameState = useGameStateContext();
 
     return (
         <>
             <div id="catContainer" className="catContainer">
-                <img id="cat" className="cat" src={solved ? cat : redcircle}/>
+                <img id="cat" className="cat" src={redcircle} hidden={gameState.puzzlesState().cat.solved} title="The cat is missing!"/>
+                {Array.from({ length: gameState.puzzlesState().cat.replicas }).map((_, idx) => (
+                    <img key={idx} id={`cat-${idx}`} className="cat" src={cat}/>
+                ))}
             </div>
         </>
     )

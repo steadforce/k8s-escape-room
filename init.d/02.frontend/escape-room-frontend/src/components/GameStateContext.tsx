@@ -9,6 +9,7 @@ type GameStateContextType = {
     start: (name: string) => void;
     restart: () => void;
     scores: () => {name: string, score: string}[];
+    puzzlesState: () => PuzzlesType;
 };
 
 type PuzzlesType = {
@@ -99,18 +100,23 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         return highscores;
     }
 
+    const puzzlesState = (): PuzzlesType => {
+        return puzzles;
+    }
+
     const checkState = () => {
         const catPromise = fetch("/cat").then(r => r.ok);
+        const catCounterPromise = fetch("/cat-counter").then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n));
         const orbPromise = fetch("/orb").then(r => r.ok);
         const tomePromise = fetch("/tome").then(r => r.ok);
         const photoFramePromise = fetch("/photoframe/photo0.png").then(r => r.ok);
 
-        Promise.all([catPromise, orbPromise, tomePromise, photoFramePromise])
-            .then(([catResult, orbResult, tomeResult, photoFrameResult]) => {
+        Promise.all([catPromise, catCounterPromise, orbPromise, tomePromise, photoFramePromise])
+            .then(([catResult, catCounter, orbResult, tomeResult, photoFrameResult]) => {
                 setPuzzles({
                     cat: {
                         solved: catResult,
-                        replicas: 0,
+                        replicas: catCounter,
                     },
                     orb: {
                         solved: orbResult,
@@ -145,6 +151,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             start,
             restart,
             scores,
+            puzzlesState
         }), [date, tick]
     );
 
