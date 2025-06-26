@@ -14,7 +14,7 @@ function Endscreen() {
                     ><span>&#127881;</span>
                 </h1>
                 <h2>You finished the Kubernetes Escape Room Game</h2>
-                <p className="comment">You took <em id="timeTaken"></em>. Great job!</p>
+                <p className="comment">You took <em id="timeTaken">{gameState.timeElapsed()}</em>. Great job!</p>
                 <h2>Highscores</h2>
                 <table className="highscoreTable" id="highscoreTable">
                     <thead>
@@ -36,7 +36,7 @@ function Endscreen() {
                         ))}
                     </tbody>
                 </table>
-                <p className="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>
+                <p className="comment" id="resetInstruction">Reset the game by first running the <em>./remove-resources.sh</em> and then the <em>. init.sh</em> script before starting a new game.</p>
                 <br />
                 <Link className="screenbutton" to="/" onClick={gameState.restart}>
                     New Game <span>&emsp;</span><span>&#10140;</span>
