@@ -8,7 +8,7 @@ type GameStateContextType = {
     progress: () => boolean[];
     start: (name: string) => void;
     restart: () => void;
-    scores: () => {name: string, score: string}[];
+    scores: () => Highscore[];
     puzzlesState: () => PuzzlesType;
 };
 
@@ -27,6 +27,11 @@ type PuzzlesType = {
     tome: {
         solved: boolean
     }
+};
+
+type Highscore = {
+    name: string,
+    score: string
 };
 
 const initialPuzzles = () => {
@@ -92,11 +97,11 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
 
     const checkFinished = (): void => {
         if (!finished && progress().every(Boolean)) {
-            const highscore = {
+            const highscore: Highscore = {
                 name: name,
                 score: timeElapsed(),
             };
-            setHighscores([...highscores, highscore]);
+            setHighscores([highscore, ...highscores]);
             setFinished(true);
         }
     }

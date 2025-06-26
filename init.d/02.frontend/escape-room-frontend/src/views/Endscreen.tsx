@@ -5,6 +5,14 @@ import { useGameStateContext } from '../components/GameStateContext'
 
 function Endscreen() {
     const gameState = useGameStateContext();
+
+    const timeTaken = () => {
+        if (gameState && gameState.scores().length > 0) {
+            return gameState.scores()[0].score;
+        }
+        return "";
+    }
+
     return (
         <>
             <div className="screen" id="endscreen">
@@ -14,7 +22,7 @@ function Endscreen() {
                     ><span>&#127881;</span>
                 </h1>
                 <h2>You finished the Kubernetes Escape Room Game</h2>
-                <p className="comment">You took <em id="timeTaken">{gameState.timeElapsed()}</em>. Great job!</p>
+                <p className="comment">You took <em id="timeTaken">{timeTaken()}</em>. Great job!</p>
                 <h2>Highscores</h2>
                 <table className="highscoreTable" id="highscoreTable">
                     <thead>
@@ -24,7 +32,7 @@ function Endscreen() {
                         </tr>
                     </thead>
                     <tbody id="highscoreTableBody">
-                        {gameState.scores().map((score, index) => (
+                        {[...gameState.scores()].sort((a, b) => a.score.localeCompare(b.score)).map((score, index) => (
                             <tr key={index}>
                                 <td>
                                     {score.name}
