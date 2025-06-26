@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
 import './GameStatus.css'
-//import { useNavigate } from "react-router-dom"
 import { useGameStateContext } from "./GameStateContext"
 
 function GameStatus() {
-    //const navigate = useNavigate()
     const gameState = useGameStateContext();
     const [progress, setProgress] = useState("❌ ❌ ❌ ❌")
 
