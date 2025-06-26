@@ -75,14 +75,18 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         setStarted(true);
     };
 
+    const unsolved = (): boolean => {
+        return progress().every(b => b === false);
+    }
+
     const restart = () => {
-        if (!progress().every(Boolean)) {
+        if (unsolved()) {
             removeName();
             removeFinished();
             removeStarted();
             removeDate();
         } else {
-            alert("Reset cluster state by running the init.sh script first.");
+            alert("Reset cluster state by running the ./remove-resources.sh and the . init.sh script first.");
         }
     }
 
