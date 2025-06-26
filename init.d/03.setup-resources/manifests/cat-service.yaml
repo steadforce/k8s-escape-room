@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: cat-service
-spec:
-  selector:
-    app: cat
-  ports:
-  - port: 80

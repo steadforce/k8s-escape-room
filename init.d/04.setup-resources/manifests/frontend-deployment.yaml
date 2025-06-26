@@ -13,14 +13,9 @@ spec:
         app: frontend
     spec:
       containers:
-<<<<<<<< HEAD:init.d/04.setup-resources/manifests/frontend-deployment.yaml
       - name: escape-room-frontend
         image: escape-room-frontend
         imagePullPolicy: Never
-========
-      - name: nginx
-        image: nginx:1.29.0
->>>>>>>> main:init.d/03.setup-resources/manifests/frontend-deployment.yaml
         ports:
         - containerPort: 80
         resources:

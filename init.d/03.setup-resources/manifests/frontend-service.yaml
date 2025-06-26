@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: frontend-service
-spec:
-  selector:
-    app: frontend
-  ports:
-  - port: 80

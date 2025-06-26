@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: cat-counter-service
-spec:
-  selector:
-    app: cat-counter
-  ports:
-  - port: 80
