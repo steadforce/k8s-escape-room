@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
+import type { Highscore } from '../components/GameStateContext';
 
-function useStorage(key: string, initialValue: any) {
+function useStorage(key: string, initialValue: boolean | string | Date | Highscore[]) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
