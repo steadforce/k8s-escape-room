@@ -63,7 +63,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const [started, setStarted, removeStarted] = useStorage('started', false);
     const [finished, setFinished, removeFinished] = useStorage('finished', false);
     const [name, setName, removeName] = useStorage('name', "");
-    const [highscores, setHighscores, _] = useStorage('highscores', []);
+    const [highscores, setHighscores] = useStorage('highscores', []);
 
     const timeElapsed = (): string => {
         return new Date(new Date().getTime() - new Date(date).getTime()).toISOString().substring(11, 19);
