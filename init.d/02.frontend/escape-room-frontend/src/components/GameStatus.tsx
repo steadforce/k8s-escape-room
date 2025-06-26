@@ -15,11 +15,6 @@ function GameStatus() {
         const newProgress = gameState.progress().map(s => s ? solvedMark : unsolvedMark)
             .join(" ");
         setProgress(newProgress)
-
-        /*if (solved.every(s => s)) {
-            navigate("/end")
-        }*/
-
     }, [gameState])
 
     return (
