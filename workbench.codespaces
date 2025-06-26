@@ -35,6 +35,7 @@ CURRENT_TIME="$(date +%s000)"
 echo Start workbench container
 docker run --rm \
     --pull=never \
+    -e DOCKER_CONFIG="$DIR/.docker" \
     -e DOCKER_BUILDKIT=1 \
     -e http_proxy="$http_proxy" \
     -e https_proxy="$https_proxy" \

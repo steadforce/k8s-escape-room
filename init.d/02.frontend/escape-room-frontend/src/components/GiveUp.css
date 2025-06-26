@@ -1,0 +1,21 @@
+.giveup {
+  position: fixed;
+  left: calc(50% - 50px);
+  bottom: 0;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  background-color: transparent;
+  border-radius: 1rem 1rem 0 0;
+  border-color: rgba(255,255,255,0.4);
+  border-width: 1px 1px 0 1px;
+  backdrop-filter: blur(10px);
+}
+
+.giveup:hover {
+    border-color: white;
+}
+
+.giveup:active {
+  border-width: 1px 1px 0 1px;
+}

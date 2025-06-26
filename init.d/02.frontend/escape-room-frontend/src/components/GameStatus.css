@@ -1,0 +1,25 @@
+.timer {
+  position: fixed;
+  left: 0;
+  bottom: 50px;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  backdrop-filter: blur(10px);
+  border-radius: 0 1rem 1rem 0;
+  border-color: rgba(255,255,255,0.4);
+  border-width: 1px 1px 1px 0;
+}
+
+.progress {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  backdrop-filter: blur(10px);
+  border-radius: 0 1rem 1rem 0;
+  border-color: rgba(255,255,255,0.4);
+  border-width: 1px 1px 1px 0;
+}
