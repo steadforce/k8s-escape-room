@@ -150,9 +150,6 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-    }, []);
-
     const contextValue = useMemo(
         () => ({
             timeElapsed,
