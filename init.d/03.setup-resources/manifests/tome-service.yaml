@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tome-service
+spec:
+  selector:
+    app: tome
+  ports:
+  - port: 80

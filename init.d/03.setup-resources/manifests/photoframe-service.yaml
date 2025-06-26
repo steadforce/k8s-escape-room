@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: photoframe-service
+spec:
+  selector:
+    app: photoframe
+  ports:
+  - port: 80
