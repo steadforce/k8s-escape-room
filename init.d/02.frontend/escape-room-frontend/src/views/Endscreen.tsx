@@ -44,7 +44,7 @@ function Endscreen() {
                         ))}
                     </tbody>
                 </table>
-                <p className="comment" id="resetInstruction">Reset the game by first running the <em>./remove-resources.sh</em> and then the <em>. init.sh</em> script before starting a new game.</p>
+                <p className="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>
                 <br />
                 <Link className="screenbutton" to="/" onClick={gameState.restart}>
                     New Game <span>&emsp;</span><span>&#10140;</span>

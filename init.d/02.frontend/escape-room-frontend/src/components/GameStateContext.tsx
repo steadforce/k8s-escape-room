@@ -91,7 +91,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             removeStarted();
             removeDate();
         } else {
-            alert("Reset cluster state by running the ./remove-resources.sh and the . init.sh script first.");
+            alert("Reset cluster state by running the . init.sh script first.");
         }
     }
 
