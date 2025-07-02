@@ -116,7 +116,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
 
     const checkState = () => {
         const catPromise = fetch("/cat").then(r => r.ok);
-        const catCounterPromise = fetch("/cat-counter").then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(_ => 0);
+        const catCounterPromise = fetch("/cat-counter").then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(() => 0);
         const orbPromise = fetch("/orb").then(r => r.ok);
         const tomePromise = fetch("/tome").then(r => r.ok);
         const photoFramePromise = fetch("/photoframe/photo0.png").then(r => r.ok);
