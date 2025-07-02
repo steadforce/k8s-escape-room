@@ -21,6 +21,12 @@ jobs:
         working-directory: ./init.d/02.frontend/escape-room-frontend
 
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x' # or specify your preferred Node.js version
+          cache: 'yarn'
+
       - name: Upgrade Yarn
         run: npm install -g yarn
 
