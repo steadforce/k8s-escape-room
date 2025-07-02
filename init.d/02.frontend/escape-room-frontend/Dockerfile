@@ -4,8 +4,8 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN corepack enable && corepack prepare yarn@stable --activate
 
-COPY . .
 RUN yarn install && yarn cache clean
+COPY . .
 RUN yarn build
 
 FROM nginx:1.29-alpine-slim
