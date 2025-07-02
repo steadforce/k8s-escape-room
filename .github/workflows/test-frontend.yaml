@@ -21,6 +21,9 @@ jobs:
         working-directory: ./init.d/02.frontend/escape-room-frontend
 
     steps:
+      - name: Upgrade Yarn
+        run: npm install -g yarn
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
