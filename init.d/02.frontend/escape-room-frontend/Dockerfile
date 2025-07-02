@@ -6,7 +6,7 @@ COPY package.json yarn.lock ./
 
 RUN yarn install && yarn cache clean
 COPY . .
-RUN yarn build
+RUN yarn && yarn build
 
 FROM nginx:1.29-alpine-slim
 
