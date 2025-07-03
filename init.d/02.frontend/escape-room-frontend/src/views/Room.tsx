@@ -5,6 +5,7 @@ import PhotoFrameRiddle from '../components/PhotoFrameRiddle'
 import TomeRiddle from '../components/TomeRiddle'
 import banner from '../assets/banner.png'
 import GiveUp from '../components/GiveUp'
+import HighscoreTable from '../components/HighscoreTable'
 
 function Room() {
 
@@ -19,6 +20,7 @@ function Room() {
                 <TomeRiddle />
                 <div id="addons" className="addons"></div>
             </div>
+            <HighscoreTable />
             <GiveUp />
             <GameStatus />
         </>
