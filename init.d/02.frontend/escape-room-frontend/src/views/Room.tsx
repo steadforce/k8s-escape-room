@@ -6,6 +6,7 @@ import TomeRiddle from '../components/TomeRiddle'
 import banner from '../assets/banner.png'
 import GiveUp from '../components/GiveUp'
 import HighscoreTable from '../components/HighscoreTable'
+import './Room.css'
 
 function Room() {
 
