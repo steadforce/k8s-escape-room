@@ -1,5 +1,5 @@
-.highscoreTable {
+.highscore {
     position: absolute;
-    top: 50%;
-    left: 0;
+    bottom: 0;
+    left: 30%;
 }

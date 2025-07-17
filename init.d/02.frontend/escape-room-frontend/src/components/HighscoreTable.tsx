@@ -4,7 +4,7 @@ function HighscoreTable() {
     const gameState = useGameStateContext();
 
     return (
-        <>
+        <div className="highscore">
             <h2>Highscores</h2>
             <table className="highscoreTable" id="highscoreTable">
                 <thead>
@@ -26,7 +26,7 @@ function HighscoreTable() {
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 
