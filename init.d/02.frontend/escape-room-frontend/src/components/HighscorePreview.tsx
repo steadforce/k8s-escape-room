@@ -1,21 +1,21 @@
 import { useGameStateContext } from "./GameStateContext";
-import "./HighscoreTable.css";
+import "./HighscorePreview.css";
 
-function HighscoreTable() {
+function HighscorePreview() {
     const gameState = useGameStateContext();
 
     return (
-        <div className="highscore">
-            <h2>Highscores</h2>
-            <table className="highscoreTable" id="highscoreTable">
+        <div className="highscorePreview">
+            <h4>Highscores</h4>
+            <table className="highscore" id="highscore">
                 <thead>
                     <tr>
                         <th>Wizard</th>
                         <th>Time needed</th>
                     </tr>
                 </thead>
-                <tbody id="highscoreTableBody">
-                    {[...gameState.scores()].slice(0, 5).sort((a, b) => a.score.localeCompare(b.score)).map((score, index) => (
+                <tbody id="highscorePreviewBody">
+                    {[...gameState.scores()].slice(0, 3).sort((a, b) => a.score.localeCompare(b.score)).map((score, index) => (
                         <tr key={index}>
                             <td>
                                 {score.name}
@@ -31,4 +31,4 @@ function HighscoreTable() {
     )
 }
 
-export default HighscoreTable
+export default HighscorePreview

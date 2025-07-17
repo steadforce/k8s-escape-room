@@ -1,0 +1,32 @@
+h4 {
+  padding: 0;
+  margin: 0;
+}
+
+.highscorePreview {
+  width: 15rem;
+  position: absolute;
+  left: 0;
+  bottom: 150px;
+  font-size: 15px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.highscorePreview th {
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.highscorePreview td {
+  padding: 5px;
+  color: white;
+  border: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.highscorePreview tr:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
