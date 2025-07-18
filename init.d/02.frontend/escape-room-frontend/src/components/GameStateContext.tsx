@@ -31,7 +31,8 @@ type PuzzlesType = {
 
 export type Highscore = {
     name: string,
-    score: string
+    score: string,
+    current?: boolean // true if this is the current player
 };
 
 const initialPuzzles = () => {
@@ -107,7 +108,10 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     }
 
     const scores = () => {
-        return highscores;
+        return [
+            ...(!finished ? [{ name: name, score: timeElapsed(), current: true }] : []),
+            ...highscores
+        ];
     }
 
     const puzzlesState = (): PuzzlesType => {
@@ -115,11 +119,13 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     }
 
     const checkState = () => {
-        const catPromise = fetch("/cat").then(r => r.ok);
-        const catCounterPromise = fetch("/cat-counter").then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(e => {console.error(e); return 0;});
-        const orbPromise = fetch("/orb").then(r => r.ok);
-        const tomePromise = fetch("/tome").then(r => r.ok);
-        const photoFramePromise = fetch("/photoframe/photo0.png").then(r => r.ok);
+        const options: { cache: RequestCache | undefined } = { cache: "no-store" };
+
+        const catPromise = fetch("/cat", options).then(r => r.ok);
+        const catCounterPromise = fetch("/cat-counter", options).then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(e => {console.error(e); return 0;});
+        const orbPromise = fetch("/orb", options).then(r => r.ok);
+        const tomePromise = fetch("/tome", options).then(r => r.ok);
+        const photoFramePromise = fetch("/photoframe/photo0.png", options).then(r => r.ok);
 
         Promise.all([catPromise, catCounterPromise, orbPromise, tomePromise, photoFramePromise])
             .then(([catResult, catCounter, orbResult, tomeResult, photoFrameResult]) => {

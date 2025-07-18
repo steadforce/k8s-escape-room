@@ -35,7 +35,7 @@ a:hover {
 
 h1 {
   color: white;
-  font-size: 60px;
+  font-size: 2.5vw;
   margin: 60px;
   max-width: 60%;
 }
@@ -43,12 +43,28 @@ h1 {
 h2 {
   color: white;
   margin: 20px 60px;
-  font-size: 30px;
+  font-size: 1.6vw;
+}
+
+.screenbutton {
+  font-size: 1.2vw;
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 1em;
+  margin: 20px 60px;
+  padding: 1vw 2vw;
+}
+
+.screenbutton:hover {
+  color: black;
+  background-color: white;
+  cursor: none;
 }
 
 .nameInput {
-  font-size: larger;
-  width: 10rem;
+  font-size: 1.2vw;
+  width: 12vw;
   color: white;
   background-color: transparent;
   border: 0;
@@ -56,6 +72,7 @@ h2 {
   margin: 20px 0px 20px 60px;
   padding: 20px 20px;
   outline: none;
+  cursor: none;
 }
 
 .nameInput::focus {
@@ -72,45 +89,19 @@ h2 {
 
 .intro {
   color: white;
-  font-size: 25px;
+  font-size: 1.45vw;
   margin: 60px;
-  max-width: 60%;
   line-height: 1.2;
 }
 
 .comment {
   width: auto;
   color: white;
-  font-size: 25px;
+  font-size: 1.45vw;
   margin: 20px 60px;
   padding: 5px;
   border-radius: 20px;
   display: inline-block;
-}
-
-.highscoreTable {
-  width: 25rem;
-  margin: 20px 60px;
-  font-size: 25px;
-  text-align: left;
-  border-collapse: collapse;
-}
-
-.highscoreTable th {
-  color: white;
-  border: 1px solid white;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.highscoreTable td {
-  padding: 10px;
-  color: white;
-  border: 1px solid white;
-}
-
-.highscoreTable tr:hover {
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .room {
@@ -125,7 +116,7 @@ h2 {
 }
 
 .banner {
-  width: 400px;
+  width: calc(300px + 5vw);
   max-width: 25%;
   position: absolute;
   top: 0;
@@ -142,9 +133,12 @@ h2 {
   height: 100px;
 }
 
-.orb {
+.orbContainer {
   position: fixed;
   inset: calc(45% - 25px) calc(81% - 25px) calc(55% - 75px) calc(19% - 25px);
+}
+
+.orb {
   height: 100px;
   width: 50px;
 }
@@ -161,9 +155,12 @@ h2 {
   height: 50px;
 }
 
-.photoHint {
+.photoContainer {
   position: fixed;
   inset: calc(37% - 50px) calc(3% - 50px) calc(63% - 50px) calc(97% - 50px);
+}
+
+.photoHint {
   height: 100px;
 }
 
@@ -173,9 +170,12 @@ h2 {
   height: 50px;
 }
 
-.tome {
+.tomeContainer {
   position: fixed;
   inset: calc(45% - 50px) calc(35% - 50px) calc(55% - 50px) calc(65% - 50px);
+}
+
+.tome {
   height: 100px;
 }
 

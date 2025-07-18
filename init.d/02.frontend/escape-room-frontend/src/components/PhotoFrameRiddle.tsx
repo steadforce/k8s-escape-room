@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import redcircle from "../assets/redcircle.png";
 import { useGameStateContext } from "./GameStateContext";
+import Tooltip from "./Tooltip";
 
 function PhotoFrameRiddle() {
     const gameState = useGameStateContext();
@@ -25,14 +26,18 @@ function PhotoFrameRiddle() {
     }, [])
     return (
         <>
-            <img id="photoFrame" className="photoFrame" hidden={!gameState.puzzlesState().photo.solved} src={photo}/>
-            <img
-                id="photoHint"
-                className="photoHint"
-                src={redcircle}
-                title="The magic frame can't find any photos!"
-                hidden={gameState.puzzlesState().photo.solved}
-            />
+            <div className="photoContainer">
+                <Tooltip text="The magic frame can't find any photos!" position="left">
+                <img id="photoFrame" className="photoFrame" hidden={!gameState.puzzlesState().photo.solved} src={photo}/>
+                    <img
+                        id="photoHint"
+                        className="photoHint"
+                        src={redcircle}
+                        title=""
+                        hidden={gameState.puzzlesState().photo.solved}
+                    />
+                </Tooltip>
+            </div>
         </>
     )
 }
