@@ -76,9 +76,15 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     };
 
     const start = (name: string): void => {
-        setName(name);
-        setDate(new Date());
-        setStarted(true);
+        if (!name) {
+            alert("Please enter your wizard name.");
+        } else if (scores().some(score => score.name === name)) {
+            alert("There is already a wizard with that name. Please choose a different one.");
+        } else {
+            setName(name);
+            setDate(new Date());
+            setStarted(true);
+        }
     };
 
     const unsolved = (): boolean => {
