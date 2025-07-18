@@ -27,8 +27,8 @@ function PhotoFrameRiddle() {
     return (
         <>
             <div className="photoContainer">
-                <Tooltip text="The magic frame can't find any photos!" position="left">
                 <img id="photoFrame" className="photoFrame" hidden={!gameState.puzzlesState().photo.solved} src={photo}/>
+                <Tooltip text="The magic frame can't find any photos!" position="left">
                     <img
                         id="photoHint"
                         className="photoHint"

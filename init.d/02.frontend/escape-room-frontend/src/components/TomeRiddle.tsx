@@ -9,16 +9,17 @@ function TomeRiddle() {
 
     return (
         <div className="tomeContainer">
-            <Tooltip text="The key to open the tome seems to be missing.">
-                <img id="tome" className="tome" src={gameState.puzzlesState().tome.solved ? opentome : closedtome}/>
-                <img
-                    id="tomeHint"
-                    className="tomeHint"
-                    src={redcircle}
-                    title=""
-                    hidden={gameState.puzzlesState().tome.solved}
-                />
-            </Tooltip>
+            <img id="tome" className="tome" src={gameState.puzzlesState().tome.solved ? opentome : closedtome}/>
+            <div className="tomeHint">
+                <Tooltip text="The key to open the tome seems to be missing.">
+                    <img
+                        id="tomeHint"
+                        src={redcircle}
+                        title=""
+                        hidden={gameState.puzzlesState().tome.solved}
+                    />
+                </Tooltip>
+            </div>
         </div>
     )
 }

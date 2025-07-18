@@ -146,6 +146,9 @@ h2 {
 .orbHint {
   position: fixed;
   inset: calc(47% - 50px) calc(81% - 50px) calc(53% - 50px) calc(19% - 50px);
+}
+
+.orbHint img {
   height: 100px;
 }
 
@@ -182,6 +185,9 @@ h2 {
 .tomeHint {
   position: fixed;
   inset: calc(45% - 50px) calc(35% - 50px) calc(55% - 50px) calc(65% - 50px);
+}
+
+.tomeHint img {
   height: 100px;
 }
 

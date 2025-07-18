@@ -10,19 +10,20 @@ function OrbRiddle() {
     return (
         <>
             <div className="orbContainer">
-                <Tooltip text="The magic orb does not work!">
                 <div className="orb">
                     <img id="orb" src={orb} />
                     <img id="orbWisdom" className="orbWisdom" src={gameState.puzzlesState().orb.solved ? "/orb" : noanswers} />
                 </div>
-                    <img
-                        id="orbHint"
-                        className="orbHint"
-                        src={redcircle}
-                        title=""
-                        hidden={gameState.puzzlesState().orb.solved}
-                    />
-                </Tooltip>
+                <div className="orbHint">
+                    <Tooltip text="The magic orb does not work!">
+                        <img
+                            id="orbHint"
+                            src={redcircle}
+                            title=""
+                            hidden={gameState.puzzlesState().orb.solved}
+                        />
+                    </Tooltip>
+                </div>
             </div>
         </>
     )
