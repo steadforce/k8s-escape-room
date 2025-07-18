@@ -17,13 +17,13 @@ function HighscoreTable(props: { mode?: "default" | "ingame" }) {
 
     const getHighscoreList = () => {
         let scores = gameState.scores()
-            .sort((a, b) => a.score.localeCompare(b.score))
-            .map((entry, index) => ({ rank: index + 1, ...entry}));
+            .sort((a, b) => a.score.localeCompare(b.score));
         if (props.mode !== "ingame") {
             // Do not show current player in default mode
             scores = scores.filter(score => !score.current);
         }
-        return scores;
+        return scores
+            .map((entry, index) => ({ rank: index + 1, ...entry}));;
     }
 
     const isCurrentPlayerAboutToLoseRank = (): boolean => {
