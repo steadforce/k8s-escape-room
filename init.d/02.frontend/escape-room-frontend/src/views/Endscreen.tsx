@@ -1,8 +1,8 @@
 import './Endscreen.css'
-import banner from '../assets/banner.png'
 import { Link } from 'react-router-dom'
 import { useGameStateContext } from '../components/GameStateContext'
 import HighscoreTable from '../components/HighscoreTable';
+import Banner from '../components/Banner';
 
 function Endscreen() {
     const gameState = useGameStateContext();
@@ -17,7 +17,7 @@ function Endscreen() {
     return (
         <>
             <div className="screen" id="endscreen">
-                <img src={banner} className="banner" alt="Banner" />
+                <Banner />
                 <h1>
                     Congratulations <span>&#127881;</span><span>&#127881;</span
                     ><span>&#127881;</span>

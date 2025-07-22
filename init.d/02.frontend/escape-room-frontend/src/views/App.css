@@ -115,14 +115,6 @@ h2 {
   position: relative;
 }
 
-.banner {
-  width: calc(300px + 5vw);
-  max-width: 25%;
-  position: absolute;
-  top: 0;
-  right: 100px;
-}
-
 .catContainer {
   position: fixed;
   top: 61%;

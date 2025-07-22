@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import banner from '../assets/banner.png'
 import './Startscreen.css'
 import HighscoreTable from '../components/HighscoreTable'
 import { useGameStateContext } from '../components/GameStateContext'
 import { useState } from 'react';
+import Banner from '../components/Banner';
 
 function Startscreen() {
     const [name, setName] = useState("");
@@ -12,7 +12,7 @@ function Startscreen() {
     return (
         <>
             <div className="screen" id="startscreen">
-                <img src={banner} className="banner" alt="Banner" />
+                <Banner />
                 <h1>Welcome to the Kubernetes Escape Room Game</h1>
                 <div className="columns">
                     <div>
