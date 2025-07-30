@@ -1,11 +1,14 @@
 FROM node:24-slim AS builder
 
 WORKDIR /app
+RUN corepack enable && corepack prepare yarn@stable --activate
 COPY package.json yarn.lock ./
+RUN corepack enable && corepack prepare yarn@stable --activate
 RUN yarn install && yarn cache clean
 
+RUN yarn install && yarn cache clean
 COPY . .
-RUN yarn build
+RUN yarn && yarn build
 
 FROM nginx:1.29-alpine-slim
 
