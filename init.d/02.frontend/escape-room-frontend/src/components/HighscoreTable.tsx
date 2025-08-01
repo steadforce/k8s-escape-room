@@ -23,7 +23,7 @@ function HighscoreTable(props: { mode?: "default" | "ingame" }) {
             scores = scores.filter(score => !score.current);
         }
         return scores
-            .map((entry, index) => ({ rank: index + 1, ...entry}));;
+            .map((entry, index) => ({ rank: index + 1, ...entry}));
     }
 
     const isCurrentPlayerAboutToLoseRank = (): boolean => {
