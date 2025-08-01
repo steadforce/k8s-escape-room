@@ -11,13 +11,12 @@ function OrbRiddle() {
         <>
             <div className="orbContainer">
                 <div className="orb">
-                    <img id="orb" src={orb} />
-                    <img id="orbWisdom" className="orbWisdom" src={gameState.puzzlesState().orb.solved ? "/orb" : noanswers} />
+                    <img src={orb} />
+                    <img className="orbWisdom" src={gameState.puzzlesState().orb.solved ? "/orb" : noanswers} />
                 </div>
                 <div className="orbHint">
                     <Tooltip text="The magic orb does not work!">
                         <img
-                            id="orbHint"
                             src={redcircle}
                             title=""
                             hidden={gameState.puzzlesState().orb.solved}
