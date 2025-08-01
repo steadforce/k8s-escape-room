@@ -37,7 +37,7 @@ function HighscoreTable(props: { mode?: "default" | "ingame" }) {
         const currentSeconds = timeStringToSeconds(current?.score || "00:00:00");
         const nextSeconds = timeStringToSeconds(nextPlayer.score);
         
-        return nextSeconds - currentSeconds <= 10;
+        return nextSeconds - currentSeconds <= 20;
     }
 
     const timeStringToSeconds = (time: string): number => {
