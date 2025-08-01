@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import { useGameStateContext } from '../components/GameStateContext'
 import './HighscoreTable.css';
 
+const RANK_LOSS_WARNING_THRESHOLD_SECONDS = 20; // seconds
+
 function HighscoreTable(props: { mode?: "default" | "ingame" }) {
     const gameState = useGameStateContext();
     const currentPlayerRef = useRef<HTMLTableRowElement | null>(null);
@@ -37,7 +39,7 @@ function HighscoreTable(props: { mode?: "default" | "ingame" }) {
         const currentSeconds = timeStringToSeconds(current?.score || "00:00:00");
         const nextSeconds = timeStringToSeconds(nextPlayer.score);
         
-        return nextSeconds - currentSeconds <= 20;
+        return nextSeconds - currentSeconds <= RANK_LOSS_WARNING_THRESHOLD_SECONDS;
     }
 
     const timeStringToSeconds = (time: string): number => {
