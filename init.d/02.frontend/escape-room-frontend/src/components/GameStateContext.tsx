@@ -22,7 +22,6 @@ type PuzzlesType = {
     },
     photo: {
         solved: boolean,
-        url: string,
     },
     tome: {
         solved: boolean
@@ -46,7 +45,6 @@ const initialPuzzles = () => {
         },
         photo: {
             solved: false,
-            url: "",
         },
         tome: {
             solved: false,
@@ -145,7 +143,6 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
                     },
                     photo: {
                         solved: photoFrameResult,
-                        url: "",
                     },
                     tome: {
                         solved: tomeResult,

@@ -5,21 +5,17 @@ import Tooltip from "./Tooltip";
 
 function PhotoFrameRiddle() {
     const gameState = useGameStateContext();
-    const [photo, setPhoto] = useState("")
+    const [photo, setPhoto] = useState("/photoframe/photo0.png")
 
     useEffect(() => {
         const updatePhoto = () => {
-            if (gameState.puzzlesState().photo.solved) {
-                const photoNumber = Math.floor(Math.random() * 10);
-                const photoUrl = `/photoframe/photo${photoNumber}.png`;
-                setPhoto(photoUrl);
-            } else {
-                setPhoto("");
-            }
+            const photoNumber = Math.floor(Math.random() * 10);
+            const photoUrl = `/photoframe/photo${photoNumber}.png`;
+            setPhoto(photoUrl);
         }
 
-        const intervalId = setInterval(async () => {
-            updatePhoto()
+        const intervalId = setInterval(() => {
+            updatePhoto();
         }, 2000);
 
         return () => clearInterval(intervalId);
