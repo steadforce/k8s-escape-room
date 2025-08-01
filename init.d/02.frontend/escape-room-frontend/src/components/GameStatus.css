@@ -1,25 +1,46 @@
-.timer {
+.gameScreenContainer {
   position: fixed;
   left: 0;
-  bottom: 50px;
-  color: white;
-  padding: 10px;
-  font-size: 20px;
+  bottom: 0px;
+  height: 40%;
+  width: 20%;
+  padding: 1em 1.4em;
   backdrop-filter: blur(10px);
-  border-radius: 0 1rem 1rem 0;
-  border-color: rgba(255,255,255,0.4);
-  border-width: 1px 1px 1px 0;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 0 2rem 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.gameScreenContainer .header {
+  color: white;
+  padding-bottom: 0.4em;
+  font-size: 1.2vw;
+}
+
+.timer {
+  color: white;
+  padding: 0.4em 0 0;
+  font-size: 1.2vw;
+}
+
+.timer span {
+  padding-left: 1.7em;
 }
 
 .progress {
-  position: fixed;
-  left: 0;
-  bottom: 0;
   color: white;
-  padding: 10px;
-  font-size: 20px;
-  backdrop-filter: blur(10px);
-  border-radius: 0 1rem 1rem 0;
-  border-color: rgba(255,255,255,0.4);
-  border-width: 1px 1px 1px 0;
+  padding: 0.4em 0 0;
+  font-size: 1.2vw;
+}
+
+.progress span {
+  padding-left: 0.8em;
+  letter-spacing: 0.2rem;
+}
+
+.highscoresTable {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
 }
