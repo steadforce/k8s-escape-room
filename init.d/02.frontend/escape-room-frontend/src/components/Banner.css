@@ -1,0 +1,52 @@
+.banner {
+  width: 25vw;
+  max-width: 32%;
+  position: absolute;
+  top: 0;
+  right: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.banner img.logo {
+  width: 70%;
+  object-fit: cover;
+  background: #53E4C0;
+}
+
+.banner .repo {
+  width: 30%;
+  background: #53E4C0;
+  font-size: 0.6vw;
+  line-height: 1em;
+  object-fit: cover;
+  border-left: 3px solid #333333;
+  padding-left: 0.8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner .repo img.qrcode {
+  width: 65%;
+  height: auto;
+  display: block;
+  opacity: 0.8;
+}
+
+.banner .repo .githubLink {
+  display: flex;
+  align-items: center;
+}
+
+.banner .repo .githubLink span {
+    color: #000;
+    opacity: 0.8;
+}
+
+.banner .repo .githubLink img {
+  width: 20%;
+  padding-right: 0.4em;
+}

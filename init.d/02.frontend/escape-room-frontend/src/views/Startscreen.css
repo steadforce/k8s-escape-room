@@ -22,6 +22,13 @@
   z-index: -1;
 }
 
+.screen .columns {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 6fr 4fr;
+  gap: 3em;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -30,7 +37,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
+  cursor: none;
   transition: border-color 0.25s;
 }
 button:hover {
@@ -41,42 +48,15 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.screenbutton {
-  font-size: larger;
-  color: white;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 20px;
-  margin: 20px 60px;
-  padding: 20px 60px;
-}
-
-.screenbutton:hover {
-  color: black;
-  background-color: white;
-  cursor: pointer;
-}
-
-.nameInput {
-  font-size: larger;
-  width: 10rem;
-  color: white;
-  background-color: transparent;
-  border: 0;
-  border-bottom: 1px solid white;
-  margin: 20px 0px 20px 60px;
-  padding: 20px 20px;
-  outline: none;
-}
-
-.nameInput::focus {
-  background-color: transparent;
-  border: 0;
-  border-bottom: 1px solid white;
-  outline: none;
-}
-
-.nameInput::placeholder {
-  background-color: transparent;
-  color: rgba(255, 255, 255, 0.5);
+.screen .highscoresTableContainer {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5em 2em 1.3em;
+  border-radius: 2em;
+  box-sizing: border-box;
+  width: 90%;
+  min-width: 300px;
+  max-width: 1200px;
+  height: 50vh;
+  margin: auto;
+  margin-top: 3em;
 }
