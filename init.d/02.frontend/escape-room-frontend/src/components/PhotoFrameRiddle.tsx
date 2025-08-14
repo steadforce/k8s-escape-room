@@ -4,12 +4,12 @@ import { useGameStateContext } from "./GameStateContext";
 
 function PhotoFrameRiddle() {
     const gameState = useGameStateContext();
-    const [photo, setPhoto] = useState("/photoframe/photo0.png")
+    const [photo, setPhoto] = useState("/riddles/photoframe/photo0.png")
 
     useEffect(() => {
         const updatePhoto = () => {
             const photoNumber = Math.floor(Math.random() * 10);
-            const photoUrl = `/photoframe/photo${photoNumber}.png`;
+            const photoUrl = `/riddles/photoframe/photo${photoNumber}.png`;
             setPhoto(photoUrl);
         }
 

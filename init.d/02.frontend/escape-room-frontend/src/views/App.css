@@ -184,17 +184,3 @@ h2 {
   inset: calc(45% - 50px) calc(35% - 50px) calc(55% - 50px) calc(65% - 50px);
   height: 100px;
 }
-
-.addons {
-  position: fixed;
-  right: 1%;
-  bottom: 1%;
-}
-
-.addons>a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  font-size: 3em;
-  margin-bottom: 5px;
-}
