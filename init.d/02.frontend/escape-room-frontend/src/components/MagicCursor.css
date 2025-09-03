@@ -1,0 +1,41 @@
+/* Hide default cursor */
+body {
+  cursor: none;
+}
+
+/* Wand image */
+.magic-wand {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+  background-image: url('../assets/magic-wand-cursor.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0.15rem 0.2rem 0.3rem #fff);
+}
+
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, rgba(255, 223, 0, 0.9) 0%, rgba(255, 223, 0, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  animation: sparkleFade 0.7s ease-out forwards;
+}
+
+@keyframes sparkleFade {
+  0% {
+      opacity: 1;
+      transform: scale(1);
+  }
+  100% {
+      opacity: 0;
+      transform: scale(1.5);
+  }
+}
