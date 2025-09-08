@@ -52,7 +52,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
             openssh-server \
             pkg-config \
             patch \
-            software-properties-common \
             sudo \
             unzip \
             vim && \
