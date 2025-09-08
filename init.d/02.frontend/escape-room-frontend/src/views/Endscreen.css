@@ -22,6 +22,40 @@
   z-index: -1;
 }
 
+.screen#endscreen {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  margin-left: 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.screen#endscreen h1 {
+  margin: 0;
+  margin-bottom: 1em;
+  flex: 1;
+}
+
+.screen#endscreen > h2 {
+  margin: 0;
+  flex: 1;
+}
+
+.screen#endscreen > div {
+  flex: 1;
+}
+
+.screen#endscreen p {
+  margin: 0;
+  flex: 1;
+}
+
+.screen#endscreen .screenbutton {
+  margin: 0;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -30,7 +64,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
+  cursor: none;
   transition: border-color 0.25s;
 }
 button:hover {
@@ -41,18 +75,12 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.screenbutton {
-  font-size: larger;
-  color: white;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 20px;
-  margin: 20px 60px;
-  padding: 20px 60px;
+.screen#endscreen .highscoresTableContainer {
+  max-width: 60vw;
+  margin: 0;
+  margin-bottom: 2vh;
 }
 
-.screenbutton:hover {
-  color: black;
-  background-color: white;
-  cursor: pointer;
+.screen#endscreen #resetInstruction {
+  margin-bottom: 1vh;
 }
