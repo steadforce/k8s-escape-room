@@ -1,4 +1,4 @@
-FROM debian:stable-slim AS base
+FROM debian:stable-slim@sha256:8810492a2dd16b7f59239c1e0cc1e56c1a1a5957d11f639776bd6798e795608b AS base
 
 # https://github.com/istio/istio/releases
 ENV ISTIO_VERSION=1.20.3
