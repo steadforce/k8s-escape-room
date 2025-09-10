@@ -17,6 +17,18 @@ kind network
 docker network create --driver=bridge --subnet=10.172.242.0/24 --ip-range=10.172.242.0/28 --gateway=10.172.242.1 kind
 ```
 
+**Hint**
+
+If TLS timeout happens e.g. on image pulls there might be a mtu mismatch between the kind network and e.g. a VPN
+client (like `Tailscale`). In this case the mtu can be specified as option on the network creation.
+Note that the network (and containers which use this network) needs to be recreated if already present.
+
+This configures the `kind` networks with an mtu of `1280`:
+
+```shell
+docker network create --driver=bridge --subnet=10.172.242.0/24 --ip-range=10.172.242.0/28 --gateway=10.172.242.1 -o "com.docker.network.driver.mtu"="1280" kind
+```
+
 ## Setup
 
 ```bash
