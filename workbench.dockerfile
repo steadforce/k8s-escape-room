@@ -89,7 +89,6 @@ COPY welcomemessage.sh /usr/local/bin/
 
 RUN ln -s /opt/istio/bin/istioctl /usr/bin/istioctl && \
     ln -s /opt/docker/docker /usr/bin/docker && \
-    ln -s /usr/bin/kubectl /usr/bin/k && \
     echo "alias k=kubectl" >> /etc/bash.bashrc && \
     chmod +x /usr/local/bin/welcomemessage.sh && \
     echo '/usr/local/bin/welcomemessage.sh' >> /etc/bash.bashrc && \
