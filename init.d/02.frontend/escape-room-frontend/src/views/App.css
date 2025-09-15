@@ -47,7 +47,7 @@ h2 {
   font-size: 1.6vw;
 }
 
-.screenbutton {
+.screenButton {
   font-size: 1.2vw;
   color: white;
   background-color: transparent;
@@ -57,7 +57,7 @@ h2 {
   padding: 1vw 2vw;
 }
 
-.screenbutton:hover {
+.screenButton:hover {
   color: black;
   background-color: white;
   cursor: none;

@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Room from './Room'
-import Startscreen from './Startscreen'
+import StartScreen from './StartScreen'
 import Endscreen from './Endscreen'
 import { AddonRoutes, useRegisterAddonPuzzles }  from '../AddonLoader'
 import './App.css'
@@ -13,7 +13,7 @@ function App() {
         <>
             <Routes>
                 <Route path='/' element={<Room/>} />
-                <Route path='/start' element={<Startscreen/>} />
+                <Route path='/start' element={<StartScreen/>} />
                 <Route path='/end' element={<Endscreen/>} />
 
                 {AddonRoutes.map(

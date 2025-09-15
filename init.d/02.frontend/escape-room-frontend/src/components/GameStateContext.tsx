@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
+import { createContext, useEffect, useMemo, useState, useCallback } from "react";
 import useStorage from "../hooks/useStorage";
-import Startscreen from "../views/Startscreen";
 import Endscreen from "../views/Endscreen";
+import StartScreen from "../views/StartScreen";
 
-type GameStateContextType = {
+export type GameStateContextType = {
     timeElapsed: () => string;
     progress: () => boolean[];
     start: (name: string) => void;
@@ -63,7 +63,7 @@ const initialPuzzles = () => {
 }
 
 
-const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
+export const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
 
 export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [tick, setTick] = useState<number>(0);
@@ -253,13 +253,5 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         checkFinished();
     }, [tick]);
 
-    return <GameStateContext.Provider value={contextValue}>{started ? finished ? <Endscreen /> : children : <Startscreen />}</GameStateContext.Provider>;
-}
-
-export const useGameStateContext = (): GameStateContextType => {
-    const context = useContext(GameStateContext);
-    if (!context) {
-        throw new Error("useGameStateContext must be used within a provider");
-    }
-    return context;
+    return <GameStateContext.Provider value={contextValue}>{started ? finished ? <Endscreen /> : children : <StartScreen />}</GameStateContext.Provider>;
 }

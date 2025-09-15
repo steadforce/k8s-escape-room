@@ -1,4 +1,4 @@
-import { useGameStateContext } from "./GameStateContext"
+import { useGameStateContext } from "../hooks/useGameStateContext";
 import './GiveUp.css';
 
 function GiveUp () {

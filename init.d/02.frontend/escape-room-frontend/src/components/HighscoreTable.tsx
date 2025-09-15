@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useGameStateContext } from '../components/GameStateContext'
+import { useGameStateContext } from '../hooks/useGameStateContext'
 import './HighscoreTable.css';
 
 const RANK_LOSS_WARNING_THRESHOLD_SECONDS = 20; // seconds

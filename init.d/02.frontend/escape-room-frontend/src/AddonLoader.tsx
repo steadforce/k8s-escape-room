@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useGameStateContext } from "@main/components/GameStateContext";
+import { useGameStateContext } from "@main/hooks/useGameStateContext";
 
 // All requested add ons
 const allowedPaths: string[] = import.meta.env.VITE_ADDON_PATHS?.split(",").map((p: string) => p.trim()).filter(Boolean) || [];

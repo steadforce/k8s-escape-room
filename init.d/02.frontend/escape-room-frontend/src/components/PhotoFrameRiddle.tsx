@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import redcircle from "../assets/redcircle.png";
-import { useGameStateContext } from "./GameStateContext";
+import { useGameStateContext } from "../hooks/useGameStateContext";
 import Tooltip from "./Tooltip";
 
 function PhotoFrameRiddle() {

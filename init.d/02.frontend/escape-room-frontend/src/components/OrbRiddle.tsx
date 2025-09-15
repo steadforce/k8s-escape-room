@@ -1,7 +1,7 @@
 import orb from "../assets/orb.png";
 import redcircle from "../assets/redcircle.png";
 import noanswers from "../assets/noanswers.png";
-import { useGameStateContext } from "./GameStateContext";
+import { useGameStateContext } from "../hooks/useGameStateContext";
 import Tooltip from "./Tooltip";
 
 function OrbRiddle() {
@@ -12,7 +12,7 @@ function OrbRiddle() {
             <div className="orbContainer">
                 <div className="orb">
                     <img src={orb} />
-                    <img className="orbWisdom" src={gameState.puzzlesState().orb.solved ? "/orb" : noanswers} />
+                    <img className="orbWisdom" src={gameState.puzzlesState().orb.solved ? "/riddles/orb" : noanswers} />
                 </div>
                 <div className="orbHint">
                     <Tooltip text="The magic orb does not work!">
