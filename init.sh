@@ -6,6 +6,9 @@ DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 
 INIT_DIR="$DIR/init.d"
 
+# write all given add on paths into an environment variable
+export VITE_ADDON_PATHS="$(IFS=','; echo "$*")"
+
 # install all escape room modules
 echo -e "\e[1m\e[4m\e[33mInstalling Kubernetes Escape Room\e[0m"
 for f in $(ls "${INIT_DIR}"); do

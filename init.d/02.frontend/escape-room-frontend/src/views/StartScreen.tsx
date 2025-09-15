@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom'
-import './Startscreen.css'
+import './StartScreen.css'
 import HighscoreTable from '../components/HighscoreTable'
-import { useGameStateContext } from '../components/GameStateContext'
+import { useGameStateContext } from '../hooks/useGameStateContext'
 import { useState } from 'react';
 import Banner from '../components/Banner';
 
-function Startscreen() {
+function StartScreen() {
     const [name, setName] = useState("");
     const gameState = useGameStateContext();
 
     return (
         <>
-            <div className="screen" id="startscreen">
+            <div className="screen" id="startScreen">
                 <Banner />
                 <h1>Welcome to the Kubernetes Escape Room Game</h1>
                 <div className="columns">
@@ -42,7 +42,7 @@ function Startscreen() {
                             autoFocus
                             placeholder="Your wizard name"
                         />
-                        <Link className="screenbutton" to="/" onClick={() => gameState.start(name)}>
+                        <Link className="screenButton" to="/" onClick={() => gameState.start(name)}>
                             Start <span>&emsp;</span><span>&#10140;</span>
                         </Link>
                     </div>
@@ -57,4 +57,4 @@ function Startscreen() {
     )
 }
 
-export default Startscreen
+export default StartScreen

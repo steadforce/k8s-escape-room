@@ -47,7 +47,7 @@ h2 {
   font-size: 1.6vw;
 }
 
-.screenbutton {
+.screenButton {
   font-size: 1.2vw;
   color: white;
   background-color: transparent;
@@ -57,7 +57,7 @@ h2 {
   padding: 1vw 2vw;
 }
 
-.screenbutton:hover {
+.screenButton:hover {
   color: black;
   background-color: white;
   cursor: none;
@@ -189,18 +189,4 @@ h2 {
 
 .tomeHint img {
   height: 100px;
-}
-
-.addons {
-  position: fixed;
-  right: 1%;
-  bottom: 1%;
-}
-
-.addons>a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  font-size: 3em;
-  margin-bottom: 5px;
 }

@@ -12,6 +12,8 @@ spec:
       labels:
         app: cat-counter
     spec:
+      serviceAccountName: default
+      automountServiceAccountToken: true
       containers:
       - name: cat-counter
         image: python:3-alpine

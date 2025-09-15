@@ -1,0 +1,21 @@
+.addOn {
+  position: fixed;
+  right: calc(1%);
+  bottom: 0;
+  color: white;
+  padding: 0.6em;
+  font-size: 1.2vw;
+  background-color: transparent;
+  border-radius: 1rem 1rem 0 0;
+  border-color: rgba(255,255,255,0.4);
+  border-width: 1px 1px 0 1px;
+  backdrop-filter: blur(10px);
+}
+
+.addOn:hover {
+  border-color: white;
+}
+
+.addOn:active {
+  border-width: 1px 1px 0 1px;
+}

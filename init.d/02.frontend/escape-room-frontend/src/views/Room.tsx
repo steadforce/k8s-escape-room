@@ -5,10 +5,10 @@ import PhotoFrameRiddle from '../components/PhotoFrameRiddle'
 import TomeRiddle from '../components/TomeRiddle'
 import GiveUp from '../components/GiveUp'
 import Banner from '../components/Banner'
+import AddOns from '../components/AddOns'
 
 
 function Room() {
-
     return (
         <>
             <div className="room">
@@ -18,10 +18,10 @@ function Room() {
                 <OrbRiddle />
                 <PhotoFrameRiddle />
                 <TomeRiddle />
-                <div id="addons" className="addons"></div>
             </div>
             <GiveUp />
             <GameStatus />
+            <AddOns />
         </>
     )
 }

@@ -1,6 +1,6 @@
 import './Endscreen.css'
 import { Link } from 'react-router-dom'
-import { useGameStateContext } from '../components/GameStateContext'
+import { useGameStateContext } from '../hooks/useGameStateContext'
 import HighscoreTable from '../components/HighscoreTable';
 import Banner from '../components/Banner';
 
@@ -29,7 +29,7 @@ function Endscreen() {
                 </div>
                 <p className="comment" id="resetInstruction">Reset the game by running the <em>. init.sh</em> script before starting a new game.</p>
                 <div>
-                    <Link className="screenbutton" to="/" onClick={gameState.restart}>
+                    <Link className="screenButton" to="/" onClick={gameState.restart}>
                         New Game <span>&emsp;</span><span>&#10140;</span>
                     </Link>
                 </div>

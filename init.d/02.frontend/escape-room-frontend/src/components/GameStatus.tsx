@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import './GameStatus.css'
-import { useGameStateContext } from "./GameStateContext"
+import { useGameStateContext } from "../hooks/useGameStateContext"
 import HighscoreTable from '../components/HighscoreTable'
 
 function GameStatus() {

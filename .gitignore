@@ -1,2 +1,3 @@
 .kubeconfig
 .docker
+build-context

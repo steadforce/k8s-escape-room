@@ -1,7 +1,7 @@
 import redcircle from "../assets/redcircle.png";
 import opentome from "../assets/openedtome.png";
 import closedtome from "../assets/closedtome.png";
-import { useGameStateContext } from "./GameStateContext";
+import { useGameStateContext } from "../hooks/useGameStateContext";
 import Tooltip from "./Tooltip";
 
 function TomeRiddle() {
