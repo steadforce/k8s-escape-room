@@ -1,0 +1,56 @@
+<svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="metalGradient">
+      <stop offset="0%" stop-color="#888888"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#888888"/>
+    </linearGradient>
+    <linearGradient id="stickGradient">
+      <stop offset="0%" stop-color="#AA5511"/>
+      <stop offset="50%" stop-color="#DD8855"/>
+      <stop offset="100%" stop-color="#AA5511"/>
+    </linearGradient>
+    <linearGradient id="handleGradient">
+      <stop offset="0%" stop-color="#663344"/>
+      <stop offset="50%" stop-color="#BB3355"/>
+      <stop offset="100%" stop-color="#663344"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .glow-circle {
+        transform-origin: 35px 5px;
+      }
+      .glow-circle animateTransform {
+        attributeName: transform;
+        type: scale;
+        values: 0.5;1;0.5;
+        begin: 0s;
+        dur: 2s;
+        repeatCount: indefinite;
+      }
+    </style>
+  </defs>
+  <g transform="scale(0.2) rotate(-35) translate(0 50)">
+    <g fill="url(#stickGradient)" filter="url(#glow)">
+      <circle cx="35" cy="5" r="5"/>
+      <polygon points="30,5 25,170 45,170 40,5"/>
+    </g>
+    <g fill="url(#handleGradient)" filter="url(#glow)">
+      <polygon points="25,170 10,290 20,300 50,300 60,290 45,170"/>
+      <polygon points="30,170 20,280 30,290 40,290 50,280 40,170"/>
+      <polygon points="10,290 20,300 30,290 20,280"/>
+      <polygon points="40,290 50,280 60,290 50,300"/>
+    </g>
+    <g fill="url(#metalGradient)" transform="translate(0,7.5)" filter="url(#glow)">
+      <path d="M 20 170 Q 20 160 35 160 T 50 170 L 50 180 L 45 170 L 25 170 L 20 180 Z"/>
+      <polygon points="30 170 30 220 40 220 40 170"/>
+      <path d="M 30 220 L 25 230 L 35 240 L 45 230 L 40 220 Z" stroke="url(#metalGradient)" stroke-linecap="round" stroke-width="2" fill="none"/>
+    </g>
+  </g>
+</svg>

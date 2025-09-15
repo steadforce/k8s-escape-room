@@ -40,7 +40,8 @@ type PuzzlesType = {
 
 export type Highscore = {
     name: string,
-    score: string
+    score: string,
+    current?: boolean // true if this is the current player
 };
 
 const initialPuzzles = () => {
@@ -105,9 +106,15 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     };
 
     const start = (name: string): void => {
-        setName(name);
-        setDate(new Date());
-        setStarted(true);
+        if (!name) {
+            alert("Please enter your wizard name.");
+        } else if (scores().some(score => score.name === name)) {
+            alert("There is already a wizard with that name. Please choose a different one.");
+        } else {
+            setName(name);
+            setDate(new Date());
+            setStarted(true);
+        }
     };
 
     const unsolved = (): boolean => {
@@ -137,7 +144,10 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     }
 
     const scores = () => {
-        return highscores;
+        return [
+            ...(!finished ? [{ name: name, score: timeElapsed(), current: true }] : []),
+            ...highscores
+        ];
     }
 
     const puzzlesState = (): PuzzlesType => {
@@ -145,11 +155,13 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     }
 
     const checkState = () => {
-        const catPromise = fetch("/riddles/cat").then(r => r.ok);
-        const catCounterPromise = fetch("/riddles/cat-counter").then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(e => {console.error(e); return 0;});
-        const orbPromise = fetch("/riddles/orb").then(r => r.ok);
-        const tomePromise = fetch("/riddles/tome").then(r => r.ok);
-        const photoFramePromise = fetch("/riddles/photoframe/photo0.png").then(r => r.ok);
+        const options: { cache: RequestCache | undefined } = { cache: "no-store" };
+
+        const catPromise = fetch("/riddles/cat", options).then(r => r.ok);
+        const catCounterPromise = fetch("/riddles/cat-counter", options).then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(e => {console.error(e); return 0;});
+        const orbPromise = fetch("/riddles/orb", options).then(r => r.ok);
+        const tomePromise = fetch("/riddles/tome", options).then(r => r.ok);
+        const photoFramePromise = fetch("/riddles/photoframe/photo0.png", options).then(r => r.ok);
 
         Promise.all([catPromise, catCounterPromise, orbPromise, tomePromise, photoFramePromise])
             .then(([catResult, catCounter, orbResult, tomeResult, photoFrameResult]) => {

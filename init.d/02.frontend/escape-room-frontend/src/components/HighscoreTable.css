@@ -1,0 +1,102 @@
+.highscoreContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.highscoreTableContainer {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 2rem;
+  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+}
+
+.highscoreContainer h2 {
+  margin: 0 0 15px;
+}
+
+.highscoreContainer.ingame h2 {
+  display: none;
+}
+
+.highscoreContainer.ingame .highscoreTable {
+  font-size: 0.8vw;
+}
+
+.highscoreTable {
+  width: 100%;
+  font-size: 1vw;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.highscoreTable th {
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.highscoreTable td {
+  padding: 10px;
+  color: white;
+  border: 1px solid white;
+}
+
+.highscoreTable tr:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.highscoreTable tr.current {
+  font-weight: bold;
+}
+
+tr.danger {
+  animation: danger-pulse 1s infinite;
+}
+
+@keyframes danger-pulse {
+  0%, 100% {
+    background-color: #eeb96f4f;
+    border: 4px solid #e0241d;
+  }
+  50% {
+    background-color: #b8621600;
+    
+    border: 4px solid #9b0a0a;
+  }
+}
+
+.you-badge {
+  display: inline-block;
+  background: linear-gradient(to bottom right, #f3eac2, #e0d4a1);
+  color: #5b3e04;
+  font-weight: 600;
+  font-size: 0.5vw;
+  padding: 2px 6px;
+  border: 1px solid #b69b64;
+  border-radius: 4px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  margin-right: 0.5rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.down-arrow {
+  font-size: 2rem;
+  vertical-align: middle;
+  line-height: 1rem;
+  margin-left: 0.5rem;
+  margin-right: -0.5rem;
+  animation: down-arrow-pulse 1s infinite;
+}
+
+@keyframes down-arrow-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
