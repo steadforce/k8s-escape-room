@@ -5,6 +5,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
             bash-completion \
+            ca-certificates \
             joe \
             jq \
             less \
@@ -48,7 +49,6 @@ COPY patches/ /patches/
 
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install --no-install-recommends -y \
-        ca-certificates \
         curl \
         patch && \
     rm -rf "/var/lib/apt/lists/*" && \
