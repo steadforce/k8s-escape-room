@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: frontend-ingress
+  name: escape-room-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -9,42 +9,35 @@ spec:
   - http:
       paths:
       - pathType: ImplementationSpecific
-        path: /addons(/|$)(.*)
-        backend:
-          service:
-            name: addons-service
-            port:
-              number: 80
-      - pathType: ImplementationSpecific
-        path: /cat(/|$)(.*)
+        path: /riddles/cat(/|$)(.*)
         backend:
           service:
             name: cat-service
             port:
               number: 80
       - pathType: ImplementationSpecific
-        path: /cat-counter(/|$)(.*)
+        path: /riddles/cat-counter(/|$)(.*)
         backend:
           service:
             name: cat-counter-service
             port:
               number: 80
       - pathType: ImplementationSpecific
-        path: /orb(/|$)(.*)
+        path: /riddles/orb(/|$)(.*)
         backend:
           service:
             name: orb-service
             port:
               number: 80
       - pathType: ImplementationSpecific
-        path: /photoframe(/|$)(.*)
+        path: /riddles/photoframe(/|$)(.*)
         backend:
           service:
             name: photoframe-service
             port:
               number: 80
       - pathType: ImplementationSpecific
-        path: /tome(/|$)(.*)
+        path: /riddles/tome(/|$)(.*)
         backend:
           service:
             name: tome-service
