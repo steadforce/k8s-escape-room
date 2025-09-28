@@ -21,7 +21,7 @@ ENV BUILDX_VERSION=v0.28.0
 ENV DOCKER_VERSION=28.4.0
 # https://github.com/derailed/k9s/releases
 # renovate: datasource=github-releases depName=derailed/k9s
-ENV K9S_VERSION=v0.50.12
+ENV K9S_VERSION=v0.50.13
 # https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
 ENV YQ_VERSION=v4.47.2
