@@ -15,7 +15,7 @@ function GameStatus() {
             arr = [...arr, ...Array(expectedPuzzleTotal - arr.length).fill(false)];
         }
         return arr.map(s => s ? solvedMark : unsolvedMark).join(" ");
-    }, [gameState.progress]);
+    }, [gameState]);
 
     return (
         <>
