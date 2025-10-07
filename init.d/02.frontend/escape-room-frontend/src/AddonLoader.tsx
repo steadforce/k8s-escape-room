@@ -37,7 +37,7 @@ export const AddonRoutes = addonModules.map(([filePath, mod]: [string, AddonView
   const fileName = filePath.split("/").pop()?.replace(/\.tsx$/, "") || "addon";
   const routePath = `/${fileName.toLowerCase()}`;
 
-  const Component: React.ComponentType<any> | undefined = mod?.default;
+  const Component: React.FC | undefined = mod?.default;
 
   return {
     name: fileName,
