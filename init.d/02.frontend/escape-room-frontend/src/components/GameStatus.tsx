@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { expectedPuzzleTotal } from "../AddonLoader";
+import { expectedPuzzleTotal } from "@main/hooks/expectedPuzzleTotal";
 import './GameStatus.css'
 import { useGameStateContext } from "../hooks/useGameStateContext"
 import HighscoreTable from '../components/HighscoreTable'
