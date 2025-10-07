@@ -3,10 +3,12 @@ import useStorage from "../hooks/useStorage";
 import Endscreen from "../views/Endscreen";
 import StartScreen from "../views/StartScreen";
 import { GameStateContext } from "./GameStateContext";
+import { unstable_batchedUpdates } from "react-dom";
 
 export type GameStateContextType = {
     timeElapsed: () => string;
     progress: () => boolean[];
+    checkState: () => void;
     start: (name: string) => void;
     restart: () => void;
     scores: () => Highscore[];
@@ -75,11 +77,11 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         [addonName: string]: { [puzzleName: string]: () => Promise<{ solved: boolean }> }
     }>({});
 
-    const timeElapsed = (): string => {
+    const timeElapsed = useCallback((): string => {
         return new Date(new Date().getTime() - new Date(date).getTime()).toISOString().substring(11, 19);
-    };
+    }, [date]);
 
-    const progress = (): boolean[] => {
+    const progress = useCallback((): boolean[] => {
         // Core puzzles
         const coreSolved: boolean[] = [];
         Object.entries(puzzles)
@@ -101,9 +103,29 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         }
 
         return [...coreSolved, ...addonSolved];
-    };
+    }, [puzzles]);
 
-    const start = (name: string): void => {
+    const checkFinished = useCallback((): void => {
+        if (!finished && progress().every(Boolean)) {
+            const highscore: Highscore = {
+                name: name,
+                score: timeElapsed(),
+            };
+            unstable_batchedUpdates(() => {
+                setHighscores((prev: Highscore[]) => [highscore, ...prev.filter((score: Highscore) => score.name !== name)]);
+                setFinished(true);
+            });
+        }
+    }, [finished, progress, name, timeElapsed, setHighscores, setFinished]);
+
+    const scores = useCallback(() => {
+        return [
+            ...(!finished ? [{ name: name, score: timeElapsed(), current: true }] : []),
+            ...highscores
+        ];
+    }, [finished, name, timeElapsed, highscores]);
+
+    const start = useCallback((name: string): void => {
         if (!name) {
             alert("Please enter your wizard name.");
         } else if (scores().some(score => score.name === name)) {
@@ -113,13 +135,13 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             setDate(new Date());
             setStarted(true);
         }
-    };
+    }, [scores, setName, setDate, setStarted]);
 
-    const unsolved = (): boolean => {
+    const unsolved = useCallback((): boolean => {
         return progress().every(b => b === false);
-    }
+    }, [progress]);
 
-    const restart = () => {
+    const restart = useCallback(() => {
         if (unsolved()) {
             removeName();
             removeFinished();
@@ -128,31 +150,13 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         } else {
             alert("Reset cluster state by running the . init.sh script first.");
         }
-    }
+    }, [unsolved, removeName, removeFinished, removeStarted, removeDate]);
 
-    const checkFinished = (): void => {
-        if (!finished && progress().every(Boolean)) {
-            const highscore: Highscore = {
-                name: name,
-                score: timeElapsed(),
-            };
-            setHighscores([highscore, ...highscores]);
-            setFinished(true);
-        }
-    }
-
-    const scores = () => {
-        return [
-            ...(!finished ? [{ name: name, score: timeElapsed(), current: true }] : []),
-            ...highscores
-        ];
-    }
-
-    const puzzlesState = (): PuzzlesType => {
+    const puzzlesState = useCallback((): PuzzlesType => {
         return puzzles;
-    }
+    }, [puzzles]);
 
-    const checkState = () => {
+    const checkState = useCallback(() => {
         const options: { cache: RequestCache | undefined } = { cache: "no-store" };
 
         const catPromise = fetch("/riddles/cat", options).then(r => r.ok);
@@ -209,7 +213,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
                 };
             });
         });        
-    }
+    }, [addonChecks, setPuzzles]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -243,13 +247,17 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             scores,
             puzzlesState,
             registerAddonPuzzles
-        }), [date, tick, addonChecks, registerAddonPuzzles]
+        }), [timeElapsed, progress, checkState, start, restart, scores, puzzlesState, registerAddonPuzzles]
     );
 
     useEffect(() => {
-        checkState();
-        checkFinished();
-    }, [tick, puzzles]);
+        const handler = setTimeout(() => {
+            checkState();
+            checkFinished();
+        }, 300); // Debounce by 300ms
+
+        return () => clearTimeout(handler);
+    }, [tick, checkState, checkFinished]);
 
     return <GameStateContext.Provider value={contextValue}>{started ? finished ? <Endscreen /> : children : <StartScreen />}</GameStateContext.Provider>;
 }
