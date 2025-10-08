@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
-import { useGameStateContext } from "@main/hooks/useGameStateContext";
+import React from "react";
+import type { GameStateContextType } from "./components/GameStateContextTypes"; // adjust path if needed
+import { allowedPaths } from "./allowedPaths";
 
-// All requested add ons
-const allowedPaths: string[] = import.meta.env.VITE_ADDON_PATHS?.split(",").map((p: string) => p.trim()).filter(Boolean) || [];
+// Type representing the registration callback supplied by context
+type RegisterAddonPuzzlesFn = GameStateContextType["registerAddonPuzzles"]; 
+// Type for a module that exports a default registration function
+export type PuzzleRegistrationModule = { default: (register: RegisterAddonPuzzlesFn) => void };
+// Type for an eagerly imported view component module
+type AddonViewModule = { default: React.FC };
 
-// All existing add ons
-const allModules = import.meta.glob<{ default: React.FC }>(
-  '../addons/k8s-escape-room-*/views/*.tsx'
+// All existing add ons (views) - eagerly imported so they are available synchronously
+const allModules = import.meta.glob<AddonViewModule>(
+  '../addons/k8s-escape-room-*/views/*.tsx',
+  { eager: true }
 );
 
 console.log("allowedPaths:", allowedPaths);
@@ -23,39 +29,16 @@ const addonModules = Object.entries(allModules).filter(([filePath]) =>
   return allowedPaths.some(p => p.replace(/^\.\.\//, "") === addonName);
 });
 
-export const AddonRoutes = addonModules.map(([filePath, loader]: [string, () => Promise<{ default: React.FC }>]) => {
-  // Generate url of module from view file name
+export const AddonRoutes = addonModules.map(([filePath, mod]: [string, AddonViewModule]) => {
+  // Generate url of module from view file nameya
   const fileName = filePath.split("/").pop()?.replace(/\.tsx$/, "") || "addon";
   const routePath = `/${fileName.toLowerCase()}`;
 
-  const Component = React.lazy(loader);
+  const Component: React.FC | undefined = mod?.default;
 
   return {
     name: fileName,
     path: routePath,
-    element: <Component />
+    element: Component ? <Component /> : <div>Missing add-on view: {fileName}</div>
   };
 });
-
-// Find all *Puzzles.tsx registration modules in add-on components
-export function useRegisterAddonPuzzles() {
-  const { registerAddonPuzzles } = useGameStateContext();
-
-  useEffect(() => {
-    const puzzleRegistrations = import.meta.glob<{ default: (register: typeof registerAddonPuzzles) => void }>(
-      '../addons/k8s-escape-room-*/components/*Puzzles.tsx',
-      { eager: true }
-    );
-
-    Object.entries(puzzleRegistrations).forEach(([filePath, module]) => {
-      // Extract addon name
-      const match = filePath.match(/k8s-escape-room-[^/\\]+/);
-      const addonName = match ? match[0] : "";
-      if (allowedPaths.some(p => p.replace(/^\.\.\//, "") === addonName)) {
-        if (typeof module.default === "function") {
-          module.default(registerAddonPuzzles);
-        }
-      }
-    });
-  }, [registerAddonPuzzles]);
-}

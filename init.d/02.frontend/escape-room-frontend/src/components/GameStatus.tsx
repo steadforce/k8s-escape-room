@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
+import { expectedPuzzleTotal } from "@main/hooks/expectedPuzzleTotal";
 import './GameStatus.css'
 import { useGameStateContext } from "../hooks/useGameStateContext"
 import HighscoreTable from '../components/HighscoreTable'
 
 function GameStatus() {
     const gameState = useGameStateContext();
-    const [progress, setProgress] = useState("❌ ❌ ❌ ❌")
-
-    useEffect(() => {
+    // Derive progress string directly; with eager add-on loading this is stable from first paint
+    const progress = useMemo(() => {
         const solvedMark = "✅";
         const unsolvedMark = "❌";
-
-        const newProgress = gameState.progress().map(s => s ? solvedMark : unsolvedMark)
-            .join(" ");
-        setProgress(newProgress)
-    }, [gameState])
+        let arr = gameState.progress();
+        if (arr.length < expectedPuzzleTotal) {
+            arr = [...arr, ...Array(expectedPuzzleTotal - arr.length).fill(false)];
+        }
+        return arr.map(s => s ? solvedMark : unsolvedMark).join(" ");
+    }, [gameState]);
 
     return (
         <>

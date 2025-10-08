@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Highscore } from '../components/GameStateContext';
+import type { Highscore } from '../components/GameStateContextTypes';
 
 function useStorage(key: string, initialValue: boolean | string | Date | Highscore[]) {
   const [storedValue, setStoredValue] = useState(() => {
