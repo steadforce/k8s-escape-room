@@ -16,16 +16,15 @@ spec:
       automountServiceAccountToken: true
       containers:
       - name: cat-counter
-        image: python:3.13-alpine
+        image: python:3.12-slim
         command:
           - /bin/sh
           - -c
           - |
             set -e
-            [ -z "$KUBERNETES_SERVICE_HOST" ] && { echo "Error: KUBERNETES_SERVICE_HOST is not set."; exit 1; }
+            [ -z "$KUBERNETES_SERVICE_HOST" ] && { echo "Error: KUBERNETES_SERVICE_HOST is not set."; exit 1; } # https://github.com/kubernetes/kubernetes/issues/96070
             pip install --upgrade pip
-            pip install --only-binary=:all: kubernetes
-            pip install --only-binary=:all: fastapi[standard]
+            pip install --only-binary=:all: kubernetes fastapi[standard]
             fastapi run /scripts/main.py --port 80
         ports:
         - containerPort: 8000
@@ -35,7 +34,7 @@ spec:
         resources:
           limits:
             cpu: 400m
-            memory: 128Mi
+            memory: 256Mi
           requests:
             cpu: 50m
             memory: 32Mi
