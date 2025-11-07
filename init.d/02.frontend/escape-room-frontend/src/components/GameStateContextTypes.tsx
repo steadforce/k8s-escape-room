@@ -13,7 +13,11 @@ export type GameStateContextType = {
     restart: () => void;
     scores: () => Highscore[];
     puzzlesState: () => PuzzlesType;
-    registerAddonPuzzles: (addonName: string, puzzleName: string, check: () => Promise<{ solved: boolean }>) => void;
+    registerAddonPuzzles: (addonName: string, puzzleName: string, check: () => Promise<AddonPuzzleState>) => void;
+};
+
+export interface AddonPuzzleState {
+    solved: boolean
 };
 
 
@@ -74,7 +78,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const [name, setName, removeName] = useStorage('name', "");
     const [highscores, setHighscores] = useStorage('highscores', []);
     const [addonChecks, setAddonChecks] = useState<{
-        [addonName: string]: { [puzzleName: string]: () => Promise<{ solved: boolean }> }
+        [addonName: string]: { [puzzleName: string]: () => Promise<AddonPuzzleState> }
     }>({});
 
     const timeElapsed = useCallback((): string => {
@@ -167,7 +171,8 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
 
         Promise.all([catPromise, catCounterPromise, orbPromise, tomePromise, photoFramePromise])
             .then(([catResult, catCounter, orbResult, tomeResult, photoFrameResult]) => {
-                setPuzzles({
+                setPuzzles(prev => ({
+                    ...prev,
                     cat: {
                         solved: catResult,
                         replicas: catCounter,
@@ -181,15 +186,15 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
                     tome: {
                         solved: tomeResult,
                     }
-                });
+                }));
             });
 
         // Add-on puzzle checks
-        const addonPromises: Promise<[string, string, { solved: boolean }]>[] = [];
+        const addonPromises: Promise<[string, string, AddonPuzzleState]>[] = [];
         Object.entries(addonChecks).forEach(([addonName, puzzles]) => {
             Object.entries(puzzles).forEach(([puzzleName, fn]) => {
                 addonPromises.push(
-                    fn().then(result => [addonName, puzzleName, result] as [string, string, { solved: boolean }])
+                    fn().then(result => [addonName, puzzleName, result] as [string, string, AddonPuzzleState])
                 );
             });
         });
@@ -203,7 +208,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         ]) => {
             setPuzzles(prev => {
                 const newAddons = { ...(prev.addons || {}) };
-                (addonResults as [string, string, { solved: boolean }][]).forEach(([addonName, puzzleName, result]) => {
+                (addonResults as [string, string, AddonPuzzleState][]).forEach(([addonName, puzzleName, result]) => {
                     if (!newAddons[addonName]) newAddons[addonName] = {};
                     newAddons[addonName][puzzleName] = result;
                 });
@@ -212,7 +217,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
                     addons: newAddons
                 };
             });
-        });        
+        });
     }, [addonChecks, setPuzzles]);
 
     useEffect(() => {
@@ -226,7 +231,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const registerAddonPuzzles = useCallback((
         addonName: string,
         puzzleName: string,
-        check: () => Promise<{ solved: boolean }>
+        check: () => Promise<AddonPuzzleState>
     ) => {
         setAddonChecks(prev => ({
             ...prev,
