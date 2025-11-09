@@ -34,9 +34,8 @@
   font-size: 1.2vw;
 }
 
-.progress span {
-  padding-left: 0.8em;
-  letter-spacing: 0.2rem;
+.progress span.icons {
+  padding-left: 1em;
 }
 
 .highscoresTable {

@@ -14,6 +14,7 @@ export type GameStateContextType = {
     scores: () => Highscore[];
     puzzlesState: () => PuzzlesType;
     registerAddonPuzzles: (addonName: string, puzzleName: string, check: () => Promise<{ solved: boolean }>) => void;
+    getFinishThreshold: () => number;
 };
 
 
@@ -73,6 +74,8 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     const [finished, setFinished, removeFinished] = useStorage('finished', false);
     const [name, setName, removeName] = useStorage('name', "");
     const [highscores, setHighscores] = useStorage('highscores', []);
+    // Number of puzzles required to finish the game (0 = require all)
+    const [finishThreshold] = useStorage('finishThreshold', 0);
     const [addonChecks, setAddonChecks] = useState<{
         [addonName: string]: { [puzzleName: string]: () => Promise<{ solved: boolean }> }
     }>({});
@@ -106,7 +109,11 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
     }, [puzzles]);
 
     const checkFinished = useCallback((): void => {
-        if (!finished && progress().every(Boolean)) {
+        const requireAll = finishThreshold === 0;
+        const allSolved = progress().every(Boolean);
+        const solvedCount = progress().filter(Boolean).length;
+        const thresholdReached = solvedCount >= (finishThreshold || 0);
+        if (!finished && (requireAll ? allSolved : thresholdReached)) {
             const highscore: Highscore = {
                 name: name,
                 score: timeElapsed(),
@@ -116,7 +123,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
                 setFinished(true);
             });
         }
-    }, [finished, progress, name, timeElapsed, setHighscores, setFinished]);
+    }, [finished, progress, name, timeElapsed, setHighscores, setFinished, finishThreshold]);
 
     const scores = useCallback(() => {
         return [
@@ -237,6 +244,10 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         }));
     }, [setAddonChecks]);
 
+    const getFinishThreshold = useCallback((): number => {
+        return finishThreshold || 0;
+    }, [finishThreshold]);
+
     const contextValue = useMemo(
         () => ({
             timeElapsed,
@@ -246,8 +257,9 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
             restart,
             scores,
             puzzlesState,
-            registerAddonPuzzles
-        }), [timeElapsed, progress, checkState, start, restart, scores, puzzlesState, registerAddonPuzzles]
+            registerAddonPuzzles,
+            getFinishThreshold
+        }), [timeElapsed, progress, checkState, start, restart, scores, puzzlesState, registerAddonPuzzles, getFinishThreshold]
     );
 
     useEffect(() => {
