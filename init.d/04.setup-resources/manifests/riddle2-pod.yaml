@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: riddle2-pod
+spec:
+  containers:
+  - name: riddle2-container
+    image: nginx:latest
+    resources:
+      requests:
+        memory: "10Ti"
+        cpu: "100000"
+      limits:
+        memory: "20Ti"
+        cpu: "200000"
+    ports:
+    - containerPort: 80

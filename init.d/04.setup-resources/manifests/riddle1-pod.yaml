@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: riddle1-pod
+spec:
+  containers:
+  - name: riddle1-container
+    image: nginx:latest
+    imagePullPolicy: Never
