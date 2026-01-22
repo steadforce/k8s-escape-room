@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: riddle6-deployment
+  namespace: riddle6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riddle6-app
+  template:
+    metadata:
+      labels:
+        app: riddle6-app
+    spec:
+      containers:
+        - name: riddle6-container
+          image: nginx:stable
+          ports:
+            - containerPort: 8080
