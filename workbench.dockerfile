@@ -1,17 +1,17 @@
 FROM debian:stable-slim AS base
 
-# https://github.com/istio/istio/releases
-ENV ISTIO_VERSION=1.20.3
 # https://github.com/kubernetes-sigs/kustomize/releases
-ENV KUSTOMIZE_VERSION=v5.3.0
-# https://kubernetes.io/releases/
-ENV KUBECTL_VERSION=v1.29.1
+# renovate: datasource=github-releases depName=kubernetes-sigs/kustomize
+ENV KUSTOMIZE_VERSION=v5.8.1
+# https://github.com/kubernetes/kubernetes
+# renovate: datasource=github-releases packageName=kubernetes/kubernetes
+ENV KUBECTL_VERSION=v1.35.2
 # https://github.com/helm/helm/releases
-ENV HELM_VERSION=v3.14.0
-# https://github.com/bitnami-labs/sealed-secrets/releases
-ENV KUBESEAL_VERSION=v0.25.0
+# renovate: datasource=github-releases depName=helm/helm
+ENV HELM_VERSION=v4.1.1
 # https://github.com/kubernetes-sigs/kind/releases
-ENV KIND_VERSION=v0.27.0
+# renovate: datasource=github-releases depName=kubernetes-sigs/kind
+ENV KIND_VERSION=v0.31.0
 
 # https://github.com/docker/buildx/releases
 # renovate: datasource=github-releases depName=docker/buildx
@@ -62,23 +62,15 @@ COPY patches/ /patches/
 RUN rm -rf /var/lib/apt/lists/* && \
     curl -L "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz && \
     tar -xzf k9s.tar.gz && mv k9s /usr/local/bin && rm k9s.tar.gz && \
-    curl -Lo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
+    curl -Lo /usr/bin/kubectl https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod 755 /usr/bin/kubectl && \
     /usr/bin/kubectl completion bash > $(pkg-config --variable=completionsdir bash-completion)/kubectl && \
     echo "alias k=kubectl" >> /etc/bash.bashrc && \
     patch -p1 -d $(pkg-config --variable=completionsdir bash-completion) < /patches/kubectl-completion.diff && \
-    curl -Lo /usr/bin/kubeseal https://github.com/bitnami-labs/sealed-secrets/releases/download/${KUBESEAL_VERSION}/kubeseal-linux-amd64 && \
-    chmod 755 /usr/bin/kubeseal && \
     curl -Ls https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz | \
     tar xvz -C /usr/bin/ && \
     curl -Ls https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar xvz -C /usr/bin --strip 1 linux-amd64/helm && \
     /usr/bin/helm completion bash > $(pkg-config --variable=completionsdir bash-completion)/helm && \
-    curl -Ls https://github.com/istio/istio/releases/download/${ISTIO_VERSION}/istio-${ISTIO_VERSION}-linux-amd64.tar.gz | \
-    tar xvz -C /opt/ && \
-    find /opt/istio-${ISTIO_VERSION} -type d -exec chmod 755 {} \; && \
-    ln -sfT /opt/istio-${ISTIO_VERSION} /opt/istio && \
-    ln -s /opt/istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/istioctl && \
-    mv /opt/istio-${ISTIO_VERSION}/tools/istioctl.bash $(pkg-config --variable=completionsdir bash-completion)/istioctl && \
     curl -Lo /usr/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION}/kind-$(uname)-amd64 && \
     chmod 755 /usr/bin/kind && /usr/bin/kind completion bash > $(pkg-config --variable=completionsdir bash-completion)/kind && \
     curl -fL --remote-name-all "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_$(uname | tr '[:upper:]' '[:lower:]')_amd64" && \
