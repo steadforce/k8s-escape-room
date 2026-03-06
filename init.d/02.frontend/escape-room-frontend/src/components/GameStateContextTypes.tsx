@@ -164,7 +164,7 @@ export const GameStateContextProvider: React.FC<{ children: React.ReactNode }> =
         const options: { cache: RequestCache | undefined } = { cache: "no-store" };
 
         const catPromise = fetch("/riddles/cat", options).then(r => r.ok);
-        const catCounterPromise = fetch("/riddles/cat-counter", options).then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(e => {console.error(e); return 0;});
+        const catCounterPromise = fetch("/riddles/cat-counter", options).then(r => r.text()).then(t => t.replace(/"/g, '')).then(n => Number(n)).catch(e => { console.error(e); return 0; });
         const orbPromise = fetch("/riddles/orb", options).then(r => r.ok);
         const tomePromise = fetch("/riddles/tome", options).then(r => r.ok);
         const photoFramePromise = fetch("/riddles/photoframe/photo0.png", options).then(r => r.ok);
