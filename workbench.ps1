@@ -23,11 +23,14 @@ Write-Output "Start workbench container"
 docker run --rm `
     --pull=never `
     -v ${parentDirectory}:/work `
+    -v /var/lib/escape-room-workbench:/var/lib/escape-room-workbench `
     -v //var/run/docker.sock:/var/run/docker.sock `
     -v $env:USERPROFILE:/root `
     -w /work/k8s-escape-room `
     -e KUBECONFIG=".kubeconfig" `
-    --network kind `
+    -e VCLUSTER_CONFIG_PATH=/var/lib/escape-room-workbench/vcluster/config.json `
+    -e VCLUSTER_SERVER_HOST=host.docker.internal `
+    --add-host=host.docker.internal:host-gateway `
     --pid host `
     --name escape_room_workbench-${timestamp} `
     -it ${containerHash}

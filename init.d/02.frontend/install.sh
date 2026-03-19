@@ -3,10 +3,16 @@
 set -e
 
 DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
+ROOT_DIR="$(cd "$DIR/../.." >/dev/null 2>&1; pwd -P)"
+VCLUSTER_CONFIG_PATH="${VCLUSTER_CONFIG_PATH:-$HOME/.vcluster/config.json}"
 
 NAME="escape-room-frontend"
 SRC_DIR="$DIR/$NAME"
 BUILD_CONTEXT="$DIR/build-context"
+
+export KUBECONFIG="$ROOT_DIR/.kubeconfig"
+VCLUSTER_CONTEXT="$(kubectl config current-context)"
+VCLUSTER_NODES="$(kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')"
 
 echo "Prepare build context ..."
 rm -rf "$BUILD_CONTEXT"
@@ -52,4 +58,13 @@ docker build \
   --build-arg VITE_ADDON_PATHS="${VITE_ADDON_PATHS}" \
   "$BUILD_CONTEXT"
 
-kind load docker-image "$NAME:$VERSION" "$NAME:latest" --name escape-room
+if [ -z "$VCLUSTER_NODES" ]; then
+  echo "No vCluster nodes found to load frontend image into." >&2
+  exit 1
+fi
+
+printf '%s\n' "$VCLUSTER_NODES" | while IFS= read -r NODE_NAME; do
+  [ -n "$NODE_NAME" ] || continue
+  vcluster --config "$VCLUSTER_CONFIG_PATH" node load-image "$NODE_NAME" --image "$NAME:$VERSION" --context "$VCLUSTER_CONTEXT"
+  vcluster --config "$VCLUSTER_CONFIG_PATH" node load-image "$NODE_NAME" --image "$NAME:latest" --context "$VCLUSTER_CONTEXT"
+done

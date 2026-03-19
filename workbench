@@ -4,8 +4,6 @@ set -e
 
 DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 
-WORKBENCH_DOCKER_NETWORK="kind"
-
 if [ "$#" -eq 0 ]; then
     CMD=bash
 else
@@ -43,13 +41,16 @@ echo Start workbench container
 docker run --rm \
     --pull=never \
     -e DOCKER_BUILDKIT=1 \
+    -e VCLUSTER_CONFIG_PATH=/var/lib/escape-room-workbench/vcluster/config.json \
+    -e VCLUSTER_SERVER_HOST=host.docker.internal \
     -e http_proxy="$http_proxy" \
     -e https_proxy="$https_proxy" \
     -e no_proxy="$no_proxy" \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/group:/etc/group:ro \
+    -v /var/lib/escape-room-workbench:/var/lib/escape-room-workbench \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    --network $WORKBENCH_DOCKER_NETWORK \
+    --add-host=host.docker.internal:host-gateway \
     --pid host \
     --name escape_room_workbench-$CURRENT_TIME \
     -v $HOME:$HOME$VOLUME_OPTIONS \
