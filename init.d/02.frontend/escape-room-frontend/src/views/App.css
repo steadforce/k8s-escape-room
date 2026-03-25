@@ -76,7 +76,7 @@ h2 {
   cursor: none;
 }
 
-.nameInput::focus {
+.nameInput:focus {
   background-color: transparent;
   border: 0;
   border-bottom: 1px solid white;
