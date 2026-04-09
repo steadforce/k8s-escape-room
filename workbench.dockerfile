@@ -8,7 +8,7 @@ ENV KUSTOMIZE_VERSION=v5.8.1
 ENV KUBECTL_VERSION=v1.35.2
 # https://github.com/helm/helm/releases
 # renovate: datasource=github-releases depName=helm/helm
-ENV HELM_VERSION=v4.1.3
+ENV HELM_VERSION=v4.1.4
 # https://github.com/kubernetes-sigs/kind/releases
 # renovate: datasource=github-releases depName=kubernetes-sigs/kind
 ENV KIND_VERSION=v0.31.0
