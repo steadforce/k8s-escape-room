@@ -16,7 +16,7 @@ COPY . .
 
 RUN yarn && yarn build
 
-FROM nginx:1.29-alpine-slim
+FROM nginx:1.30-alpine-slim
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
