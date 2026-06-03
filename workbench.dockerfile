@@ -11,7 +11,7 @@ ENV KUBECTL_VERSION=v1.35.2
 ENV HELM_VERSION=v4.2.0
 # https://github.com/kubernetes-sigs/kind/releases
 # renovate: datasource=github-releases depName=kubernetes-sigs/kind
-ENV KIND_VERSION=v0.31.0
+ENV KIND_VERSION=v0.32.0
 
 # https://github.com/docker/buildx/releases
 # renovate: datasource=github-releases depName=docker/buildx
