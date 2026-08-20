@@ -24,7 +24,7 @@ ENV DOCKER_VERSION=29.7.2
 ENV K9S_VERSION=v0.51.0
 # https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION=v4.53.4
+ENV YQ_VERSION=v4.53.6
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
