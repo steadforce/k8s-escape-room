@@ -22,6 +22,9 @@ ENV DOCKER_VERSION=29.8.1
 # https://github.com/derailed/k9s/releases
 # renovate: datasource=github-releases depName=derailed/k9s
 ENV K9S_VERSION=v0.51.0
+# https://github.com/nklmilojevic/sofka/releases
+# renovate: datasource=github-releases depName=nklmilojevic/sofka
+ENV SOFKA_VERSION=v0.28.2
 # https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
 ENV YQ_VERSION=v4.53.6
@@ -62,6 +65,8 @@ COPY patches/ /patches/
 RUN rm -rf /var/lib/apt/lists/* && \
     curl -L "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz && \
     tar -xzf k9s.tar.gz && mv k9s /usr/local/bin && rm k9s.tar.gz && \
+    curl -L "https://github.com/nklmilojevic/sofka/releases/download/${SOFKA_VERSION}/sofka-${SOFKA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" -o sofka.tar.gz && \
+    tar -xzf sofka.tar.gz && mv sofka /usr/local/bin && rm sofka.tar.gz && \
     curl -Lo /usr/bin/kubectl https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod 755 /usr/bin/kubectl && \
     /usr/bin/kubectl completion bash > $(pkg-config --variable=completionsdir bash-completion)/kubectl && \

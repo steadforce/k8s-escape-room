@@ -4,7 +4,7 @@ set -e
 
 DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1; pwd -P)"
 
-if [ "0" -eq $(kind get clusters | grep escape-room | wc -l) ]; then
+if [ "0" -eq $(kind get clusters | grep escape-room-control-plane | wc -l) ]; then
   kind create cluster --config $DIR/cluster.yaml
   
   echo "put config into temporary local file"
