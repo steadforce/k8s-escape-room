@@ -63,20 +63,20 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 COPY patches/ /patches/
 
 RUN rm -rf /var/lib/apt/lists/* && \
-    curl -L "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz && \
+    curl -fL "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_amd64.tar.gz" -o k9s.tar.gz && \
     tar -xzf k9s.tar.gz && mv k9s /usr/local/bin && rm k9s.tar.gz && \
-    curl -L "https://github.com/nklmilojevic/sofka/releases/download/${SOFKA_VERSION}/sofka-${SOFKA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" -o sofka.tar.gz && \
+    curl -fL "https://github.com/nklmilojevic/sofka/releases/download/${SOFKA_VERSION}/sofka-${SOFKA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" -o sofka.tar.gz && \
     tar -xzf sofka.tar.gz && mv sofka /usr/local/bin && rm sofka.tar.gz && \
-    curl -Lo /usr/bin/kubectl https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
+    curl -fLo /usr/bin/kubectl https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod 755 /usr/bin/kubectl && \
     /usr/bin/kubectl completion bash > $(pkg-config --variable=completionsdir bash-completion)/kubectl && \
     echo "alias k=kubectl" >> /etc/bash.bashrc && \
     patch -p1 -d $(pkg-config --variable=completionsdir bash-completion) < /patches/kubectl-completion.diff && \
-    curl -Ls https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz | \
+    curl -fLs https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz | \
     tar xvz -C /usr/bin/ && \
-    curl -Ls https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar xvz -C /usr/bin --strip 1 linux-amd64/helm && \
+    curl -fLs https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | tar xvz -C /usr/bin --strip 1 linux-amd64/helm && \
     /usr/bin/helm completion bash > $(pkg-config --variable=completionsdir bash-completion)/helm && \
-    curl -Lo /usr/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION}/kind-$(uname)-amd64 && \
+    curl -fLo /usr/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION}/kind-$(uname)-amd64 && \
     chmod 755 /usr/bin/kind && /usr/bin/kind completion bash > $(pkg-config --variable=completionsdir bash-completion)/kind && \
     curl -fL --remote-name-all "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_$(uname | tr '[:upper:]' '[:lower:]')_amd64" && \
     mv "yq_$(uname | tr '[:upper:]' '[:lower:]')_amd64" "/usr/local/bin/yq" && \
