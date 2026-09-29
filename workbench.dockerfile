@@ -27,7 +27,7 @@ ENV K9S_VERSION=v0.51.0
 ENV SOFKA_VERSION=v0.29.4
 # https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION=v4.53.6
+ENV YQ_VERSION=v4.54.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
