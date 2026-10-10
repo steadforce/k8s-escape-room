@@ -24,7 +24,7 @@ ENV DOCKER_VERSION=29.9.0
 ENV K9S_VERSION=v0.51.0
 # https://github.com/nklmilojevic/sofka/releases
 # renovate: datasource=github-releases depName=nklmilojevic/sofka
-ENV SOFKA_VERSION=v0.31.5
+ENV SOFKA_VERSION=v0.31.6
 # https://github.com/mikefarah/yq/releases
 # renovate: datasource=github-releases depName=mikefarah/yq
 ENV YQ_VERSION=v4.54.1
