@@ -190,3 +190,14 @@ h2 {
 .tomeHint img {
   height: 100px;
 }
+
+.aiNotice {
+  position: fixed;
+  right: 12px;
+  bottom: 8px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 20px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1000;
+}

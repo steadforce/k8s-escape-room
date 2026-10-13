@@ -27,6 +27,7 @@ function App() {
                     )
                 )}
             </Routes>
+            <div className="aiNotice">Images AI Generated</div>
         </>
     )
 }
