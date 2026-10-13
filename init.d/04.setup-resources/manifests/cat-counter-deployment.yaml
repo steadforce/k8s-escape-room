@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: true
       containers:
       - name: cat-counter
-        image: python:3.14-slim
+        image: python:3.15-slim
         env:
         - name: KUBERNETES_SERVICE_HOST
           value: "kubernetes.default.svc"
