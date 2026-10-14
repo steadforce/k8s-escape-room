@@ -193,8 +193,10 @@ h2 {
 
 .aiNotice {
   position: fixed;
-  right: 12px;
+  left: calc(20% + 2.8rem);
+  right: calc(50% + 50px);
   bottom: 8px;
+  text-align: center;
   color: rgba(255, 255, 255, 0.4);
   font-size: 20px;
   pointer-events: none;
