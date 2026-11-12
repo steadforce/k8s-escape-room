@@ -1,4 +1,4 @@
-FROM node:24-slim AS builder
+FROM node:26-slim AS builder
 
 ARG VITE_ADDON_PATHS
 ENV VITE_ADDON_PATHS=$VITE_ADDON_PATHS
