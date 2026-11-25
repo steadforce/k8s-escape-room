@@ -396,9 +396,9 @@
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
 "@types/node@^25.5.0":
-  version "25.9.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.9.10.tgz#a019e90f05756c8a1b8c63dedef5cd76538c09e7"
-  integrity sha512-vNjzbf3gOlO91fEfXCex403DoqITNlhqGr3ALh0JaC+wAWYeDiR21m2e5k+JSl8pboDuQCWQ/9dQduKqLxU3dw==
+  version "25.9.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-25.9.12.tgz#5467e44b88b515bc5efc8028ae05332e1687ee01"
+  integrity sha512-49uWGmIcvfuuEnFIm83Pn7MGcDvdY8UQ3v3DF4O0ouWbElWTaT/HudacSntQwFrnLAgiMoKtXEVV5dFC+DZ2cQ==
   dependencies:
     undici-types ">=7.24.0 <7.24.7"
 
